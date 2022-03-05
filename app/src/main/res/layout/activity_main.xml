@@ -28,4 +28,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/rating_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="69dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="448dp"
+        android:background="@drawable/style_rating_button"
+        android:text="@string/rating"
+        android:textColor="@color/black"
+        android:textSize="10pt"
+        android:typeface="monospace"
+        app:backgroundTint="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/azul_stamina"
+        app:strokeWidth="9dip" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
