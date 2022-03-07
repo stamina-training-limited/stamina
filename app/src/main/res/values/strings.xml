@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">Stamina</string>
     <string name="start">iniciar</string>
+    <string name="stop">detener</string>
+    <string name="resume">reanudar</string>
+    <string name="finish">terminar</string>
+    <string name="discard">descartar</string>
+    <string name="save">guardar</string>
     <string name="rating">clasificación</string>
+    <string name="duration">Duración:</string>
+    <string name="distance">Distancia:</string>
+    <string name="speed">Velocidad:</string>
+
 </resources>
