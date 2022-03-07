@@ -6,43 +6,89 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Página experimentos!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/start_btn"
         android:layout_width="wrap_content"
         android:layout_height="69dp"
-        android:layout_marginStart="148dp"
-        android:layout_marginTop="532dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginBottom="22dp"
         android:background="@drawable/style_start_button"
         android:text="@string/start"
-        android:textSize="10pt"
+        android:textSize="8pt"
         android:typeface="monospace"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/activity_register_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rating_btn" />
 
     <Button
         android:id="@+id/rating_btn"
         android:layout_width="wrap_content"
         android:layout_height="69dp"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="448dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="22dp"
         android:background="@drawable/style_rating_button"
         android:text="@string/rating"
         android:textColor="@color/black"
-        android:textSize="10pt"
+        android:textSize="8pt"
         android:typeface="monospace"
         app:backgroundTint="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/home_btn"
+        app:layout_constraintEnd_toStartOf="@+id/start_btn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="@color/azul_stamina"
         app:strokeWidth="9dip" />
+
+    <ImageButton
+        android:id="@+id/home_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="575dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/map_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton2"
+        app:srcCompat="@drawable/ic_home" />
+
+    <ImageButton
+        android:id="@+id/map_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/activity_register_btn"
+        app:layout_constraintStart_toEndOf="@+id/home_btn"
+        app:srcCompat="@drawable/ic_map" />
+
+    <ImageButton
+        android:id="@+id/activity_register_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/profile_btn"
+        app:layout_constraintStart_toEndOf="@+id/map_btn"
+        app:srcCompat="@drawable/ic_activity_register" />
+
+    <ImageButton
+        android:id="@+id/profile_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/activity_register_btn"
+        app:srcCompat="@drawable/ic_profile" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
