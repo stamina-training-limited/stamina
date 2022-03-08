@@ -6,58 +6,58 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="339dp"
-        android:layout_height="264dp"
+        android:layout_width="365dp"
+        android:layout_height="192dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/editTextTextPersonName"
+        <TextView
+            android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
             android:text="@string/Location_services"
-            android:textAlignment="viewStart"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/editTextTextPersonName2"
+        <TextView
+            android:id="@+id/textView2"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:singleLine="false"
+            android:layout_height="53dp"
             android:text="@string/Location_services_content"
-            android:textAlignment="viewStart" />
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
         <LinearLayout
-            android:layout_width="255dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="75dp"
-            android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="73dp"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="-92dp"
+            tools:layout_editor_absoluteY="423dp">
 
             <Button
                 android:id="@+id/button4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
+                android:minHeight="48dp"
                 android:text="@string/Cancel"
                 android:textColor="@color/azul_stamina"
-                app:backgroundTint="#FFFFFF" />
+                app:backgroundTint="#FFFFFF"
+                style="?android:attr/buttonBarButtonStyle" />
 
             <Button
                 android:id="@+id/button5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
+                android:minHeight="48dp"
                 android:text="@string/Accept"
                 android:textColor="@color/azul_stamina"
-                app:backgroundTint="#FFFFFF" />
+                app:backgroundTint="#FFFFFF"
+                style="?android:attr/buttonBarButtonStyle" />
         </LinearLayout>
 
     </LinearLayout>
