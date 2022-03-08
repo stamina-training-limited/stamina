@@ -7,25 +7,36 @@
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="78dp"
-        android:layout_height="80dp"
+        android:layout_width="53dp"
+        android:layout_height="56dp"
         android:layout_marginTop="68dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/Google_G" />
+        app:srcCompat="@drawable/google_logo" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="96dp"
+        android:layout_height="116dp"
+        android:layout_marginTop="156dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/google_perfil" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/textInputEditText"
         android:layout_width="220dp"
         android:layout_height="48dp"
-        android:layout_marginTop="340dp"
+        android:layout_marginTop="296dp"
         android:hint="hint"
         android:text="@string/Google_log_in_screen_email"
         android:textColor="#A1A1A1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -40,25 +51,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText"
-        app:layout_constraintVertical_bias="0.022" />
-
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="96dp"
-        android:layout_height="116dp"
-        android:layout_marginTop="200dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/Google_perfil" />
+        app:layout_constraintVertical_bias="0.039" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/editText"
         android:layout_width="220dp"
         android:layout_height="48dp"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="12dp"
         android:hint="hint"
         android:text="@string/Google_log_in_screen_password"
         android:textColor="#989898"
