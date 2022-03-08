@@ -10,4 +10,5 @@
     <!-- Colores propios Stamina -->
     <color name="azul_stamina">#3F47CC</color>
     <color name="morado_stamina">#835BF3</color>
+    <color name="gris_stamina">#BDBDBD</color>
 </resources>

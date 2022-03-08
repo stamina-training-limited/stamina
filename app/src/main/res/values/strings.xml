@@ -10,5 +10,8 @@
     <string name="duration">Duración:</string>
     <string name="distance">Distancia:</string>
     <string name="speed">Velocidad:</string>
+    <string name="walk">caminata</string>
+    <string name="running">running</string>
+    <string name="cycling">ciclismo</string>
 
 </resources>

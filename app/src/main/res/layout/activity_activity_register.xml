@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/mock_map_route"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/whiteBackground_tv"
+        android:layout_width="409dp"
+        android:layout_height="728dp"
+        android:alpha="0.85"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.333" />
+
+    <EditText
+        android:id="@+id/routeName_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Ruta Elviña 4"
+
+        tools:layout_editor_absoluteX="37dp"
+        tools:layout_editor_absoluteY="63dp" />
+
+    <TextView
+        android:id="@+id/routeNameTitle_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre ruta"
+        tools:layout_editor_absoluteX="37dp"
+        tools:layout_editor_absoluteY="44dp" />
+
+    <TextView
+        android:id="@+id/duration_time_tv"
+        android:layout_width="131dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="256dp"
+        android:layout_marginEnd="88dp"
+        android:textSize="6pt"
+        android:text="00:46:15"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/duration_tv"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/distance_km_tv"
+        android:layout_width="131dp"
+        android:layout_height="39dp"
+        android:textSize="6pt"
+        android:text="9.450 Km"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/distance_tv"
+        app:layout_constraintTop_toBottomOf="@+id/duration_time_tv" />
+
+    <TextView
+        android:id="@+id/distance_tv"
+        android:layout_width="131dp"
+        android:layout_height="39dp"
+        android:layout_margin="10dp"
+        android:textSize="6pt"
+        android:text="@string/distance"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="70dp"
+        tools:layout_editor_absoluteY="295dp" />
+
+    <TextView
+        android:id="@+id/speed_tv"
+        android:layout_width="131dp"
+        android:layout_height="39dp"
+        android:layout_margin="10dp"
+        android:text="@string/speed"
+        android:textSize="6pt"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="70dp"
+        tools:layout_editor_absoluteY="333dp" />
+
+    <TextView
+        android:id="@+id/duration_tv"
+        android:layout_width="131dp"
+        android:layout_height="39dp"
+        android:layout_margin="10dp"
+        android:textSize="6pt"
+        android:text="@string/duration"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="70dp"
+        tools:layout_editor_absoluteY="256dp" />
+
+    <TextView
+        android:id="@+id/speed_kmh_tv"
+        android:layout_width="131dp"
+        android:layout_height="39dp"
+        android:textSize="6pt"
+        android:text="11.2 Km/h"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/speed_tv"
+        app:layout_constraintTop_toBottomOf="@+id/distance_km_tv" />
+
+    <Button
+        android:id="@+id/stop_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="69dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="192dp"
+        android:background="@drawable/style_start_button"
+        android:text="@string/stop"
+        android:textSize="8pt"
+        android:typeface="monospace"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/discard_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="69dp"
+        android:background="@drawable/style_rating_button"
+        android:text="@string/discard"
+        android:textColor="@color/black"
+        android:textSize="8pt"
+        android:typeface="monospace"
+        app:backgroundTint="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/stop_btn"
+        app:layout_constraintHorizontal_bias="0.457"
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="@color/azul_stamina"
+        app:strokeWidth="9dip"
+        tools:layout_editor_absoluteY="469dp" />
+
+    <Button
+        android:id="@+id/walk_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="65dp"
+        android:text="@string/walk"
+        app:backgroundTint="@color/gris_stamina"
+        android:textColor="@color/black"
+        android:textSize="9dp"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dip"
+        app:layout_constraintEnd_toStartOf="@+id/running_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="132dp" />
+
+    <Button
+        android:id="@+id/running_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/running"
+        app:backgroundTint="@color/white"
+        android:textColor="@color/black"
+        android:textSize="9dp"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dip"
+        app:flow_horizontalAlign="center"
+        app:layout_constraintEnd_toStartOf="@+id/cycling_btn"
+        app:layout_constraintStart_toEndOf="@+id/walk_btn"
+        tools:layout_editor_absoluteY="132dp" />
+
+    <Button
+        android:id="@+id/cycling_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="9dp"
+        android:text="@string/cycling"
+        app:backgroundTint="@color/white"
+        android:textColor="@color/black"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dip"
+        app:layout_constraintStart_toEndOf="@+id/running_btn"
+        tools:layout_editor_absoluteY="132dp" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ruta"
+        tools:layout_editor_absoluteX="153dp"
+        tools:layout_editor_absoluteY="387dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
