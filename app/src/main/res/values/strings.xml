@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Stamina</string>
+    <string name="User_agreement_title">Acuerdo de Usuario</string>
+    <string name="User_agreement_content">Todos los derechos de la aplicacion están reservados a \n Stamina Limited Group. El usuario no debe de aprovecharse económicamente de la aplicacion ni hacer un uso indebido de la misma.</string>
+    <string name="Accept">Aceptar</string>
+    <string name="Cancel">Cancelar</string>
 </resources>
