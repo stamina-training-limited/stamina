@@ -2,4 +2,9 @@
     <string name="app_name">Stamina</string>
     <string name="start">iniciar</string>
     <string name="rating">clasificación</string>
+    <string name="distance">Distancia</string>
+    <string name="pace">Ritmo</string>
+    <string name="time">Tiempo</string>
+    <string name="profile">Perfil</string>
+    <string name="activities">Actividades</string>
 </resources>
