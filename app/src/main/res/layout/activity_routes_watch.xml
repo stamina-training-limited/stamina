@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/component_tool_bar" />
+
+    <RelativeLayout
+        android:id="@+id/rl_list_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/tool_bar"
+        >
+        <ListView
+            android:id="@+id/list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        </ListView>
+    </RelativeLayout>
+
+    <include
+        android:layout_alignParentBottom="true"
+        android:id="@+id/bottom_bar"
+        layout="@layout/component_bottom_bar"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent" />
+</RelativeLayout>
