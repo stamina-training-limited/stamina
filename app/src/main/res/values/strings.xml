@@ -8,10 +8,10 @@
     <string name="Google_log_in_screen_email">Email</string>
     <string name="Google_log_in_screen_password">Contraseña</string>
     <string name="Google_log_in_screen_log_in">Iniciar sesión</string>
+    <string name="profile">Perfil</string>
+    <string name="activities">Actividades</string>
     <string name="distance">Distancia</string>
     <string name="pace">Ritmo</string>
     <string name="time">Tiempo</string>
-    <string name="profile">Perfil</string>
-    <string name="activities">Actividades</string>
-
+    <string name="profilePicture">Imagen de perfil</string>
 </resources>
