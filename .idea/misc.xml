@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.1" />
+<<<<<<< HEAD
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.1" />
@@ -24,6 +25,15 @@
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.2552083333333333" />
         <entry key="app/src/main/res/layout/fragment_rutas.xml" value="0.1634963768115942" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.2703125" />
+=======
+        <entry key="app/src/main/res/layout/activity_bottom_bar.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.3640625" />
+        <entry key="app/src/main/res/layout/activity_nav_bar.xml" value="0.3484375" />
+        <entry key="app/src/main/res/layout/activity_routes.xml" value="0.3640625" />
+        <entry key="app/src/main/res/layout/activity_routes_watch.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_tool_bar.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/component_tool_bar.xml" value="0.25" />
+>>>>>>> e5e6ad0958fd548ecae62d0800377a150d50dd65
       </map>
     </option>
   </component>

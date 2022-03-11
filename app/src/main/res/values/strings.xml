@@ -3,4 +3,6 @@
     <string name="title_home">Hello Home</string>
     <string name="title_dashboard">Hello Dashboard</string>
     <string name="title_notifications">Hello Notifications</string>
+    <string name="start">iniciar</string>
+    <string name="rating">clasificación</string>
 </resources>
