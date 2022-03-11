@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/feedEntry2Map_iv2"
+        android:layout_width="233dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="-20dp"
+        android:layout_marginTop="36dp"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="@+id/feedEntry2Title_tv"
+        app:layout_constraintTop_toBottomOf="@+id/feedEntry2TimeTitle_tv"
+        app:srcCompat="@drawable/feed_maphalf" />
+
+    <TextView
+        android:id="@+id/feedEntry1TimeTitle_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/time"
+        android:textColor="@color/gris_stamina"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/feedEntry1PaceTitle_tv"
+        app:layout_constraintTop_toBottomOf="@+id/feedEntry1DateAndLocation_tv" />
+
+    <TextView
+        android:id="@+id/feedEntry2TimeTitle_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/time"
+        android:textColor="@color/gris_stamina"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/feedEntry2PaceTitle_tv"
+        app:layout_constraintTop_toBottomOf="@+id/feedEntry1DateAndLocation_tv2" />
+
+    <ImageButton
+        android:id="@+id/home_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="575dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/map_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton2"
+        app:srcCompat="@drawable/ic_home" />
+
+    <ImageButton
+        android:id="@+id/map_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/activity_register_btn"
+        app:layout_constraintStart_toEndOf="@+id/home_btn"
+        app:srcCompat="@drawable/ic_map" />
+
+    <ImageButton
+        android:id="@+id/activity_register_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/profile_btn"
+        app:layout_constraintStart_toEndOf="@+id/map_btn"
+        app:srcCompat="@drawable/ic_activity_register" />
+
+    <ImageButton
+        android:id="@+id/profile_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/activity_register_btn"
+        app:srcCompat="@drawable/ic_profile" />
+
+    <ImageView
+        android:id="@+id/feedEntry1profilePic_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_profile" />
+
+    <TextView
+        android:id="@+id/feedEntry1Name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="1dp"
+        android:text="Christine Froome"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/feedEntry1profilePic_iv"
+        app:layout_constraintTop_toTopOf="@+id/feedEntry1profilePic_iv" />
+
+    <TextView
+        android:id="@+id/feedEntry1Title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Rodaje matutino"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/feedEntry1Name_tv"
+        app:layout_constraintTop_toBottomOf="@+id/feedEntry1Name_tv" />
+
+    <TextView
+        android:id="@+id/feedEntry2Title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Salida precarrera"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/feedEntry1Title_tv"
+        app:layout_constraintTop_toBottomOf="@+id/feedEntry1Like_btn" />
+
+    <TextView
+        android:id="@+id/feedEntry1DateAndLocation_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Hoy a las 10:28 - Mogán, Canarias"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="@+id/feedEntry1Title_tv"
+        app:layout_constraintTop_toBottomOf="@+id/feedEntry1Title_tv" />
+
+    <TextView
+        android:id="@+id/feedEntry1DateAndLocation_tv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="25/02/2022- Los Llanos, Canarias"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="@+id/feedEntry2Title_tv"
+        app:layout_constraintTop_toBottomOf="@+id/feedEntry2Title_tv" />
+
+    <TextView
+        android:id="@+id/feedEntry1DistanceTitle_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/distance"
+        android:textColor="@color/gris_stamina"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="@+id/feedEntry1DateAndLocation_tv"
+        app:layout_constraintTop_toBottomOf="@+id/feedEntry1DateAndLocation_tv" />
+
+    <TextView
+        android:id="@+id/feedEntry2DistanceTitle_tv"
+        android:layout_width="42dp"
+        android:layout_height="14dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/distance"
+        android:textColor="@color/gris_stamina"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="@+id/feedEntry1DateAndLocation_tv2"
+        app:layout_constraintTop_toBottomOf="@+id/feedEntry1DateAndLocation_tv2" />
+
+    <TextView
+        android:id="@+id/feedEntry1Likes_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-8dp"
+        android:layout_marginTop="9dp"
+        android:text="1 Me gusta"
+        android:textColor="@color/gris_stamina"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="@+id/feedEntry1Like_btn"
+        app:layout_constraintTop_toBottomOf="@+id/feedEntry1Like_btn" />
+
+    <TextView
+        android:id="@+id/feedEntry1Distance_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="11dp"
+        android:text="3.08 km"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="@+id/feedEntry1Name_tv"
+        app:layout_constraintTop_toBottomOf="@+id/feedEntry1DistanceTitle_tv" />
+
+    <TextView
+        android:id="@+id/feedEntry2Distance_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="11dp"
+        android:text="6.15 km"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="@+id/feedEntry1DateAndLocation_tv2"
+        app:layout_constraintTop_toBottomOf="@+id/feedEntry2DistanceTitle_tv" />
+
+    <TextView
+        android:id="@+id/feedEntry1Pace_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="11dp"
+        android:text="5 min/km"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/feedEntry1Distance_tv"
+        app:layout_constraintTop_toBottomOf="@+id/feedEntry1DistanceTitle_tv" />
+
+    <TextView
+        android:id="@+id/feedEntry2Pace_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="11dp"
+        android:text="4 min/km"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/feedEntry2Distance_tv"
+        app:layout_constraintTop_toBottomOf="@+id/feedEntry2PaceTitle_tv" />
+
+    <TextView
+        android:id="@+id/feedEntry1Time_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="11dp"
+        android:text="00:15:23"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/feedEntry1Pace_tv"
+        app:layout_constraintTop_toBottomOf="@+id/feedEntry1TimeTitle_tv" />
+
+    <TextView
+        android:id="@+id/feedEntry2Time_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="11dp"
+        android:text="00:24:41"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/feedEntry2Pace_tv"
+        app:layout_constraintTop_toBottomOf="@+id/feedEntry2TimeTitle_tv" />
+
+    <TextView
+        android:id="@+id/feedEntry1PaceTitle_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/pace"
+        android:textColor="@color/gris_stamina"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/feedEntry1DistanceTitle_tv"
+        app:layout_constraintTop_toBottomOf="@+id/feedEntry1DateAndLocation_tv" />
+
+    <TextView
+        android:id="@+id/feedEntry2PaceTitle_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/pace"
+        android:textColor="@color/gris_stamina"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/feedEntry2DistanceTitle_tv"
+        app:layout_constraintTop_toBottomOf="@+id/feedEntry1DateAndLocation_tv2" />
+
+    <ImageView
+        android:id="@+id/feedEntry1Map_iv"
+        android:layout_width="233dp"
+        android:layout_height="155dp"
+        android:layout_marginStart="-20dp"
+        android:layout_marginTop="12dp"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="@+id/feedEntry1Name_tv"
+        app:layout_constraintTop_toBottomOf="@+id/feedEntry1Time_tv"
+        app:srcCompat="@drawable/feed_map" />
+
+    <ImageButton
+        android:id="@+id/feedEntry1Like_btn"
+        android:layout_width="29dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="9dp"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="@+id/feedEntry1Map_iv"
+        app:layout_constraintTop_toBottomOf="@+id/feedEntry1Map_iv"
+        app:srcCompat="@drawable/ic_like" />
+
+    <ImageButton
+        android:id="@+id/feedEntry1Comment_btn"
+        android:layout_width="29dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="53dp"
+        android:layout_marginTop="8dp"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toEndOf="@+id/feedEntry1Like_btn"
+        app:layout_constraintTop_toBottomOf="@+id/feedEntry1Map_iv"
+        app:srcCompat="@drawable/ic_comment" />
+
+    <ImageButton
+        android:id="@+id/feedEntry1Share_btn"
+        android:layout_width="29dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="53dp"
+        android:layout_marginTop="8dp"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toEndOf="@+id/feedEntry1Comment_btn"
+        app:layout_constraintTop_toBottomOf="@+id/feedEntry1Map_iv"
+        app:srcCompat="@drawable/ic_share" />
+
+    <TextView
+        android:id="@+id/profileSection_tv"
+        android:layout_width="206dp"
+        android:layout_height="24dp"
+        android:background="@color/azul_stamina"
+        android:text="@string/profile"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/profileSection_tv2"
+        android:layout_width="206dp"
+        android:layout_height="24dp"
+        android:background="@color/azul_stamina"
+        android:text="@string/activities"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

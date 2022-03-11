@@ -3,11 +3,15 @@
 
     <string name="start">iniciar</string>
     <string name="rating">clasificación</string>
-
     <string name="Main_screen_phrase">La mejor aplicación para corredores y ciclistas</string>
     <string name="Main_screen_login_button">Iniciar sesión con Google</string>
     <string name="Google_log_in_screen_email">Email</string>
     <string name="Google_log_in_screen_password">Contraseña</string>
     <string name="Google_log_in_screen_log_in">Iniciar sesión</string>
+    <string name="distance">Distancia</string>
+    <string name="pace">Ritmo</string>
+    <string name="time">Tiempo</string>
+    <string name="profile">Perfil</string>
+    <string name="activities">Actividades</string>
 
 </resources>
