@@ -1,4 +1,4 @@
-package com.limited.training.stamina.ui.rutas
+package com.limited.training.stamina.ui.routes
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.limited.training.stamina.databinding.FragmentNotificationsBinding
+import com.limited.training.stamina.databinding.FragmentRoutesBinding
 
-class NotificationsFragment : Fragment() {
+class RoutesFragment : Fragment() {
 
-    private var _binding: FragmentNotificationsBinding? = null
+    private var _binding: FragmentRoutesBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -23,12 +23,12 @@ class NotificationsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val notificationsViewModel =
-            ViewModelProvider(this).get(RutasViewModel::class.java)
+            ViewModelProvider(this).get(RoutesViewModel::class.java)
 
-        _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
+        _binding = FragmentRoutesBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textNotifications
+        val textView: TextView = binding.textRoutes
         notificationsViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }

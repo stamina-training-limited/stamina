@@ -18,8 +18,14 @@
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.limited.training.stamina.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_routes"
+        android:name="com.limited.training.stamina.ui.routes.RoutesFragment"
+        android:label="@string/title_routes"
+        tools:layout="@layout/fragment_routes" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.limited.training.stamina.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">Stamina</string>
     <string name="title_home">Hello Home</string>
+    <string name="title_routes">Routes</string>
     <string name="title_dashboard">Hello Dashboard</string>
-    <string name="title_notifications">Hello Notifications</string>
+    <string name="title_profile">Profile</string>
     <string name="start">iniciar</string>
     <string name="rating">clasificación</string>
 </resources>
