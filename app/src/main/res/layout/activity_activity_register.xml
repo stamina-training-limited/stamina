@@ -27,9 +27,9 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="4dp"
         android:ems="10"
-
+        android:selectAllOnFocus="true"
         android:inputType="textPersonName"
-        android:text="Ruta Elviña 4"
+        android:hint="Nombre de la ruta"
         app:layout_constraintBottom_toTopOf="@+id/walk_btn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/routeNameTitle_tv"

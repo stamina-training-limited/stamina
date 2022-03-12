@@ -22,7 +22,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/start_btn"
+        android:id="@+id/stop_btn"
         android:layout_width="wrap_content"
         android:layout_height="69dp"
         android:background="@drawable/style_start_button"
