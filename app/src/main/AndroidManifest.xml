@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Stamina">
         <activity
+            android:name=".routes.SeeSpecificRoute"
+            android:exported="false" />
+        <activity
             android:name=".activities.StartActivity"
             android:exported="true">
             <intent-filter>
@@ -18,11 +21,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.ProgressActivity"></activity>
-        <activity android:name=".activities.PausedActivity"></activity>
-        <activity android:name=".activities.RegisterActivity"
-            android:windowSoftInputMode="stateVisible"
-        ></activity>
+        <activity android:name=".activities.ProgressActivity" />
+        <activity android:name=".activities.PausedActivity" />
+        <activity
+            android:name=".activities.RegisterActivity"
+            android:windowSoftInputMode="stateVisible" />
     </application>
 
 </manifest>
