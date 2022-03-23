@@ -23,6 +23,10 @@
         <activity android:name=".activities.RegisterActivity"
             android:windowSoftInputMode="stateVisible"
         ></activity>
+        <activity android:name=".activities.AgreementUser"></activity>
+        <activity android:name=".activities.AgreementLocation"></activity>
+        <activity android:name=".activities.MainScreen"></activity>
+        <activity android:name=".activities.GoogleLogin"></activity>
     </application>
 
 </manifest>
