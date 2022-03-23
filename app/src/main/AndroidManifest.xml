@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Stamina">
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.AgreementUser"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,6 +23,10 @@
         <activity android:name=".activities.RegisterActivity"
             android:windowSoftInputMode="stateVisible"
         ></activity>
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".activities.AgreementLocation"></activity>
+        <activity android:name=".activities.MainScreen"></activity>
+        <activity android:name=".activities.GoogleLogin"></activity>
     </application>
 
 </manifest>
