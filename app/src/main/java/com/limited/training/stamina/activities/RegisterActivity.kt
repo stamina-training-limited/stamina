@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.limited.training.stamina.MainActivity
 import com.limited.training.stamina.R
 
 var discardButton : Button ?= null
@@ -25,7 +26,7 @@ class RegisterActivity : AppCompatActivity() {
             // Provisional para pruebas
             // Redirigirá a pantalla principal
             Toast.makeText(this, "Actividad descartada", Toast.LENGTH_SHORT).show()
-            val intStartActivity : Intent = Intent(applicationContext, StartActivity::class.java)
+            val intStartActivity : Intent = Intent(applicationContext, MainActivity::class.java)
             startActivity(intStartActivity)
         }
 
@@ -36,7 +37,7 @@ class RegisterActivity : AppCompatActivity() {
             // Provisional para pruebas
             // Redirigirá a pantalla principal
             Toast.makeText(this, "Actividad " + routeName + " guardada", Toast.LENGTH_SHORT).show()
-            val intStartActivity : Intent = Intent(applicationContext, StartActivity::class.java)
+            val intStartActivity : Intent = Intent(applicationContext, MainActivity::class.java)
             startActivity(intStartActivity)
         }
 
