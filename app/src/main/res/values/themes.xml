@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Stamina" parent="@style/Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.Stamina" parent="@style/Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/azul_stamina</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -12,8 +12,6 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-        <item name="windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
         <item name="actionMenuTextColor">@android:color/white</item>
         <item name="android:homeAsUpIndicator">@drawable/left_white_arrow_24</item>
     </style>

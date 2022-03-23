@@ -2,14 +2,20 @@
     <!-- General -->
     <string name="Main_screen_phrase">La mejor aplicación para corredores y ciclistas</string>
     <string name="app_name">Stamina</string>
+    <string name="title_home">Home</string>
+    <string name="title_routes">Routes</string>
+    <string name="title_record">Record</string>
+    <string name="title_profile">Profile</string>
+
+    <!-- Agreements -->
     <string name="User_agreement_title">Acuerdo de Usuario</string>
     <string name="User_agreement_content">Todos los derechos de la aplicacion están reservados a <br/> Stamina Limited Group. <br/> El usuario no debe de aprovecharse económicamente de la aplicacion ni hacer un uso indebido de la misma.</string>
     <string name="Location_services">Servicios de Localización</string>
     <string name="Location_services_content">Déjanos determinar tu localización</string>
 
-    <!-- Autentication -->
-    <string name="Google_log_in_screen_email">Email</string>
-    <string name="Google_log_in_screen_password">Contraseña</string>
+    <!-- Authentication -->
+    <string name="Google_log_in_screen_email_hint">Introduzca el email</string>
+    <string name="Google_log_in_screen_password_hint">Introduzca su contraseña</string>
     <string name="Google_log_in_screen_log_in">Iniciar sesión</string>
     <string name="Main_screen_login_button">Iniciar sesión con Google</string>
 
