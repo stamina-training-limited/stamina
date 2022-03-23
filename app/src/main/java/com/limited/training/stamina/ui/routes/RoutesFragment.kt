@@ -1,13 +1,16 @@
 package com.limited.training.stamina.ui.routes
 
+import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.ArrayAdapter
+import android.widget.ListView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.limited.training.stamina.databinding.FragmentRoutesBinding
+
 
 class RoutesFragment : Fragment() {
 
@@ -27,11 +30,14 @@ class RoutesFragment : Fragment() {
 
         _binding = FragmentRoutesBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-        val textView: TextView = binding.textRoutes
-        notificationsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+        val users: List<String> = arrayOf("Ruta1", "Ruta2", "Ruta3", "Ruta4").toList()
+        val listView: ListView = binding.listView
+        val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
+            requireActivity().applicationContext,
+            R.layout.simple_expandable_list_item_1,
+            users
+        )
+        listView.adapter = adapter
         return root
     }
 
