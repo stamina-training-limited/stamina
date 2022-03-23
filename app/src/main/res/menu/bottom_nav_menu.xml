@@ -12,9 +12,9 @@
         android:title="@string/title_routes" />
 
     <item
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_record"
         android:icon="@drawable/ic_record_30"
-        android:title="@string/title_dashboard" />
+        android:title="@string/title_record" />
 
     <item
         android:id="@+id/navigation_profile"
