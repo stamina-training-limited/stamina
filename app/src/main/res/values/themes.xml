@@ -15,4 +15,10 @@
         <item name="actionMenuTextColor">@android:color/white</item>
         <item name="android:homeAsUpIndicator">@drawable/left_white_arrow_24</item>
     </style>
+    <style name="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">?android:attr/listDivider</item>
+        <item name="backgroundColor">@color/azul_stamina</item>
+    </style>
 </resources>
