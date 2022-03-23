@@ -5,7 +5,7 @@
     android:background="@drawable/mock_map_route"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".routes.SeeConcreteRoute">
 
     <TextView
         android:id="@+id/white_background_tv"

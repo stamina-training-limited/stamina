@@ -9,23 +9,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Stamina">
-        <activity
-            android:name=".routes.SeeSpecificRoute"
-            android:exported="false" />
+
         <activity
             android:name=".activities.StartActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".activities.ProgressActivity" />
         <activity android:name=".activities.PausedActivity" />
         <activity
             android:name=".activities.RegisterActivity"
             android:windowSoftInputMode="stateVisible" />
+        <activity
+            android:name=".routes.SeeRoutes"
+            android:exported="true" >
+        </activity>
+        <activity
+            android:name=".routes.SeeConcreteRoute"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".routes.RouteInProgress"
+            android:exported="true" >
+        </activity>
     </application>
 
 </manifest>
