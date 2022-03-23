@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.limited.training.stamina.R
-import com.limited.training.stamina.activities.ProgressActivity
-import com.limited.training.stamina.activities.StartActivity
 
 var stopButton: Button? = null
 
