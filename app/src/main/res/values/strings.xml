@@ -1,9 +1,52 @@
 <resources>
+    <!-- General -->
+    <string name="Main_screen_phrase">La mejor aplicación para corredores y ciclistas</string>
     <string name="app_name">Stamina</string>
     <string name="title_home">Home</string>
     <string name="title_routes">Routes</string>
     <string name="title_record">Record</string>
     <string name="title_profile">Profile</string>
+
+
+    <string name="User_agreement_title">Acuerdo de Usuario</string>
+    <string name="User_agreement_content">Todos los derechos de la aplicacion están reservados a <br/> Stamina Limited Group. <br/> El usuario no debe de aprovecharse económicamente de la aplicacion ni hacer un uso indebido de la misma.</string>
+    <string name="Location_services">Servicios de Localización</string>
+    <string name="Location_services_content">Déjanos determinar tu localización</string>
+
+    <!-- Autentication -->
+    <string name="Google_log_in_screen_email">Email</string>
+    <string name="Google_log_in_screen_password">Contraseña</string>
+    <string name="Google_log_in_screen_log_in">Iniciar sesión</string>
+    <string name="Main_screen_login_button">Iniciar sesión con Google</string>
+
+    <!-- Actions -->
     <string name="start">iniciar</string>
+    <string name="stop">detener</string>
+    <string name="resume">reanudar</string>
+    <string name="finish">terminar</string>
+    <string name="discard">descartar</string>
+    <string name="save">guardar</string>
     <string name="rating">clasificación</string>
+    <string name="Accept">Aceptar</string>
+    <string name="Cancel">Cancelar</string>
+
+    <!-- Tags -->
+    <string name="profile">Perfil</string>
+    <string name="activities">Actividades</string>
+    <string name="distance">Distancia</string>
+    <string name="pace">Ritmo</string>
+    <string name="time">Tiempo</string>
+    <string name="profilePicture">Imagen de perfil</string>
+    <string name="duration">Duración</string>
+    <string name="speed">Velocidad</string>
+    <string name="walk">caminata</string>
+    <string name="running">running</string>
+    <string name="cycling">ciclismo</string>
+    <string name="title_activity_prueba">Prueba</string>
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
 </resources>
