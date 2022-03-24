@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
+import com.limited.training.stamina.R
 import com.limited.training.stamina.databinding.FragmentHomeBinding
 import com.limited.training.stamina.feed.FeedComment
 import com.limited.training.stamina.feed.FeedLike
@@ -30,20 +32,17 @@ class HomeFragment : Fragment() {
 
         val likeButton: ImageButton = binding.feedEntry1LikeBtn
         likeButton!!.setOnClickListener {
-            val intLike = Intent(activity, FeedLike::class.java)
-            startActivity(intLike)
+            Navigation.findNavController(root).navigate(R.id.action_navigation_home_to_navigation_home_like);
         }
 
         val commentButton : ImageButton = binding.feedEntry1CommentBtn
         commentButton!!.setOnClickListener {
-            val intComment = Intent(activity, FeedComment::class.java)
-            startActivity(intComment)
+            Navigation.findNavController(root).navigate(R.id.action_navigation_home_to_navigation_home_comment);
         }
 
         val shareButton : ImageButton = binding.feedEntry1ShareBtn
         shareButton!!.setOnClickListener {
-            val intLike = Intent(activity, FeedShare::class.java)
-            startActivity(intLike)
+            Navigation.findNavController(root).navigate(R.id.action_navigation_home_to_navigation_home_share);
         }
 
         return root

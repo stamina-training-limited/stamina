@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/keyboard_iv"
+        android:layout_width="541dp"
+        android:layout_height="252dp"
+        android:layout_marginStart="-74dp"
+        android:scaleType="fitCenter"
+        android:contentDescription="Keyboard"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/feed_keyboard" />
+
+    <EditText
+        android:id="@+id/comment_pt"
+        android:layout_width="272dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="5dp"
+        android:ems="10"
+        android:selectAllOnFocus="true"
+        android:inputType="textPersonName"
+        android:hint="Muy buen entreno Christine!"
+        android:textColor="@color/gris_stamina"
+        app:layout_constraintBottom_toTopOf="@+id/keyboard_iv"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/publish_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginBottom="3dp"
+        android:text="Publicar"
+        android:textAllCaps="false"
+        app:backgroundTint="@color/grisOscuro_stamina"
+        app:layout_constraintBottom_toTopOf="@+id/keyboard_iv"
+        app:layout_constraintStart_toEndOf="@+id/comment_pt" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
