@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
@@ -34,6 +36,14 @@ class HomeCommentFragment : Fragment() {
                 }
             }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+
+        val editProfileButton : Button = binding.publishBtn
+        editProfileButton!!.setOnClickListener {
+            Toast.makeText(this@HomeCommentFragment.requireContext(), "Comentario realizado", Toast.LENGTH_SHORT).show()
+            Navigation.findNavController(root).navigate(R.id.action_navigation_home_comment_to_navigation_home);
+//            val intLike = Intent(activity, MainActivity::class.java)
+//            startActivity(intLike)
+        }
 
         return root
     }
