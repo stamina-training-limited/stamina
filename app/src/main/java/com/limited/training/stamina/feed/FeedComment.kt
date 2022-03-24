@@ -19,7 +19,7 @@ class FeedComment : AppCompatActivity() {
 //        commentEditText!!.requestFocus()
 //        commentEditText = findViewById<EditText>(R.id.comment_pt)
 
-        publishButton = findViewById(R.id.publish_btn)
+        publishButton = findViewById(R.id.commentPublish_btn)
         publishButton!!.setOnClickListener {
 //            var commentText = commentEditText!!.text.toString()
             val commentText = "Comentario de prueba"

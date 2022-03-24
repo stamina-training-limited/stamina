@@ -9,7 +9,7 @@
         android:id="@+id/profileSection_tv"
         android:layout_width="206dp"
         android:layout_height="24dp"
-        android:background="@color/azul_stamina"
+        android:background="@color/azulOscuro_stamina"
         android:text="@string/profile"
         android:textAlignment="center"
         android:textColor="@color/white"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/profileSection_tv2"
+        android:id="@+id/profileActivitiesSection_tv"
         android:layout_width="206dp"
         android:layout_height="24dp"
         android:background="@color/azul_stamina"
@@ -298,11 +298,11 @@
         app:srcCompat="@drawable/ic_mobile" />
 
     <Button
-        android:id="@+id/editProfile_btn"
+        android:id="@+id/profileEditProfile_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="140dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="60dp"
         android:text="Editar perfil"
         android:textAllCaps="false"
         app:layout_constraintStart_toStartOf="@+id/profileHorizontalDivider5"

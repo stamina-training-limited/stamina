@@ -7,18 +7,18 @@
 
 
     <ImageView
-        android:id="@+id/feedEntry2Map_iv2"
+        android:id="@+id/profileActivities2Map_iv2"
         android:layout_width="233dp"
         android:layout_height="70dp"
         android:layout_marginStart="-20dp"
         android:layout_marginTop="36dp"
         android:scaleType="fitXY"
-        app:layout_constraintStart_toStartOf="@+id/feedEntry2Title_tv"
-        app:layout_constraintTop_toBottomOf="@+id/feedEntry2TimeTitle_tv"
+        app:layout_constraintStart_toStartOf="@+id/profileActivities2Title_tv"
+        app:layout_constraintTop_toBottomOf="@+id/profileActivities2TimeTitle_tv"
         app:srcCompat="@drawable/feed_maphalf" />
 
     <TextView
-        android:id="@+id/feedEntry1TimeTitle_tv"
+        android:id="@+id/profileActivities1TimeTitle_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="38dp"
@@ -26,11 +26,11 @@
         android:text="@string/time"
         android:textColor="@color/gris_stamina"
         android:textSize="10sp"
-        app:layout_constraintStart_toEndOf="@+id/feedEntry1PaceTitle_tv"
-        app:layout_constraintTop_toBottomOf="@+id/feedEntry1DateAndLocation_tv" />
+        app:layout_constraintStart_toEndOf="@+id/profileActivities1PaceTitle_tv"
+        app:layout_constraintTop_toBottomOf="@+id/profileActivities1DateAndLocation_tv" />
 
     <TextView
-        android:id="@+id/feedEntry2TimeTitle_tv"
+        android:id="@+id/profileActivities2TimeTitle_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="38dp"
@@ -38,8 +38,8 @@
         android:text="@string/time"
         android:textColor="@color/gris_stamina"
         android:textSize="10sp"
-        app:layout_constraintStart_toEndOf="@+id/feedEntry2PaceTitle_tv"
-        app:layout_constraintTop_toBottomOf="@+id/feedEntry1DateAndLocation_tv2" />
+        app:layout_constraintStart_toEndOf="@+id/profileActivities2PaceTitle_tv"
+        app:layout_constraintTop_toBottomOf="@+id/profileActivities1DateAndLocation_tv2" />
 
     <ImageButton
         android:id="@+id/home_btn"
@@ -93,7 +93,7 @@
         app:srcCompat="@drawable/ic_profile" />
 
     <ImageView
-        android:id="@+id/feedEntry1profilePic_iv"
+        android:id="@+id/profileActivitiesPic_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -103,80 +103,80 @@
         app:srcCompat="@drawable/ic_profile" />
 
     <TextView
-        android:id="@+id/feedEntry1Name_tv"
+        android:id="@+id/profileActivities1Name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
         android:layout_marginTop="1dp"
         android:text="Christine Froome"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/feedEntry1profilePic_iv"
-        app:layout_constraintTop_toTopOf="@+id/feedEntry1profilePic_iv" />
+        app:layout_constraintStart_toEndOf="@+id/profileActivitiesPic_iv"
+        app:layout_constraintTop_toTopOf="@+id/profileActivitiesPic_iv" />
 
     <TextView
-        android:id="@+id/feedEntry1Title_tv"
+        android:id="@+id/profileActivities1Title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Rodaje matutino"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/feedEntry1Name_tv"
-        app:layout_constraintTop_toBottomOf="@+id/feedEntry1Name_tv" />
+        app:layout_constraintStart_toStartOf="@+id/profileActivities1Name_tv"
+        app:layout_constraintTop_toBottomOf="@+id/profileActivities1Name_tv" />
 
     <TextView
-        android:id="@+id/feedEntry2Title_tv"
+        android:id="@+id/profileActivities2Title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="Salida precarrera"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/feedEntry1Title_tv"
-        app:layout_constraintTop_toBottomOf="@+id/feedEntry1Like_btn" />
+        app:layout_constraintStart_toStartOf="@+id/profileActivities1Title_tv"
+        app:layout_constraintTop_toBottomOf="@+id/profileActivitiesLike_btn" />
 
     <TextView
-        android:id="@+id/feedEntry1DateAndLocation_tv"
+        android:id="@+id/profileActivities1DateAndLocation_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="Hoy a las 10:28 - Mogán, Canarias"
         android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="@+id/feedEntry1Title_tv"
-        app:layout_constraintTop_toBottomOf="@+id/feedEntry1Title_tv" />
+        app:layout_constraintStart_toStartOf="@+id/profileActivities1Title_tv"
+        app:layout_constraintTop_toBottomOf="@+id/profileActivities1Title_tv" />
 
     <TextView
-        android:id="@+id/feedEntry1DateAndLocation_tv2"
+        android:id="@+id/profileActivities1DateAndLocation_tv2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="25/02/2022- Los Llanos, Canarias"
         android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="@+id/feedEntry2Title_tv"
-        app:layout_constraintTop_toBottomOf="@+id/feedEntry2Title_tv" />
+        app:layout_constraintStart_toStartOf="@+id/profileActivities2Title_tv"
+        app:layout_constraintTop_toBottomOf="@+id/profileActivities2Title_tv" />
 
     <TextView
-        android:id="@+id/feedEntry1DistanceTitle_tv"
+        android:id="@+id/profileActivities1DistanceTitle_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/distance"
         android:textColor="@color/gris_stamina"
         android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="@+id/feedEntry1DateAndLocation_tv"
-        app:layout_constraintTop_toBottomOf="@+id/feedEntry1DateAndLocation_tv" />
+        app:layout_constraintStart_toStartOf="@+id/profileActivities1DateAndLocation_tv"
+        app:layout_constraintTop_toBottomOf="@+id/profileActivities1DateAndLocation_tv" />
 
     <TextView
-        android:id="@+id/feedEntry2DistanceTitle_tv"
+        android:id="@+id/profileActivities2DistanceTitle_tv"
         android:layout_width="42dp"
         android:layout_height="14dp"
         android:layout_marginTop="10dp"
         android:text="@string/distance"
         android:textColor="@color/gris_stamina"
         android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="@+id/feedEntry1DateAndLocation_tv2"
-        app:layout_constraintTop_toBottomOf="@+id/feedEntry1DateAndLocation_tv2" />
+        app:layout_constraintStart_toStartOf="@+id/profileActivities1DateAndLocation_tv2"
+        app:layout_constraintTop_toBottomOf="@+id/profileActivities1DateAndLocation_tv2" />
 
     <TextView
-        android:id="@+id/feedEntry1Likes_tv"
+        android:id="@+id/profileActivities1Likes_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="-8dp"
@@ -184,77 +184,77 @@
         android:text="1 Me gusta"
         android:textColor="@color/gris_stamina"
         android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="@+id/feedEntry1Like_btn"
-        app:layout_constraintTop_toBottomOf="@+id/feedEntry1Like_btn" />
+        app:layout_constraintStart_toStartOf="@+id/profileActivitiesLike_btn"
+        app:layout_constraintTop_toBottomOf="@+id/profileActivitiesLike_btn" />
 
     <TextView
-        android:id="@+id/feedEntry1Distance_tv"
+        android:id="@+id/profileActivities1Distance_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:layout_marginTop="11dp"
         android:text="3.08 km"
         android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="@+id/feedEntry1Name_tv"
-        app:layout_constraintTop_toBottomOf="@+id/feedEntry1DistanceTitle_tv" />
+        app:layout_constraintStart_toStartOf="@+id/profileActivities1Name_tv"
+        app:layout_constraintTop_toBottomOf="@+id/profileActivities1DistanceTitle_tv" />
 
     <TextView
-        android:id="@+id/feedEntry2Distance_tv"
+        android:id="@+id/profileActivities2Distance_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:layout_marginTop="11dp"
         android:text="6.15 km"
         android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="@+id/feedEntry1DateAndLocation_tv2"
-        app:layout_constraintTop_toBottomOf="@+id/feedEntry2DistanceTitle_tv" />
+        app:layout_constraintStart_toStartOf="@+id/profileActivities1DateAndLocation_tv2"
+        app:layout_constraintTop_toBottomOf="@+id/profileActivities2DistanceTitle_tv" />
 
     <TextView
-        android:id="@+id/feedEntry1Pace_tv"
+        android:id="@+id/profileActivities1Pace_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="11dp"
         android:text="5 min/km"
         android:textSize="10sp"
-        app:layout_constraintStart_toEndOf="@+id/feedEntry1Distance_tv"
-        app:layout_constraintTop_toBottomOf="@+id/feedEntry1DistanceTitle_tv" />
+        app:layout_constraintStart_toEndOf="@+id/profileActivities1Distance_tv"
+        app:layout_constraintTop_toBottomOf="@+id/profileActivities1DistanceTitle_tv" />
 
     <TextView
-        android:id="@+id/feedEntry2Pace_tv"
+        android:id="@+id/profileActivities2Pace_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="11dp"
         android:text="4 min/km"
         android:textSize="10sp"
-        app:layout_constraintStart_toEndOf="@+id/feedEntry2Distance_tv"
-        app:layout_constraintTop_toBottomOf="@+id/feedEntry2PaceTitle_tv" />
+        app:layout_constraintStart_toEndOf="@+id/profileActivities2Distance_tv"
+        app:layout_constraintTop_toBottomOf="@+id/profileActivities2PaceTitle_tv" />
 
     <TextView
-        android:id="@+id/feedEntry1Time_tv"
+        android:id="@+id/profileActivities1Time_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="11dp"
         android:text="00:15:23"
         android:textSize="10sp"
-        app:layout_constraintStart_toEndOf="@+id/feedEntry1Pace_tv"
-        app:layout_constraintTop_toBottomOf="@+id/feedEntry1TimeTitle_tv" />
+        app:layout_constraintStart_toEndOf="@+id/profileActivities1Pace_tv"
+        app:layout_constraintTop_toBottomOf="@+id/profileActivities1TimeTitle_tv" />
 
     <TextView
-        android:id="@+id/feedEntry2Time_tv"
+        android:id="@+id/profileActivities2Time_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="11dp"
         android:text="00:24:41"
         android:textSize="10sp"
-        app:layout_constraintStart_toEndOf="@+id/feedEntry2Pace_tv"
-        app:layout_constraintTop_toBottomOf="@+id/feedEntry2TimeTitle_tv" />
+        app:layout_constraintStart_toEndOf="@+id/profileActivities2Pace_tv"
+        app:layout_constraintTop_toBottomOf="@+id/profileActivities2TimeTitle_tv" />
 
     <TextView
-        android:id="@+id/feedEntry1PaceTitle_tv"
+        android:id="@+id/profileActivities1PaceTitle_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="38dp"
@@ -262,11 +262,11 @@
         android:text="@string/pace"
         android:textColor="@color/gris_stamina"
         android:textSize="10sp"
-        app:layout_constraintStart_toEndOf="@+id/feedEntry1DistanceTitle_tv"
-        app:layout_constraintTop_toBottomOf="@+id/feedEntry1DateAndLocation_tv" />
+        app:layout_constraintStart_toEndOf="@+id/profileActivities1DistanceTitle_tv"
+        app:layout_constraintTop_toBottomOf="@+id/profileActivities1DateAndLocation_tv" />
 
     <TextView
-        android:id="@+id/feedEntry2PaceTitle_tv"
+        android:id="@+id/profileActivities2PaceTitle_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="38dp"
@@ -274,58 +274,58 @@
         android:text="@string/pace"
         android:textColor="@color/gris_stamina"
         android:textSize="10sp"
-        app:layout_constraintStart_toEndOf="@+id/feedEntry2DistanceTitle_tv"
-        app:layout_constraintTop_toBottomOf="@+id/feedEntry1DateAndLocation_tv2" />
+        app:layout_constraintStart_toEndOf="@+id/profileActivities2DistanceTitle_tv"
+        app:layout_constraintTop_toBottomOf="@+id/profileActivities1DateAndLocation_tv2" />
 
     <ImageView
-        android:id="@+id/feedEntry1Map_iv"
+        android:id="@+id/profileActivities1Map_iv"
         android:layout_width="233dp"
         android:layout_height="155dp"
         android:layout_marginStart="-20dp"
         android:layout_marginTop="12dp"
         android:scaleType="fitXY"
-        app:layout_constraintStart_toStartOf="@+id/feedEntry1Name_tv"
-        app:layout_constraintTop_toBottomOf="@+id/feedEntry1Time_tv"
+        app:layout_constraintStart_toStartOf="@+id/profileActivities1Name_tv"
+        app:layout_constraintTop_toBottomOf="@+id/profileActivities1Time_tv"
         app:srcCompat="@drawable/feed_map" />
 
     <ImageButton
-        android:id="@+id/feedEntry1Like_btn"
+        android:id="@+id/profileActivitiesLike_btn"
         android:layout_width="29dp"
         android:layout_height="29dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="9dp"
         android:background="@null"
         android:scaleType="fitCenter"
-        app:layout_constraintStart_toStartOf="@+id/feedEntry1Map_iv"
-        app:layout_constraintTop_toBottomOf="@+id/feedEntry1Map_iv"
+        app:layout_constraintStart_toStartOf="@+id/profileActivities1Map_iv"
+        app:layout_constraintTop_toBottomOf="@+id/profileActivities1Map_iv"
         app:srcCompat="@drawable/ic_like" />
 
     <ImageButton
-        android:id="@+id/feedEntry1Comment_btn"
+        android:id="@+id/profileActivitiesComment_btn"
         android:layout_width="29dp"
         android:layout_height="29dp"
         android:layout_marginStart="53dp"
         android:layout_marginTop="8dp"
         android:background="@null"
         android:scaleType="fitCenter"
-        app:layout_constraintStart_toEndOf="@+id/feedEntry1Like_btn"
-        app:layout_constraintTop_toBottomOf="@+id/feedEntry1Map_iv"
+        app:layout_constraintStart_toEndOf="@+id/profileActivitiesLike_btn"
+        app:layout_constraintTop_toBottomOf="@+id/profileActivities1Map_iv"
         app:srcCompat="@drawable/ic_comment" />
 
     <ImageButton
-        android:id="@+id/feedEntry1Share_btn"
+        android:id="@+id/profileActivitiesShare_btn"
         android:layout_width="29dp"
         android:layout_height="29dp"
         android:layout_marginStart="53dp"
         android:layout_marginTop="8dp"
         android:background="@null"
         android:scaleType="fitCenter"
-        app:layout_constraintStart_toEndOf="@+id/feedEntry1Comment_btn"
-        app:layout_constraintTop_toBottomOf="@+id/feedEntry1Map_iv"
+        app:layout_constraintStart_toEndOf="@+id/profileActivitiesComment_btn"
+        app:layout_constraintTop_toBottomOf="@+id/profileActivities1Map_iv"
         app:srcCompat="@drawable/ic_share" />
 
     <TextView
-        android:id="@+id/profileSection_tv"
+        android:id="@+id/activitiesProfileSection_tv"
         android:layout_width="206dp"
         android:layout_height="24dp"
         android:background="@color/azul_stamina"
@@ -337,10 +337,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/profileSection_tv2"
+        android:id="@+id/activitiesSection_tv"
         android:layout_width="206dp"
         android:layout_height="24dp"
-        android:background="@color/azul_stamina"
+        android:background="@color/azulOscuro_stamina"
         android:text="@string/activities"
         android:textAlignment="center"
         android:textColor="@color/white"

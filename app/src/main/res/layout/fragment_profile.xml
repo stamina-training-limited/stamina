@@ -3,20 +3,308 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.profile.ProfileFragment">
+    android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/text_profile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:id="@+id/profileSection_tv"
+        android:layout_width="206dp"
+        android:layout_height="24dp"
+        android:background="@color/azulOscuro_stamina"
+        android:text="@string/profile"
         android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/white"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/profileActivitiesSection_tv"
+        android:layout_width="206dp"
+        android:layout_height="24dp"
+        android:background="@color/azul_stamina"
+        android:text="@string/activities"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/home_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="575dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/map_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton2"
+        app:srcCompat="@drawable/ic_home" />
+
+    <ImageButton
+        android:id="@+id/map_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/activity_register_btn"
+        app:layout_constraintStart_toEndOf="@+id/home_btn"
+        app:srcCompat="@drawable/ic_map" />
+
+    <ImageButton
+        android:id="@+id/activity_register_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/profile_btn"
+        app:layout_constraintStart_toEndOf="@+id/map_btn"
+        app:srcCompat="@drawable/ic_activity_register" />
+
+    <ImageButton
+        android:id="@+id/profile_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/activity_register_btn"
+        app:srcCompat="@drawable/ic_profile" />
+
+    <ImageView
+        android:id="@+id/profilePic_iv"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_profile" />
+
+    <TextView
+        android:id="@+id/profileName_tv"
+        android:layout_width="195dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:text="Christine Froome"
+        android:textAlignment="center"
+        android:textColor="@color/azul_stamina"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/profilePic_iv"
+        app:layout_constraintTop_toTopOf="@+id/profilePic_iv" />
+
+    <TextView
+        android:id="@+id/profileUserDescription_tv"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-10dp"
+        android:layout_marginTop="8dp"
+        android:text="Ciclista de ruta para el equipo Israel-Premier Tech"
+        android:textAlignment="center"
+        android:textColor="@color/azul_stamina"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/profileName_tv"
+        app:layout_constraintTop_toBottomOf="@+id/profileName_tv" />
+
+    <View
+        android:id="@+id/profileHorizontalDivider1"
+        style="@style/Divider"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileUserDescription_tv" />
+
+    <View
+        android:id="@+id/profileHorizontalDivider2"
+        style="@style/Divider"
+        android:layout_width="wrap_content"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileFollowers_tv" />
+
+    <View
+        android:id="@+id/profileHorizontalDivider3"
+        style="@style/Divider"
+        android:layout_width="wrap_content"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileActivities_tv" />
+
+    <View
+        android:id="@+id/profileHorizontalDivider4"
+        style="@style/Divider"
+        android:layout_width="wrap_content"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileRoutes_tv" />
+
+    <View
+        android:id="@+id/profileHorizontalDivider5"
+        style="@style/Divider"
+        android:layout_width="wrap_content"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profilePublications_tv" />
+
+    <TextView
+        android:id="@+id/profileFollowers_tv"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-30dp"
+        android:layout_marginTop="20dp"
+        android:text="64 Seguidores"
+        android:textAlignment="viewStart"
+        android:textColor="@color/azul_stamina"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/profilePic_iv"
+        app:layout_constraintTop_toBottomOf="@+id/profileHorizontalDivider1" />
+
+    <TextView
+        android:id="@+id/profileActivitiesTitle_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="14dp"
+        android:text="Actividades"
+        android:textAlignment="viewStart"
+        android:textColor="@color/azul_stamina"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/profileFollowers_tv"
+        app:layout_constraintTop_toBottomOf="@+id/profileHorizontalDivider2" />
+
+    <TextView
+        android:id="@+id/profileRoutesTitle_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="Rutas"
+        android:textAlignment="viewStart"
+        android:textColor="@color/azul_stamina"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/profileActivitiesTitle_tv"
+        app:layout_constraintTop_toBottomOf="@+id/profileHorizontalDivider3" />
+
+    <TextView
+        android:id="@+id/profilePublicationsTitle_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="Publicaciones"
+        android:textAlignment="viewStart"
+        android:textColor="@color/azul_stamina"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/profileRoutesTitle_tv"
+        app:layout_constraintTop_toBottomOf="@+id/profileHorizontalDivider4" />
+
+    <TextView
+        android:id="@+id/profileActivities_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="4dp"
+        android:text="56"
+        android:textAlignment="viewStart"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/profileActivitiesTitle_tv"
+        app:layout_constraintTop_toBottomOf="@+id/profileActivitiesTitle_tv" />
+
+    <TextView
+        android:id="@+id/profileRoutes_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="2"
+        android:textAlignment="viewStart"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/profileRoutesTitle_tv"
+        app:layout_constraintTop_toBottomOf="@+id/profileRoutesTitle_tv" />
+
+    <TextView
+        android:id="@+id/profilePublications_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="2"
+        android:textAlignment="viewStart"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/profileRoutes_tv"
+        app:layout_constraintTop_toBottomOf="@id/profilePublicationsTitle_tv" />
+
+    <TextView
+        android:id="@+id/profileFollowing_tv"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="180dp"
+        android:text="50 Siguiendo"
+        android:textAlignment="viewStart"
+        android:textColor="@color/azul_stamina"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/profileFollowers_tv"
+        app:layout_constraintStart_toStartOf="@+id/profilePic_iv"
+        app:layout_constraintTop_toTopOf="@+id/profileFollowers_tv" />
+
+    <ImageView
+        android:id="@+id/profileActivities_iv"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="-8dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintEnd_toStartOf="@+id/profileActivitiesTitle_tv"
+        app:layout_constraintTop_toBottomOf="@+id/profileActivitiesTitle_tv"
+        app:srcCompat="@drawable/ic_graphic" />
+
+    <ImageView
+        android:id="@+id/profileRoutes_iv"
+        android:layout_width="32dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="-8dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintEnd_toStartOf="@id/profileRoutesTitle_tv"
+        app:layout_constraintTop_toBottomOf="@id/profileRoutesTitle_tv"
+        app:srcCompat="@drawable/ic_map" />
+
+    <ImageView
+        android:id="@+id/profilePublications_iv"
+        android:layout_width="37dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="-8dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintEnd_toStartOf="@id/profilePublicationsTitle_tv"
+        app:layout_constraintTop_toBottomOf="@id/profilePublicationsTitle_tv"
+        app:srcCompat="@drawable/ic_mobile" />
+
+    <Button
+        android:id="@+id/profileEditProfile_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="60dp"
+        android:text="Editar perfil"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="@+id/profileHorizontalDivider5"
+        app:layout_constraintTop_toBottomOf="@+id/profileHorizontalDivider5" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -50,6 +50,7 @@
         <activity android:name=".feed.FeedLike" />
         <activity android:name=".feed.FeedComment" android:windowSoftInputMode="stateVisible"/>
         <activity android:name=".feed.FeedShare"/>
+        <activity android:name=".profile.ProfileActivities"/>
     </application>
 
 </manifest>
