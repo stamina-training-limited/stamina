@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
+import com.limited.training.stamina.R
 import com.limited.training.stamina.databinding.FragmentHomeShareBinding
 
 
@@ -23,6 +26,14 @@ class HomeShareFragment : Fragment() {
     ): View {
         _binding = FragmentHomeShareBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        val callback: OnBackPressedCallback =
+            object : OnBackPressedCallback(true /* enabled by default */) {
+                override fun handleOnBackPressed() {
+                    Navigation.findNavController(root).navigate(R.id.action_navigation_home_share_to_navigation_home);
+                }
+            }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
         return root
     }

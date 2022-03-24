@@ -9,7 +9,12 @@
         android:id="@+id/navigation_home_like"
         android:name="com.limited.training.stamina.ui.home.HomeLikeFragment"
         android:label="@string/title_home_like"
-        tools:layout="@layout/fragment_home_like"/>
+        tools:layout="@layout/fragment_home_like">
+        <action
+            android:id="@+id/action_navigation_home_like_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.limited.training.stamina.ui.home.HomeFragment"
