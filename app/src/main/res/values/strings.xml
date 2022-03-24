@@ -23,6 +23,7 @@
     <string name="Main_screen_login_button">Iniciar sesión con Google</string>
 
     <!-- Actions -->
+    <string name="ver">ver</string>
     <string name="start">iniciar</string>
     <string name="stop">detener</string>
     <string name="resume">reanudar</string>

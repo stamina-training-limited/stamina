@@ -5,18 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.ListView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.limited.training.stamina.adapters.RoutesCustomAdapter
-import com.limited.training.stamina.databinding.FragmentRoutesBinding
+import com.limited.training.stamina.databinding.FragmentRouteConcreteBinding
 
 
-class RoutesFragment : Fragment() {
+class ConcreteRoutesFragment : Fragment() {
 
-    private var _binding: FragmentRoutesBinding? = null
+    private var _binding: FragmentRouteConcreteBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -30,12 +26,8 @@ class RoutesFragment : Fragment() {
         val notificationsViewModel =
             ViewModelProvider(this).get(RoutesViewModel::class.java)
 
-        _binding = FragmentRoutesBinding.inflate(inflater, container, false)
+        _binding = FragmentRouteConcreteBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        val routes: ArrayList<String> = arrayListOf("Ruta1", "Ruta2", "Ruta3", "Ruta4", "Ruta5", "Ruta6", "Ruta7", "Ruta8", "Ruta9", "Ruta10", "Ruta11")
-        val listView: ListView = binding.listView
-
-        listView.adapter = RoutesCustomAdapter(routes, requireActivity().applicationContext)
         return root
     }
 
