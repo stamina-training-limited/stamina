@@ -1,13 +1,16 @@
 package com.limited.training.stamina.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.limited.training.stamina.databinding.FragmentHomeBinding
+import com.limited.training.stamina.feed.FeedComment
+import com.limited.training.stamina.feed.FeedLike
+import com.limited.training.stamina.feed.FeedShare
 
 class HomeFragment : Fragment() {
 
@@ -22,16 +25,27 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        val likeButton: ImageButton = binding.feedEntry1LikeBtn
+        likeButton!!.setOnClickListener {
+            val intLike = Intent(activity, FeedLike::class.java)
+            startActivity(intLike)
         }
+
+        val commentButton : ImageButton = binding.feedEntry1CommentBtn
+        commentButton!!.setOnClickListener {
+            val intComment = Intent(activity, FeedComment::class.java)
+            startActivity(intComment)
+        }
+
+        val shareButton : ImageButton = binding.feedEntry1ShareBtn
+        shareButton!!.setOnClickListener {
+            val intLike = Intent(activity, FeedShare::class.java)
+            startActivity(intLike)
+        }
+
         return root
     }
 

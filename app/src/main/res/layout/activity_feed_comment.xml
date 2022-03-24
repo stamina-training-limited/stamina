@@ -12,6 +12,7 @@
         android:layout_height="252dp"
         android:layout_marginStart="-74dp"
         android:scaleType="fitCenter"
+        android:contentDescription="Keyboard"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/feed_keyboard" />
@@ -23,8 +24,9 @@
         android:layout_marginStart="12dp"
         android:layout_marginBottom="5dp"
         android:ems="10"
+        android:selectAllOnFocus="true"
         android:inputType="textPersonName"
-        android:text="Muy buen entreno Christine!"
+        android:hint="Muy buen entreno Christine!"
         android:textColor="@color/gris_stamina"
         app:layout_constraintBottom_toTopOf="@+id/keyboard_iv"
         app:layout_constraintStart_toStartOf="parent" />

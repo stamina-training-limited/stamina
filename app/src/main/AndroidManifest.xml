@@ -13,6 +13,10 @@
         <activity
             android:name=".activities.AgreementUser"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".activities.ProgressActivity" />
         <activity android:name=".activities.PausedActivity" />
@@ -40,14 +44,12 @@
         <activity
             android:name=".activities.MainScreen"
             android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".activities.GoogleLogin">
         </activity>
-
+        <activity android:name=".feed.FeedLike" />
+        <activity android:name=".feed.FeedComment" android:windowSoftInputMode="stateVisible"/>
+        <activity android:name=".feed.FeedShare"/>
     </application>
 
 </manifest>
