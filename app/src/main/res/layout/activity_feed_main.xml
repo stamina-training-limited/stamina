@@ -302,7 +302,7 @@
         app:srcCompat="@drawable/feed_maphalf" />
 
     <ImageButton
-        android:id="@+id/feedEntry1Like_btn"
+        android:id="@+id/PublicationEntry1Like_btn"
         android:layout_width="29dp"
         android:layout_height="29dp"
         android:layout_marginStart="108dp"
@@ -314,26 +314,26 @@
         app:srcCompat="@drawable/ic_like" />
 
     <ImageButton
-        android:id="@+id/feedEntry1Comment_btn"
+        android:id="@+id/PublicationEntry1Comment_btn"
         android:layout_width="29dp"
         android:layout_height="29dp"
         android:layout_marginStart="53dp"
         android:layout_marginTop="8dp"
         android:background="@null"
         android:scaleType="fitCenter"
-        app:layout_constraintStart_toEndOf="@+id/feedEntry1Like_btn"
+        app:layout_constraintStart_toEndOf="@+id/PublicationEntry1Like_btn"
         app:layout_constraintTop_toBottomOf="@+id/feedEntry1Map_iv"
         app:srcCompat="@drawable/ic_comment" />
 
     <ImageButton
-        android:id="@+id/feedEntry1Share_btn"
+        android:id="@+id/PublicationEntry1Share_btn"
         android:layout_width="29dp"
         android:layout_height="29dp"
         android:layout_marginStart="53dp"
         android:layout_marginTop="8dp"
         android:background="@null"
         android:scaleType="fitCenter"
-        app:layout_constraintStart_toEndOf="@+id/feedEntry1Comment_btn"
+        app:layout_constraintStart_toEndOf="@+id/PublicationEntry1Comment_btn"
         app:layout_constraintTop_toBottomOf="@+id/feedEntry1Map_iv"
         app:srcCompat="@drawable/ic_share" />
 

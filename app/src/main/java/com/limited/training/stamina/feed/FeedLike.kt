@@ -12,13 +12,13 @@ class FeedLike : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed_like)
 
-        commentButton = findViewById(R.id.feedEntry1Comment_btn)
+        commentButton = findViewById(R.id.PublicationEntry1Comment_btn)
         commentButton!!.setOnClickListener {
             val intComment = Intent(applicationContext, FeedComment::class.java)
             startActivity(intComment)
         }
 
-        shareButton = findViewById(R.id.feedEntry1Share_btn)
+        shareButton = findViewById(R.id.PublicationEntry1Share_btn)
         shareButton!!.setOnClickListener {
             val intShare = Intent(applicationContext, FeedShare::class.java)
             startActivity(intShare)

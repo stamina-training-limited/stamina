@@ -2,14 +2,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/publication_layout_id"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.home.HomeFragment">
 
     <TextView
         android:id="@+id/feedEntry1TimeTitle_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="38dp"
         android:layout_marginTop="10dp"
         android:text="@string/time"
         android:textColor="@color/gris_stamina"
@@ -22,10 +23,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="67dp"
-        android:layout_marginTop="60dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_profile" />
+        android:src="@drawable/ic_profile" />
 
     <TextView
         android:id="@+id/feedEntry1Name_tv"
@@ -56,7 +56,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Hoy a las 10:28 - Mogán, Canarias"
-        android:textSize="11sp"
+        android:textSize="10sp"
         app:layout_constraintStart_toEndOf="@+id/feedEntry1profilePic_iv"
         app:layout_constraintTop_toBottomOf="@+id/feedEntry1Name_tv" />
 
@@ -68,21 +68,9 @@
         android:layout_marginTop="10dp"
         android:text="@string/distance"
         android:textColor="@color/gris_stamina"
-        android:textSize="11sp"
+        android:textSize="10sp"
         app:layout_constraintStart_toEndOf="@+id/feedEntry1profilePic_iv"
         app:layout_constraintTop_toBottomOf="@+id/feedEntry1Title_tv" />
-
-    <TextView
-        android:id="@+id/feedEntry1Likes_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="99dp"
-        android:layout_marginTop="9dp"
-        android:text="1 Me gusta"
-        android:textColor="@color/gris_stamina"
-        android:textSize="11sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/PublicationEntry1Like_btn" />
 
     <TextView
         android:id="@+id/feedEntry1Distance_tv"
@@ -91,7 +79,7 @@
         android:layout_marginStart="-17dp"
         android:layout_marginTop="11dp"
         android:text="3.08 km"
-        android:textSize="11sp"
+        android:textSize="10sp"
         app:layout_constraintStart_toEndOf="@+id/feedEntry1profilePic_iv"
         app:layout_constraintTop_toBottomOf="@+id/feedEntry1DistanceTitle_tv" />
 
@@ -102,7 +90,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="11dp"
         android:text="5 min/km"
-        android:textSize="11sp"
+        android:textSize="10sp"
         app:layout_constraintStart_toEndOf="@+id/feedEntry1Distance_tv"
         app:layout_constraintTop_toBottomOf="@+id/feedEntry1DistanceTitle_tv" />
 
@@ -113,7 +101,7 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="11dp"
         android:text="00:15:23"
-        android:textSize="11sp"
+        android:textSize="10sp"
         app:layout_constraintStart_toEndOf="@+id/feedEntry1Pace_tv"
         app:layout_constraintTop_toBottomOf="@+id/feedEntry1TimeTitle_tv" />
 
@@ -125,7 +113,7 @@
         android:layout_marginTop="10dp"
         android:text="@string/pace"
         android:textColor="@color/gris_stamina"
-        android:textSize="11sp"
+        android:textSize="10sp"
         app:layout_constraintStart_toEndOf="@+id/feedEntry1DistanceTitle_tv"
         app:layout_constraintTop_toBottomOf="@+id/feedEntry1Title_tv" />
 
@@ -133,12 +121,12 @@
         android:id="@+id/feedEntry1Map_iv"
         android:layout_width="233dp"
         android:layout_height="155dp"
-        android:layout_marginStart="89dp"
+        android:layout_marginStart="22dp"
         android:layout_marginTop="12dp"
         android:scaleType="fitXY"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/feedEntry1profilePic_iv"
         app:layout_constraintTop_toBottomOf="@+id/feedEntry1Time_tv"
-        app:srcCompat="@drawable/feed_map" />
+        android:src="@drawable/feed_map" />
 
     <ImageButton
         android:id="@+id/PublicationEntry1Like_btn"
@@ -150,7 +138,7 @@
         android:scaleType="fitCenter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/feedEntry1Map_iv"
-        app:srcCompat="@drawable/ic_like" />
+        android:src="@drawable/ic_like" />
 
     <ImageButton
         android:id="@+id/PublicationEntry1Comment_btn"
@@ -162,7 +150,7 @@
         android:scaleType="fitCenter"
         app:layout_constraintStart_toEndOf="@+id/PublicationEntry1Like_btn"
         app:layout_constraintTop_toBottomOf="@+id/feedEntry1Map_iv"
-        app:srcCompat="@drawable/ic_comment" />
+        android:src="@drawable/ic_comment" />
 
     <ImageButton
         android:id="@+id/PublicationEntry1Share_btn"
@@ -174,50 +162,5 @@
         android:scaleType="fitCenter"
         app:layout_constraintStart_toEndOf="@+id/PublicationEntry1Comment_btn"
         app:layout_constraintTop_toBottomOf="@+id/feedEntry1Map_iv"
-        app:srcCompat="@drawable/ic_share" />
-
-    <TextView
-        android:id="@+id/twitter_tv"
-        android:layout_width="372dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="65dp"
-        android:layout_marginEnd="10dp"
-        android:background="@color/grisClaro_stamina"
-        android:text="    Twitter"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/PublicationEntry1Like_btn" />
-
-    <TextView
-        android:id="@+id/facebook_tv"
-        android:layout_width="372dp"
-        android:layout_height="50dp"
-        android:background="@color/gris_stamina"
-        android:text="    Facebook"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/twitter_tv"
-        app:layout_constraintTop_toBottomOf="@+id/twitter_tv" />
-
-    <TextView
-        android:id="@+id/whatsapp_tv"
-        android:layout_width="372dp"
-        android:layout_height="50dp"
-        android:background="@color/grisClaro_stamina"
-        android:text="    Whatsapp"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/facebook_tv"
-        app:layout_constraintTop_toBottomOf="@+id/facebook_tv" />
-
-    <TextView
-        android:id="@+id/telegram_tv"
-        android:layout_width="372dp"
-        android:layout_height="50dp"
-        android:background="@color/grisClaro_stamina"
-        android:text="    Telegram"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/whatsapp_tv"
-        app:layout_constraintTop_toBottomOf="@+id/whatsapp_tv" />
-
+        android:src="@drawable/ic_share" />
 </androidx.constraintlayout.widget.ConstraintLayout>
