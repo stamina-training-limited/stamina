@@ -36,8 +36,7 @@ class ProfileFragment : Fragment() {
         val editProfileButton : Button = binding.profileEditProfileBtn
         editProfileButton!!.setOnClickListener {
             Toast.makeText(this@ProfileFragment.requireContext(), "Edición de perfil realizada", Toast.LENGTH_SHORT).show()
-//            val intLike = Intent(activity, MainActivity::class.java)
-//            startActivity(intLike)
+
         }
 
         return root

@@ -9,6 +9,7 @@ import android.widget.ListView
 import android.widget.TextView
 import androidx.navigation.Navigation
 import com.limited.training.stamina.R
+import com.limited.training.stamina.Util.Utilidades
 import com.limited.training.stamina.adapters.PublicationsCustoAdapter
 import com.limited.training.stamina.databinding.FragmentProfileActivitiesBinding
 
@@ -36,8 +37,10 @@ class ProfileActivities : Fragment() {
 
         val routes: ArrayList<String> = arrayListOf("Ruta1", "Ruta2", "Ruta3", "Ruta4", "Ruta5", "Ruta6", "Ruta7", "Ruta8", "Ruta9", "Ruta10", "Ruta11")
         val listView: ListView = binding.listPublications
-
-        listView.adapter = PublicationsCustoAdapter(routes, requireActivity().applicationContext)
+        var util : Utilidades = Utilidades(0, 1)
+        listView.adapter = PublicationsCustoAdapter(routes, requireActivity().applicationContext,
+            this, util.FLAG_PERFIL
+        )
 
         return root
 

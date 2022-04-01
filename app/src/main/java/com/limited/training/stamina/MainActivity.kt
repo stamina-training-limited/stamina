@@ -1,6 +1,5 @@
 package com.limited.training.stamina
 
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.findNavController
