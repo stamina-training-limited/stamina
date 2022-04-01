@@ -18,31 +18,28 @@
         app:layout_constraintVertical_bias="0.238"
         app:srcCompat="@drawable/stamina_logo" />
 
-    <Button
-        android:id="@+id/btn_main_screen_login_google"
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Main_screen_login_button"
-        app:backgroundTint="@color/azul_stamina"
+        android:layout_marginBottom="156dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.775" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="282dp"
         android:layout_height="76dp"
+        android:layout_marginTop="56dp"
         android:text="@string/Main_screen_phrase"
         android:textAlignment="center"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_main_screen_login_google"
+        app:layout_constraintBottom_toTopOf="@+id/sign_in_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.401" />
+        app:layout_constraintVertical_bias="0.08" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
