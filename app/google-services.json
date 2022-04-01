@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "266714301658",
+    "project_id": "stamina-training",
+    "storage_bucket": "stamina-training.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:266714301658:android:693215d8d3025b65ffd1e3",
+        "android_client_info": {
+          "package_name": "com.limited.training.stamina"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "266714301658-6cd0uktn111r8qounjgi5m1go53c909p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClfTW0vefhra4DNsEOCOl0Z62bnsQJPfs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "266714301658-6cd0uktn111r8qounjgi5m1go53c909p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
