@@ -77,5 +77,19 @@
         android:id="@+id/navigation_profile"
         android:name="com.limited.training.stamina.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_profile_activities"
+            app:destination="@id/navigation_profile_activities" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_profile_activities"
+        android:name="com.limited.training.stamina.ui.profile.ProfileActivities"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile_activities" >
+        <action
+            android:id="@+id/action_navigation_profile_activities_to_navigation_profile"
+            app:destination="@id/navigation_profile" />
+    </fragment>
 </navigation>
