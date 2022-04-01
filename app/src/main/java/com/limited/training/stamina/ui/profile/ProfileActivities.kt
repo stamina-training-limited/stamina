@@ -38,6 +38,7 @@ class ProfileActivities : Fragment() {
         val listView: ListView = binding.listPublications
 
         listView.adapter = PublicationsCustoAdapter(routes, requireActivity().applicationContext)
+
         return root
 
     }
