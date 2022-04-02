@@ -14,10 +14,10 @@ class RouteInProgress : AppCompatActivity() {
         setContentView(R.layout.activity_route_progress)
 
         stopButton = findViewById(R.id.stop_btn)
-        stopButton!!.setOnClickListener {
-            val intFinishRouteActivity: Intent =
-                Intent(applicationContext, SeeRoutes::class.java)
-            startActivity(intFinishRouteActivity)
-        }
+        //stopButton!!.setOnClickListener {
+        //    val intFinishRouteActivity: Intent =
+        //        Intent(applicationContext, SeeRoutes::class.java)
+        //    startActivity(intFinishRouteActivity)
+        //}
     }
 }

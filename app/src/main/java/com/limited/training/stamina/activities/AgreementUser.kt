@@ -23,7 +23,7 @@ class AgreementUser : AppCompatActivity() {
         // Transicion hacia acuerdo de localización
         acceptButton.setOnClickListener {
             val intActivityAgreementLocation : Intent = Intent(applicationContext,
-                AgreementLocation::class.java)
+                MainScreen::class.java)
             startActivity(intActivityAgreementLocation)
         }
 

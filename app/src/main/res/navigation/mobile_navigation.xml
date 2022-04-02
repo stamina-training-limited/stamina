@@ -6,39 +6,13 @@
     app:startDestination="@+id/navigation_home">
 
     <fragment
-        android:id="@+id/navigation_home_like"
-        android:name="com.limited.training.stamina.ui.home.HomeLikeFragment"
-        android:label="@string/title_home_like"
-        tools:layout="@layout/fragment_home_like">
-        <action
-            android:id="@+id/action_navigation_home_like_to_navigation_home"
-            app:destination="@id/navigation_home" />
-    </fragment>
-
-    <fragment
         android:id="@+id/navigation_home"
         android:name="com.limited.training.stamina.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_navigation_home_to_navigation_home_like"
-            app:destination="@id/navigation_home_like" />
-        <action
             android:id="@+id/action_navigation_home_to_navigation_home_comment"
             app:destination="@id/navigation_home_comment" />
-        <action
-            android:id="@+id/action_navigation_home_to_navigation_home_share"
-            app:destination="@id/navigation_home_share" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/navigation_home_share"
-        android:name="com.limited.training.stamina.ui.home.HomeShareFragment"
-        android:label="@string/title_home_share"
-        tools:layout="@layout/fragment_home_share">
-        <action
-            android:id="@+id/action_navigation_home_share_to_navigation_home"
-            app:destination="@id/navigation_home" />
     </fragment>
 
     <fragment
@@ -55,7 +29,11 @@
         android:id="@+id/navigation_record"
         android:name="com.limited.training.stamina.ui.record.RecordFragment"
         android:label="@string/title_record"
-        tools:layout="@layout/fragment_record" />
+        tools:layout="@layout/fragment_record" >
+        <action
+            android:id="@+id/to_navigation_home_after_no_loc"
+            app:destination="@id/navigation_home" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_routes"
