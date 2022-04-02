@@ -6,18 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.limited.training.stamina.MainActivity
-import com.limited.training.stamina.databinding.FragmentHomeBinding
+import androidx.navigation.Navigation
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.tasks.OnCompleteListener
+import com.limited.training.stamina.R
+import com.limited.training.stamina.activities.MainScreen
 import com.limited.training.stamina.databinding.FragmentProfileBinding
-import com.limited.training.stamina.feed.FeedComment
-import com.limited.training.stamina.feed.FeedLike
-import com.limited.training.stamina.feed.FeedShare
-import com.limited.training.stamina.profile.ProfileActivities
+
 
 class ProfileFragment : Fragment() {
 
@@ -37,15 +36,17 @@ class ProfileFragment : Fragment() {
 
         val activitiesTextView : TextView = binding.profileActivitiesSectionTv
         activitiesTextView!!.setOnClickListener {
-            val intLike = Intent(activity, ProfileActivities::class.java)
-            startActivity(intLike)
+            Navigation.findNavController(root).navigate(R.id.action_navigation_profile_to_navigation_profile_activities);
         }
 
         val editProfileButton : Button = binding.profileEditProfileBtn
         editProfileButton!!.setOnClickListener {
             Toast.makeText(this@ProfileFragment.requireContext(), "Edición de perfil realizada", Toast.LENGTH_SHORT).show()
-//            val intLike = Intent(activity, MainActivity::class.java)
-//            startActivity(intLike)
+        }
+
+        val logOutButton : Button = binding.profileLogOut
+        logOutButton!!.setOnClickListener {
+            signOut()
         }
 
         return root
@@ -54,5 +55,22 @@ class ProfileFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    fun signOut(){
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+
+        // Build a GoogleSignInClient with the options specified by gso.
+        val mGoogleSignInClient = context?.let { GoogleSignIn.getClient(it, gso) };
+
+        if (mGoogleSignInClient != null) {
+            mGoogleSignInClient.signOut()
+                .addOnCompleteListener{
+                    val intent : Intent = Intent(context, MainScreen::class.java)
+                    startActivity(intent)
+                }
+        }
     }
 }

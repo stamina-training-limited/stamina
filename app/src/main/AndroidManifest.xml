@@ -2,6 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.limited.training.stamina">
 
+    <!-- Always include this permission -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- Include only if your app benefits from precise location access. -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!-- Required only when requesting background location access on
+     Android 10 (API level 29) and higher. -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -24,10 +34,6 @@
             android:name=".activities.RegisterActivity"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".routes.SeeRoutes"
-            android:exported="true" >
-        </activity>
-        <activity
             android:name=".routes.SeeConcreteRoute"
             android:exported="true" >
         </activity>
@@ -36,21 +42,11 @@
             android:exported="true" >
         </activity>
 
-        <activity android:name=".MainActivity">
-
-        </activity>
-        <activity android:name=".activities.AgreementLocation">
-        </activity>
+        <activity android:name=".MainActivity"></activity>
         <activity
             android:name=".activities.MainScreen"
             android:exported="true" >
         </activity>
-        <activity android:name=".activities.GoogleLogin">
-        </activity>
-        <activity android:name=".feed.FeedLike" />
-        <activity android:name=".feed.FeedComment" android:windowSoftInputMode="stateVisible"/>
-        <activity android:name=".feed.FeedShare"/>
-        <activity android:name=".profile.ProfileActivities"/>
     </application>
 
 </manifest>
