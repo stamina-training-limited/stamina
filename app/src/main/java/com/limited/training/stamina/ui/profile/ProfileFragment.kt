@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -14,7 +15,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.OnCompleteListener
 import com.limited.training.stamina.R
+import com.limited.training.stamina.Util.Utilidades
 import com.limited.training.stamina.activities.MainScreen
+import com.limited.training.stamina.adapters.PublicationsCustoAdapter
 import com.limited.training.stamina.databinding.FragmentProfileBinding
 
 
@@ -34,9 +37,22 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val activitiesTextView : TextView = binding.profileActivitiesSectionTv
-        activitiesTextView!!.setOnClickListener {
-            Navigation.findNavController(root).navigate(R.id.action_navigation_profile_to_navigation_profile_activities);
+        //If is a tablet this textview is null
+        val activitiesTextView : TextView? = binding.profileActivitiesSectionTv
+        if (activitiesTextView != null) {
+            activitiesTextView.setOnClickListener {
+                Navigation.findNavController(root).navigate(R.id.action_navigation_profile_to_navigation_profile_activities);
+            }
+        }else{
+            val routes: ArrayList<String> = arrayListOf("Ruta1", "Ruta2", "Ruta3", "Ruta4", "Ruta5", "Ruta6", "Ruta7", "Ruta8", "Ruta9", "Ruta10", "Ruta11")
+            val listView: ListView? = binding.listPublications
+            var util : Utilidades = Utilidades(0, 1)
+            if (listView != null) {
+                listView.adapter = PublicationsCustoAdapter(
+                    routes, requireActivity().applicationContext,
+                    this, util.FLAG_PERFIL
+                )
+            }
         }
 
         val editProfileButton : Button = binding.profileEditProfileBtn
