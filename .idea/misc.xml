@@ -6,7 +6,7 @@
         <entry key="../../../../layout/custom_preview.xml" value="0.1" />
         <entry key="../../Android/Sdk/platforms/android-32/data/res/layout/simple_expandable_list_item_1.xml" value="0.359375" />
         <entry key="../../Android/Sdk/platforms/android-32/data/res/layout/simple_list_item_1.xml" value="0.30117753623188404" />
-        <entry key="..\:/Users/yo/AndroidStudioProjects/Stamina/app/src/main/res/layout/activity_activity_paused.xml" value="0.13451086956521738" />
+        <entry key="..\:/Users/yo/AndroidStudioProjects/Stamina/app/src/main/res/layout/activity_activity_paused.xml" value="0.33" />
         <entry key="..\:/Users/yo/AndroidStudioProjects/Stamina/app/src/main/res/layout/activity_activity_progress.xml" value="0.13451086956521738" />
         <entry key="..\:/Users/yo/AndroidStudioProjects/Stamina/app/src/main/res/layout/activity_activity_register.xml" value="0.13451086956521738" />
         <entry key="..\:/Users/yo/AndroidStudioProjects/Stamina/app/src/main/res/layout/activity_activity_start.xml" value="0.13451086956521738" />
@@ -34,6 +34,7 @@
         <entry key="..\:/Users/yo/AndroidStudioProjects/Stamina/app/src/main/res/layout/fragment_profile_activities.xml" value="0.1762917933130699" />
         <entry key="..\:/Users/yo/AndroidStudioProjects/Stamina/app/src/main/res/layout/fragment_record.xml" value="0.13451086956521738" />
         <entry key="..\:/Users/yo/AndroidStudioProjects/Stamina/app/src/main/res/layout/fragment_route_concrete.xml" value="0.13451086956521738" />
+        <entry key="..\:/Users/yo/AndroidStudioProjects/Stamina/app/src/main/res/layout/fragment_route_progress.xml" value="0.1" />
         <entry key="..\:/Users/yo/AndroidStudioProjects/Stamina/app/src/main/res/layout/fragment_routes.xml" value="0.13451086956521738" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1" />
