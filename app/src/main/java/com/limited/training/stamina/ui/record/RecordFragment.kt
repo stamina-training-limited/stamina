@@ -46,7 +46,7 @@ class RecordFragment : Fragment() {
 
 
 
-        val startButon: Button = binding.startBtn
+        val startButon: Button = binding.recordStartBtn
         startButon!!.setOnClickListener {
             val intActivityInProgress: Intent = Intent(activity, ProgressActivity::class.java)
             startActivity(intActivityInProgress)

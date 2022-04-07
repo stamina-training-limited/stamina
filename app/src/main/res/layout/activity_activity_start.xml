@@ -9,7 +9,7 @@
     >
 
     <Button
-        android:id="@+id/start_btn"
+        android:id="@+id/routeConcreteStart_btn"
         android:layout_width="wrap_content"
         android:layout_height="69dp"
         android:layout_marginBottom="40dp"
@@ -25,7 +25,7 @@
         android:id="@+id/imageButton"
         android:layout_width="55dp"
         android:layout_height="54dp"
-        app:layout_constraintBottom_toTopOf="@+id/start_btn"
+        app:layout_constraintBottom_toTopOf="@+id/routeConcreteStart_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
