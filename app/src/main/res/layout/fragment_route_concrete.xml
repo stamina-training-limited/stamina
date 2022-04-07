@@ -2,113 +2,107 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/mock_map_route"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".routes.SeeConcreteRoute">
 
-    <TextView
-        android:id="@+id/white_background_tv"
-        android:layout_width="407dp"
-        android:layout_height="146dp"
-        android:layout_marginTop="586dp"
-        android:alpha="0.75"
-        android:background="@color/white"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ImageView
+        android:id="@+id/routeConcreteMap_iv"
+        android:layout_width="411dp"
+        android:layout_height="428dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="5.0" />
+        app:srcCompat="@drawable/mock_map_route_2" />
+
+    <TextView
+        android:id="@+id/routeConcreteWhiteBackground_tv"
+        android:layout_width="398dp"
+        android:layout_height="144dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="28dp"
+        android:alpha="0.75"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/routeConcreteMap_iv" />
+
+    <TextView
+        android:id="@+id/routeConcreteTime_tv"
+        android:layout_width="70dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="86dp"
+        android:layout_marginTop="46dp"
+        android:text="41 min"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/routeConcreteWhiteBackground_tv"
+        app:layout_constraintTop_toTopOf="@+id/routeConcreteWhiteBackground_tv" />
 
     <Button
-        android:id="@+id/start_btn"
+        android:id="@+id/routeConcreteStart_btn"
         android:layout_width="wrap_content"
         android:layout_height="69dp"
+        android:layout_marginStart="238dp"
+        android:layout_marginBottom="1dp"
         android:background="@drawable/style_start_button"
         android:text="empezar"
         android:textSize="8pt"
         android:typeface="monospace"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.82"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintBottom_toBottomOf="@+id/routeConcreteWhiteBackground_tv"
+        app:layout_constraintStart_toStartOf="@+id/routeConcreteWhiteBackground_tv" />
+
+    <TextView
+        android:id="@+id/routeConcreteSpeed_tv"
+        android:layout_width="70dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="46dp"
+        android:text="11.2 Km/h"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/routeConcreteWhiteBackground_tv"
+        app:layout_constraintTop_toTopOf="@+id/routeConcreteWhiteBackground_tv" />
+
+    <TextView
+        android:id="@+id/routeConcreteType_tv"
+        android:layout_width="70dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="164dp"
+        android:layout_marginTop="46dp"
+        android:text="Running"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/routeConcreteWhiteBackground_tv"
+        app:layout_constraintTop_toTopOf="@+id/routeConcreteWhiteBackground_tv" />
+
+    <TextView
+        android:id="@+id/routeConcreteName_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="39dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        android:text="Ruta Ciudad Vieja - Matogrande"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/routeConcreteWhiteBackground_tv"
+        app:layout_constraintTop_toTopOf="@+id/routeConcreteWhiteBackground_tv" />
 
     <Button
-        android:id="@+id/rating_btn"
+        android:id="@+id/routeConcreteRating_btn"
         android:layout_width="wrap_content"
         android:layout_height="69dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginBottom="1dp"
         android:background="@drawable/style_rating_button"
         android:text="@string/rating"
         android:textColor="@color/black"
         android:textSize="8pt"
         android:typeface="monospace"
         app:backgroundTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/start_btn"
-        app:layout_constraintEnd_toStartOf="@+id/start_btn"
-        app:layout_constraintHorizontal_bias="0.45"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/routeConcreteWhiteBackground_tv"
+        app:layout_constraintStart_toStartOf="@+id/routeConcreteWhiteBackground_tv"
         app:strokeColor="@color/azul_stamina"
         app:strokeWidth="9dip" />
-
-    <TextView
-        android:id="@+id/route_name_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="39dp"
-        android:layout_margin="10dp"
-        android:layout_marginStart="8dp"
-        android:text="Ruta Ciudad Vieja - Matogrande"
-        android:textColor="@color/black"
-        android:textSize="16dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.864" />
-
-    <TextView
-        android:id="@+id/speed_tv"
-        android:layout_width="70dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="60dp"
-        android:text="11.2 Km/h"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/route_name_tv"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/running_tv"
-        android:layout_width="70dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="60dp"
-        android:text="Running"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/time_tv"
-        app:layout_constraintTop_toBottomOf="@+id/route_name_tv"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/time_tv"
-        android:layout_width="70dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="60dp"
-        android:text="41 min"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/speed_tv"
-        app:layout_constraintTop_toBottomOf="@+id/route_name_tv"
-        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

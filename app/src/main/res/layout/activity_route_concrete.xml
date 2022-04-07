@@ -8,7 +8,7 @@
     tools:context=".routes.SeeConcreteRoute">
 
     <TextView
-        android:id="@+id/white_background_tv"
+        android:id="@+id/routeConcreteWhiteBackground_tv"
         android:layout_width="407dp"
         android:layout_height="146dp"
         android:layout_marginTop="586dp"
@@ -22,7 +22,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/start_btn"
+        android:id="@+id/routeConcreteStart_btn"
         android:layout_width="wrap_content"
         android:layout_height="69dp"
         android:background="@drawable/style_start_button"
@@ -37,7 +37,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/rating_btn"
+        android:id="@+id/routeConcreteRating_btn"
         android:layout_width="wrap_content"
         android:layout_height="69dp"
         android:background="@drawable/style_rating_button"
@@ -46,15 +46,15 @@
         android:textSize="8pt"
         android:typeface="monospace"
         app:backgroundTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/start_btn"
-        app:layout_constraintEnd_toStartOf="@+id/start_btn"
+        app:layout_constraintBottom_toBottomOf="@+id/routeConcreteStart_btn"
+        app:layout_constraintEnd_toStartOf="@+id/routeConcreteStart_btn"
         app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintStart_toStartOf="parent"
         app:strokeColor="@color/azul_stamina"
         app:strokeWidth="9dip" />
 
     <TextView
-        android:id="@+id/route_name_tv"
+        android:id="@+id/routeConcreteName_tv"
         android:layout_width="wrap_content"
         android:layout_height="39dp"
         android:layout_margin="10dp"
@@ -69,7 +69,7 @@
         app:layout_constraintVertical_bias="0.864" />
 
     <TextView
-        android:id="@+id/speed_tv"
+        android:id="@+id/routeConcreteSpeed_tv"
         android:layout_width="70dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
@@ -79,11 +79,11 @@
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/route_name_tv"
+        app:layout_constraintTop_toBottomOf="@+id/routeConcreteName_tv"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/running_tv"
+        android:id="@+id/routeConcreteType_tv"
         android:layout_width="70dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
@@ -92,12 +92,12 @@
         android:text="Running"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/time_tv"
-        app:layout_constraintTop_toBottomOf="@+id/route_name_tv"
+        app:layout_constraintStart_toEndOf="@+id/routeConcreteTime_tv"
+        app:layout_constraintTop_toBottomOf="@+id/routeConcreteName_tv"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/time_tv"
+        android:id="@+id/routeConcreteTime_tv"
         android:layout_width="70dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
@@ -106,8 +106,8 @@
         android:text="41 min"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/speed_tv"
-        app:layout_constraintTop_toBottomOf="@+id/route_name_tv"
+        app:layout_constraintStart_toEndOf="@+id/routeConcreteSpeed_tv"
+        app:layout_constraintTop_toBottomOf="@+id/routeConcreteName_tv"
         app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,8 +29,20 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home, R.id.navigation_routes, R.id.navigation_record, R.id.navigation_profile
             )
         )
+
+        val actionbar = supportActionBar
+
+        //set back button
+        actionbar!!.setDisplayHomeAsUpEnabled(true)
+        actionbar.setDisplayHomeAsUpEnabled(true)
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
 }

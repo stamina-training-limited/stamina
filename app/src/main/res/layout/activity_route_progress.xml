@@ -8,7 +8,7 @@
     tools:context=".routes.RouteInProgress">
 
     <TextView
-        android:id="@+id/white_background_tv"
+        android:id="@+id/routeConcreteWhiteBackground_tv"
         android:layout_width="407dp"
         android:layout_height="146dp"
         android:layout_marginTop="586dp"
@@ -65,7 +65,7 @@
         app:layout_constraintTop_toBottomOf="@+id/duration_tv" />
 
     <TextView
-        android:id="@+id/speed_tv"
+        android:id="@+id/routeConcreteSpeed_tv"
         android:layout_width="131dp"
         android:layout_height="39dp"
         android:layout_margin="10dp"
@@ -84,7 +84,7 @@
         android:layout_height="39dp"
         android:text="00:46:15"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/white_background_tv"
+        app:layout_constraintBottom_toBottomOf="@+id/routeConcreteWhiteBackground_tv"
         app:layout_constraintStart_toEndOf="@+id/duration_tv"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.852" />
@@ -96,8 +96,8 @@
         android:layout_marginStart="2dp"
         android:text="9.450 Km"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/white_background_tv"
-        app:layout_constraintStart_toEndOf="@+id/speed_tv"
+        app:layout_constraintBottom_toBottomOf="@+id/routeConcreteWhiteBackground_tv"
+        app:layout_constraintStart_toEndOf="@+id/routeConcreteSpeed_tv"
         app:layout_constraintTop_toBottomOf="@+id/speed_kmh_tv"
         app:layout_constraintVertical_bias="0.714" />
 
