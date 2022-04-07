@@ -2,11 +2,13 @@ package com.limited.training.stamina.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.limited.training.stamina.R
@@ -44,6 +46,8 @@ class HomeCommentFragment : Fragment() {
 //            val intLike = Intent(activity, MainActivity::class.java)
 //            startActivity(intLike)
         }
+        
+
 
         return root
     }
