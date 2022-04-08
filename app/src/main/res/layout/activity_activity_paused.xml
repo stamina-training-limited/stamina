@@ -8,18 +8,17 @@
     tools:context=".activities.PausedActivity">
 
     <TextView
-        android:id="@+id/white_background_tv"
-        android:layout_width="409dp"
-        android:layout_height="728dp"
+        android:id="@+id/routeConcreteWhiteBackground_tv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:alpha="0.85"
         android:background="@color/white"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.333" />
 
     <Button
         android:id="@+id/finish_btn"
@@ -61,7 +60,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/speed_tv"
+        android:id="@+id/routeConcreteSpeed_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/speed"
@@ -71,7 +70,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.789"
-        app:layout_constraintStart_toStartOf="@+id/white_background_tv"
+        app:layout_constraintStart_toStartOf="@+id/routeConcreteWhiteBackground_tv"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.541" />
 
@@ -83,10 +82,11 @@
         android:textColor="@color/black"
         android:textSize="16dp"
         android:textStyle="bold"
+        android:gravity="center_horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.768"
-        app:layout_constraintStart_toStartOf="@+id/white_background_tv"
+        app:layout_constraintStart_toStartOf="@+id/routeConcreteWhiteBackground_tv"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.397" />
 
@@ -101,7 +101,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.773"
-        app:layout_constraintStart_toStartOf="@+id/white_background_tv"
+        app:layout_constraintStart_toStartOf="@+id/routeConcreteWhiteBackground_tv"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.468" />
 

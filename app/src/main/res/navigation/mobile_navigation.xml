@@ -49,7 +49,26 @@
         android:id="@+id/navigation_concrete_routes"
         android:name="com.limited.training.stamina.ui.routes.ConcreteRoutesFragment"
         android:label="@string/title_routes"
-        tools:layout="@layout/fragment_route_concrete" />
+        tools:layout="@layout/fragment_route_concrete" >
+        <action
+            android:id="@+id/action_navigation_concrete_routes_to_navigation_progress_routes"
+            app:destination="@id/navigation_progress_routes" />
+        <action
+            android:id="@+id/action_navigation_concrete_routes_to_navigation_classification_routes"
+            app:destination="@id/navigation_classification_routes" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_progress_routes"
+        android:name="com.limited.training.stamina.ui.routes.ProgressRoutesFragment"
+        android:label="@string/title_routes"
+        tools:layout="@layout/fragment_route_progress" />
+
+    <fragment
+        android:id="@+id/navigation_classification_routes"
+        android:name="com.limited.training.stamina.ui.routes.RoutesClassificationFragment"
+        android:label="Classification"
+        tools:layout="@layout/fragment_route_classification" />
 
     <fragment
         android:id="@+id/navigation_profile"

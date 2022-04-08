@@ -5,88 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/profileSection_tv"
-        android:layout_width="206dp"
-        android:layout_height="24dp"
-        android:background="@color/azulOscuro_stamina"
-        android:text="@string/profile"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/profileActivitiesSection_tv"
-        android:layout_width="206dp"
-        android:layout_height="24dp"
-        android:background="@color/azul_stamina"
-        android:text="@string/activities"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/home_btn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="575dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/map_btn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton2"
-        app:srcCompat="@drawable/ic_home" />
 
-    <ImageButton
-        android:id="@+id/map_btn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/activity_register_btn"
-        app:layout_constraintStart_toEndOf="@+id/home_btn"
-        app:srcCompat="@drawable/ic_map" />
-
-    <ImageButton
-        android:id="@+id/activity_register_btn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/profile_btn"
-        app:layout_constraintStart_toEndOf="@+id/map_btn"
-        app:srcCompat="@drawable/ic_activity_register" />
-
-    <ImageButton
-        android:id="@+id/profile_btn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/activity_register_btn"
-        app:srcCompat="@drawable/ic_profile" />
 
     <ImageView
         android:id="@+id/profilePic_iv"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_profile" />
@@ -298,13 +226,42 @@
         app:srcCompat="@drawable/ic_mobile" />
 
     <Button
+        android:id="@+id/profileLogOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="48dp"
+        android:text="@string/Log_out"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#B23B3B"
+        app:layout_constraintBottom_toBottomOf="@+id/profileEditProfile_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/profileEditProfile_btn"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
         android:id="@+id/profileEditProfile_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="48dp"
         android:text="Editar perfil"
         android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/profileLogOut"
+        app:layout_constraintHorizontal_bias="0.772"
+        app:layout_constraintStart_toStartOf="@+id/profileHorizontalDivider5"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.016" />
+
+
+    <ListView
+        android:layout_centerHorizontal="true"
+        android:id="@+id/list_publications"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="@+id/profileHorizontalDivider5"
         app:layout_constraintTop_toBottomOf="@+id/profileHorizontalDivider5" />
+
+    
 </androidx.constraintlayout.widget.ConstraintLayout>
