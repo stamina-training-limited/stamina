@@ -9,6 +9,9 @@
     <ListView
         android:id="@+id/list_publications"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:divider="@null"
+        android:paddingBottom="60dp">
     </ListView>
 </androidx.constraintlayout.widget.ConstraintLayout>
