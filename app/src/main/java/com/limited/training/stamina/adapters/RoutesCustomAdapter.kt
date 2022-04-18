@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.navigation.Navigation
 import com.limited.training.stamina.R
+import com.limited.training.stamina.objects.Ruta
 
 
-class RoutesCustomAdapter(var list: ArrayList<String>, var context: Context) : BaseAdapter(), ListAdapter {
+class RoutesCustomAdapter(var list: List<Ruta>, var context: Context) : BaseAdapter(), ListAdapter {
 
     override fun getCount(): Int {
         return list.size;
@@ -33,7 +34,7 @@ class RoutesCustomAdapter(var list: ArrayList<String>, var context: Context) : B
         }
 
         val tvContact = view!!.findViewById<View>(R.id.tvContact) as TextView
-        tvContact.text = list[p0]
+        tvContact.text = list[p0].nombre;
 
         val callbtn: Button = view.findViewById(R.id.btn)
         callbtn.setOnClickListener {
