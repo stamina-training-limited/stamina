@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 import com.limited.training.stamina.R
+import com.limited.training.stamina.Util.Funciones
 import com.limited.training.stamina.Util.Utilidades
 import com.limited.training.stamina.activities.MainScreen
 import com.limited.training.stamina.adapters.PublicationsCustoAdapter
@@ -77,19 +78,15 @@ class ProfileFragment : Fragment() {
         // Recuperacion de datos de usuario y seteo de los mismos de BBDD
 
         // Se recupera el email del usuario para buscar sus datos en BBDD
-        val acct = GoogleSignIn.getLastSignedInAccount(requireActivity())
-        if (acct == null) {
-            Log.println(Log.ERROR, "Correo", "Correo electrónico nulo");
-        }
-
-        val personEmail = acct?.email
-        val personProfileImageUrl = acct?.photoUrl
+        val cuentaGoogle = Funciones.recuperarDatosCuentaGoogle(requireActivity())
+        val personEmail = cuentaGoogle?.email
+        val personProfileImageUrl = cuentaGoogle?.photoUrl
 
         // Se eliminan los puntos para poder usarlo de clave contra el JSON de BBDD
-        var processedEmail : String? = personEmail
-        processedEmail = processedEmail!!.replace(".", "", false)
+        var processedEmail : String = Funciones.remplazarPuntos(personEmail!!)
 
-        var database= FirebaseDatabase.getInstance("https://stamina-training-default-rtdb.europe-west1.firebasedatabase.app/")
+        var database = Funciones.recuperarReferenciaBBDD(requireActivity())
+
         var myRef = database.getReference("usuarios/" + processedEmail)
 
         if (myRef != null){

@@ -20,6 +20,7 @@
         <entry key="..\:/Users/yo/AndroidStudioProjects/Stamina/app/src/main/res/layout/activity_login_google.xml" value="0.240625" />
         <entry key="..\:/Users/yo/AndroidStudioProjects/Stamina/app/src/main/res/layout/activity_main.xml" value="0.1762917933130699" />
         <entry key="..\:/Users/yo/AndroidStudioProjects/Stamina/app/src/main/res/layout/activity_main_screen.xml" value="0.22" />
+        <entry key="..\:/Users/yo/AndroidStudioProjects/Stamina/app/src/main/res/layout/activity_registrar_usuario.xml" value="0.22" />
         <entry key="..\:/Users/yo/AndroidStudioProjects/Stamina/app/src/main/res/layout/activity_route_concrete.xml" value="0.13451086956521738" />
         <entry key="..\:/Users/yo/AndroidStudioProjects/Stamina/app/src/main/res/layout/activity_route_progress.xml" value="0.13451086956521738" />
         <entry key="..\:/Users/yo/AndroidStudioProjects/Stamina/app/src/main/res/layout/activity_route_watch.xml" value="0.13451086956521738" />
@@ -33,6 +34,7 @@
         <entry key="..\:/Users/yo/AndroidStudioProjects/Stamina/app/src/main/res/layout/fragment_profile.xml" value="0.75" />
         <entry key="..\:/Users/yo/AndroidStudioProjects/Stamina/app/src/main/res/layout/fragment_profile_activities.xml" value="0.1762917933130699" />
         <entry key="..\:/Users/yo/AndroidStudioProjects/Stamina/app/src/main/res/layout/fragment_record.xml" value="0.13451086956521738" />
+        <entry key="..\:/Users/yo/AndroidStudioProjects/Stamina/app/src/main/res/layout/fragment_registrar_usuario.xml" value="0.25" />
         <entry key="..\:/Users/yo/AndroidStudioProjects/Stamina/app/src/main/res/layout/fragment_route_concrete.xml" value="0.13451086956521738" />
         <entry key="..\:/Users/yo/AndroidStudioProjects/Stamina/app/src/main/res/layout/fragment_route_progress.xml" value="0.1" />
         <entry key="..\:/Users/yo/AndroidStudioProjects/Stamina/app/src/main/res/layout/fragment_routes.xml" value="0.13451086956521738" />

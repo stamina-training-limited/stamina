@@ -3,14 +3,14 @@ package com.limited.training.stamina.objects
 import com.google.firebase.database.PropertyName
 
 data class Usuario(
-    @PropertyName("Correo") val correo : String,
-    @PropertyName("Nombre") val nombre : String,
-    @PropertyName("Descripcion") val descripcion : String,
-    @PropertyName("Seguidores") val seguidores : List<String>,
-    @PropertyName("Seguidos") val seguidos : List<String>,
-    @PropertyName("Actividades") val actividades : List<String>,
-    @PropertyName("Rutas") val rutas : List<String>,
-    @PropertyName("Publicaciones") val publicaciones : List<String>,
+    @PropertyName("correo") val correo : String,
+    @PropertyName("nombre") val nombre : String,
+    @PropertyName("descripcion") val descripcion : String,
+    @PropertyName("seguidores") val seguidores : List<String>,
+    @PropertyName("seguidos") val seguidos : List<String>,
+    @PropertyName("actividades") val actividades : List<String>,
+    @PropertyName("rutas") val rutas : List<String>,
+    @PropertyName("publicaciones") val publicaciones : List<String>,
 
 
 ){

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.Navigator
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -86,8 +87,9 @@ class MainScreen : AppCompatActivity() {
     // (en lugar de null ), el usuario ya ha iniciado sesión en su aplicación con Google.
     fun updateUI(account : GoogleSignInAccount?){
         if(account != null){
-            val intLogin : Intent = Intent(applicationContext, MainActivity::class.java)
+            val intLogin : Intent = Intent(applicationContext, RegistrarUsuario::class.java)
             startActivity(intLogin)
+
         }
 
     }
