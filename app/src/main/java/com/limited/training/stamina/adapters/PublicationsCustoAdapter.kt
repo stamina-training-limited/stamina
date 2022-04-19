@@ -1,6 +1,5 @@
 package com.limited.training.stamina.adapters
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -8,18 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat.startActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import androidx.navigation.Navigation
 import com.limited.training.stamina.R
 import com.limited.training.stamina.Util.Utilidades
-import com.limited.training.stamina.ui.profile.ProfileActivities
-import com.limited.training.stamina.ui.profile.ProfileFragment
+import com.limited.training.stamina.objects.Publication
 
-class PublicationsCustoAdapter(var list: ArrayList<String>, var context: Context, var ref : Fragment,
-                               var padre : Int) : BaseAdapter(),
+
+
+class PublicationsCustoAdapter(var list: List<Publication>, var context: Context) : BaseAdapter(),
     ListAdapter {
 
     var util : Utilidades = Utilidades(0, 1)
@@ -48,6 +43,21 @@ class PublicationsCustoAdapter(var list: ArrayList<String>, var context: Context
         val likeButton: ImageButton = view!!.findViewById(R.id.PublicationEntry1Like_btn)
         val commentButton: ImageButton = view!!.findViewById(R.id.PublicationEntry1Comment_btn)
         val shareButton: ImageButton = view!!.findViewById(R.id.PublicationEntry1Share_btn)
+
+        val textName: TextView = view!!.findViewById(R.id.feedEntry1Name_tv)
+        val textDateAndLocation: TextView = view!!.findViewById(R.id.feedEntry1DateAndLocation_tv)
+        val textTitle: TextView = view!!.findViewById(R.id.feedEntry1Title_tv)
+        val textDistance: TextView = view!!.findViewById(R.id.feedEntry1Distance_tv)
+        val ritmo: TextView = view!!.findViewById(R.id.feedEntry1Pace_tv)
+        val tiempo: TextView = view!!.findViewById(R.id.feedEntry1Time_tv)
+
+        textName.text = list[p0].nombre
+        textDateAndLocation.text = list[p0].hora.plus(" - ").plus(list[p0].lugar)
+        textTitle.text = list[p0].titulo
+        textDistance.text = list[p0].distancia.toString().plus("km")
+        ritmo.text = list[p0].ritmo.toString().plus("min/km")
+        tiempo.text = list[p0].tiempo.toString()
+
 
         likeButton!!.setOnClickListener {
             Toast.makeText(context, "Me gusta mucho", Toast.LENGTH_SHORT).show()
