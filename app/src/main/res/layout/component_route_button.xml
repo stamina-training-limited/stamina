@@ -18,6 +18,7 @@
             android:id="@+id/route_button_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#FFFFFF"
             tools:context=".ui.home.HomeFragment">
 
             <TextView
@@ -35,12 +36,12 @@
                 android:id="@+id/btn"
                 android:layout_width="fill_parent"
                 android:layout_height="58dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="25dp"
                 android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginBottom="10dp"
                 android:text="@string/ver"
-                card_view:layout_constraintRight_toRightOf="parent"
-                card_view:layout_constraintBottom_toBottomOf="parent" />
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintRight_toRightOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
