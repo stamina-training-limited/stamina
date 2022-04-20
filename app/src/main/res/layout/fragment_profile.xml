@@ -7,19 +7,20 @@
 
     <TextView
         android:id="@+id/profileSection_tv"
-        android:layout_width="206dp"
+        android:layout_width="0dp"
         android:layout_height="24dp"
         android:background="@color/azulOscuro_stamina"
         android:text="@string/profile"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@id/profileActivitiesSection_tv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/profileActivitiesSection_tv"
-        android:layout_width="206dp"
+        android:layout_width="0dp"
         android:layout_height="24dp"
         android:background="@color/azul_stamina"
         android:text="@string/activities"
@@ -28,6 +29,8 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/profileSection_tv"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -250,7 +253,7 @@
         android:id="@+id/profileLogOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="48dp"
+        android:layout_marginEnd="38dp"
         android:text="@string/Log_out"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
@@ -264,13 +267,13 @@
         android:id="@+id/profileEditProfile_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="38dp"
         android:text="Editar perfil"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/profileLogOut"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/profileHorizontalDivider5"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.73" />
+        app:layout_constraintTop_toBottomOf="@+id/profileHorizontalDivider5"
+        app:layout_constraintVertical_bias="0.447" />
 </androidx.constraintlayout.widget.ConstraintLayout>
