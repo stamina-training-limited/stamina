@@ -34,6 +34,8 @@ class ConcreteRoutesFragment : Fragment() {
         _binding = FragmentRouteConcreteBinding.inflate(inflater, container, false)
         val root: View = binding.root
         binding.routeConcreteNameTv.setText(model.selected.value?.nombre ?: "Error")
+        binding.routeConcreteDistanceTv.setText(model.selected.value?.distancia.toString() ?: "Error")
+        binding.routeConcreteTypeTv.setText(model.selected.value?.tipo ?: "Error")
         val progressRouteButton : Button = binding.routeConcreteStartBtn
         progressRouteButton!!.setOnClickListener {
             Navigation.findNavController(root).navigate(com.limited.training.stamina.R.id.action_navigation_concrete_routes_to_navigation_progress_routes);
