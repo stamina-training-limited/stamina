@@ -8,16 +8,24 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
-        android:layout_width="400dp"
+        android:layout_width="match_parent"
         android:layout_height="140dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="15dp"
+        card_view:cardBackgroundColor="#ffffff"
         card_view:cardCornerRadius="8dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/route_button_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="130dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="5dp"
             android:background="#FFFFFF"
             tools:context=".ui.home.HomeFragment">
 
