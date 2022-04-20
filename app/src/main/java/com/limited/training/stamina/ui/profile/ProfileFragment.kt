@@ -1,6 +1,7 @@
 package com.limited.training.stamina.ui.profile
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -118,8 +119,7 @@ class ProfileFragment : Fragment() {
                     numeroRutas.text = usuario.rutas.size.toString()
                     numeroPublicaciones.text = usuario.publicaciones.size.toString()
 
-                    Picasso.get().load(personProfileImageUrl).into(fotoPerfil);
-
+                    establecerFotoPerfil(personProfileImageUrl, fotoPerfil)
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {
@@ -152,5 +152,15 @@ class ProfileFragment : Fragment() {
                     startActivity(intent)
                 }
         }
+    }
+
+    fun establecerFotoPerfil(urlImagen : Uri?, imageView : ImageView){
+
+        // Se procede a comprobar si la imagen viene vacía o no. Si viene vacía, se deja la imagen
+        // por defecto. Si no, se establece la foto de gmail.
+        if(urlImagen == null){
+            return
+        }
+        Picasso.get().load(urlImagen).into(imageView);
     }
 }
