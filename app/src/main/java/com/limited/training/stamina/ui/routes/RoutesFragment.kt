@@ -6,20 +6,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
+import androidx.databinding.adapters.AdapterViewBindingAdapter
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.database.*
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import com.limited.training.stamina.adapters.RoutesCustomAdapter
 import com.limited.training.stamina.databinding.FragmentRoutesBinding
 import com.limited.training.stamina.objects.Ruta
+import java.nio.channels.Selector
 
 
 class RoutesFragment : Fragment() {
 
     private var _binding: FragmentRoutesBinding? = null
+    private val model: RoutesViewModel by activityViewModels()
+
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -30,8 +36,8 @@ class RoutesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val notificationsViewModel =
-            ViewModelProvider(this).get(RoutesViewModel::class.java)
+//        val notificationsViewModel =
+//            ViewModelProvider(this).get(RoutesViewModel::class.java)
 
         _binding = FragmentRoutesBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -46,7 +52,7 @@ class RoutesFragment : Fragment() {
                 routes = dataSnapshot.getValue<List<Ruta>>()!!
                 val listView: ListView = binding.listView
 
-                listView.adapter = RoutesCustomAdapter(routes, requireActivity().applicationContext)
+                listView.adapter = RoutesCustomAdapter(model,routes, requireActivity().applicationContext)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {

@@ -3,9 +3,9 @@ package com.limited.training.stamina.objects
 import com.google.firebase.database.PropertyName
 
 data class Ruta(
-    @PropertyName("Likes") val likes: Int,
-    @PropertyName("Distancia") val distancia: Double,
-    @PropertyName("Nombre") val nombre: String,
+    @PropertyName("nombre") val nombre: String,
+    @PropertyName("distancia") val distancia: Double,
+    @PropertyName("tipo") val tipo: String,
 ) {
-    constructor() : this(0, 0.0, "")
+    constructor() : this("", 0.0, "")
 }

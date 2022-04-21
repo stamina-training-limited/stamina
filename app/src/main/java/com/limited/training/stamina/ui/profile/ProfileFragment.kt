@@ -1,6 +1,7 @@
 package com.limited.training.stamina.ui.profile
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -76,7 +77,7 @@ class ProfileFragment : Fragment() {
 
         val editProfileButton : Button = binding.profileEditProfileBtn
         editProfileButton!!.setOnClickListener {
-            Toast.makeText(this@ProfileFragment.requireContext(), "Edición de perfil realizada", Toast.LENGTH_SHORT).show()
+            Navigation.findNavController(root).navigate(R.id.action_navigation_profile_to_edit_profile);
         }
 
         val logOutButton : Button = binding.profileLogOut
@@ -128,8 +129,7 @@ class ProfileFragment : Fragment() {
                     numeroRutas.text = usuario.rutas.size.toString()
                     numeroPublicaciones.text = usuario.publicaciones.size.toString()
 
-                    Picasso.get().load(personProfileImageUrl).into(fotoPerfil);
-
+                    Funciones.establecerFotoPerfil(usuario.urlFotoPerfil, fotoPerfil)
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {
