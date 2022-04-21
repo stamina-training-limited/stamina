@@ -104,4 +104,8 @@ This EULA agreement, and any dispute arising out of or in connection with this E
     <string name="campos_vacios">Campos vacios</string>
     <string name="nombre_actualizado">Nombre actualizado</string>
     <string name="descripcion_actualizada">Descripcion actualizada</string>
+
+    <!-- Comentarios -->
+    <string name="hint_comentario">Introduzca un comentario</string>
+
 </resources>
