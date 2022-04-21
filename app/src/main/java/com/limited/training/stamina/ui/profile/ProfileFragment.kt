@@ -67,7 +67,7 @@ class ProfileFragment : Fragment() {
 
         val editProfileButton : Button = binding.profileEditProfileBtn
         editProfileButton!!.setOnClickListener {
-            Toast.makeText(this@ProfileFragment.requireContext(), "Edición de perfil realizada", Toast.LENGTH_SHORT).show()
+            Navigation.findNavController(root).navigate(R.id.action_navigation_profile_to_edit_profile);
         }
 
         val logOutButton : Button = binding.profileLogOut
@@ -119,7 +119,7 @@ class ProfileFragment : Fragment() {
                     numeroRutas.text = usuario.rutas.size.toString()
                     numeroPublicaciones.text = usuario.publicaciones.size.toString()
 
-                    establecerFotoPerfil(personProfileImageUrl, fotoPerfil)
+                    Funciones.establecerFotoPerfil(usuario.urlFotoPerfil, fotoPerfil)
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {
@@ -152,15 +152,5 @@ class ProfileFragment : Fragment() {
                     startActivity(intent)
                 }
         }
-    }
-
-    fun establecerFotoPerfil(urlImagen : Uri?, imageView : ImageView){
-
-        // Se procede a comprobar si la imagen viene vacía o no. Si viene vacía, se deja la imagen
-        // por defecto. Si no, se establece la foto de gmail.
-        if(urlImagen == null){
-            return
-        }
-        Picasso.get().load(urlImagen).into(imageView);
     }
 }

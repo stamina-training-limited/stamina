@@ -2,13 +2,14 @@
     <!-- General -->
     <string name="Main_screen_phrase">La mejor aplicación para corredores y ciclistas</string>
     <string name="app_name">Stamina</string>
-    <string name="title_home">Home</string>
+    <string name="title_home">Muro</string>
     <string name="title_home_like">Likes</string>
-    <string name="title_home_comment">Comment</string>
+    <string name="title_home_comment">Comentarios</string>
     <string name="title_home_share">Share</string>
     <string name="title_routes">Routes</string>
-    <string name="title_record">Record</string>
-    <string name="title_profile">Profile</string>
+    <string name="title_record">Registrar</string>
+    <string name="title_profile">Perfil</string>
+    <string name="title_edit_profile">Editar perfil</string>
 
     <!-- Agreements -->
     <string name="User_agreement_title">Acuerdo de Usuario</string>
@@ -58,4 +59,13 @@
 
     <!-- URL de Firebase -->
     <string name="datasource_firebase">https://stamina-training-default-rtdb.europe-west1.firebasedatabase.app/</string>
+
+    <!-- Editar perfil -->
+    <string name="nuevo_nombre">Introduzca el nuevo nombre</string>
+    <string name="nueva_descripcion">Introduzca la nueva descripcion</string>
+    <string name="sincronizar_foto_gmail">Sincronizar foto Gmail</string>
+    <string name="sincronizar_foto_gmail_exito">Foto sincronizada</string>
+    <string name="campos_vacios">Campos vacios</string>
+    <string name="nombre_actualizado">Nombre actualizado</string>
+    <string name="descripcion_actualizada">Descripcion actualizada</string>
 </resources>
