@@ -25,7 +25,7 @@
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:text="@string/User_agreement_title"
             android:textAlignment="center"
             android:textSize="20sp"
@@ -33,15 +33,16 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:textAlignment="textStart">
 
             <TextView
                 android:id="@+id/contenido_eula"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginStart="2dp"
                 android:text="@string/User_agreement_content"
-                android:textAlignment="center"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
         </ScrollView>
     </LinearLayout>
@@ -52,6 +53,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
+        android:layout_marginRight="1dp"
         android:layout_weight="5"
         android:minHeight="48dp"
         android:text="@string/Cancel"
@@ -66,6 +68,7 @@
         style="?android:attr/buttonBarButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="1dp"
         android:layout_marginRight="25dp"
         android:layout_weight="5"
         android:minHeight="48dp"
