@@ -35,12 +35,9 @@ class ProfileActivities : Fragment() {
             Navigation.findNavController(root).navigate(R.id.action_navigation_profile_activities_to_navigation_profile);
         }
 
-        val routes: ArrayList<String> = arrayListOf("Ruta1", "Ruta2", "Ruta3", "Ruta4", "Ruta5", "Ruta6", "Ruta7", "Ruta8", "Ruta9", "Ruta10", "Ruta11")
+        val routes: List<String> = arrayListOf("Ruta1", "Ruta2", "Ruta3", "Ruta4", "Ruta5", "Ruta6", "Ruta7", "Ruta8", "Ruta9", "Ruta10", "Ruta11")
         val listView: ListView = binding.listPublications
-        var util : Utilidades = Utilidades(0, 1)
-        listView.adapter = PublicationsCustoAdapter(routes, requireActivity().applicationContext,
-            this, util.FLAG_PERFIL
-        )
+        //listView.adapter = PublicationsCustoAdapter(routes, requireActivity().applicationContext)
 
         return root
 

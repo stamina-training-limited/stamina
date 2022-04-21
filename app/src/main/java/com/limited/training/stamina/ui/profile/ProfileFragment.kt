@@ -1,24 +1,35 @@
 package com.limited.training.stamina.ui.profile
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ListView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.getValue
 import com.limited.training.stamina.R
+import com.limited.training.stamina.Util.Funciones
 import com.limited.training.stamina.Util.Utilidades
 import com.limited.training.stamina.activities.MainScreen
 import com.limited.training.stamina.adapters.PublicationsCustoAdapter
+import com.limited.training.stamina.adapters.RoutesCustomAdapter
 import com.limited.training.stamina.databinding.FragmentProfileBinding
+import com.limited.training.stamina.objects.Publication
+import com.limited.training.stamina.objects.Ruta
+import com.limited.training.stamina.objects.Usuario
+import com.squareup.picasso.Picasso
+import org.w3c.dom.Text
+import java.lang.StringBuilder
 
 
 class ProfileFragment : Fragment() {
@@ -44,25 +55,88 @@ class ProfileFragment : Fragment() {
                 Navigation.findNavController(root).navigate(R.id.action_navigation_profile_to_navigation_profile_activities);
             }
         }else{
-            val routes: ArrayList<String> = arrayListOf("Ruta1", "Ruta2", "Ruta3", "Ruta4", "Ruta5", "Ruta6", "Ruta7", "Ruta8", "Ruta9", "Ruta10", "Ruta11")
-            val listView: ListView? = binding.listPublications
-            var util : Utilidades = Utilidades(0, 1)
-            if (listView != null) {
-                listView.adapter = PublicationsCustoAdapter(
-                    routes, requireActivity().applicationContext,
-                    this, util.FLAG_PERFIL
-                )
+            var database = Funciones.recuperarReferenciaBBDD(requireActivity())
+            var dbRef  = database.getReference("publicaciones")
+            var pubs : List<Publication>
+
+            if(dbRef != null) {
+
+                dbRef.addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        pubs = dataSnapshot.getValue<List<Publication>>()!!
+                        var listView: ListView = binding.listPublications!!
+                        listView.adapter = PublicationsCustoAdapter(pubs, requireActivity().applicationContext)
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+                })
             }
         }
 
         val editProfileButton : Button = binding.profileEditProfileBtn
         editProfileButton!!.setOnClickListener {
-            Toast.makeText(this@ProfileFragment.requireContext(), "Edición de perfil realizada", Toast.LENGTH_SHORT).show()
+            Navigation.findNavController(root).navigate(R.id.action_navigation_profile_to_edit_profile);
         }
 
         val logOutButton : Button = binding.profileLogOut
         logOutButton!!.setOnClickListener {
             signOut()
+        }
+
+
+        // Recuperacion de datos de usuario y seteo de los mismos de BBDD
+
+        // Se recupera el email del usuario para buscar sus datos en BBDD
+        val cuentaGoogle = Funciones.recuperarDatosCuentaGoogle(requireActivity())
+        val personEmail = cuentaGoogle?.email
+        val personProfileImageUrl = cuentaGoogle?.photoUrl
+
+        // Se eliminan los puntos para poder usarlo de clave contra el JSON de BBDD
+        var processedEmail : String = Funciones.remplazarPuntos(personEmail!!)
+
+        var database = Funciones.recuperarReferenciaBBDD(requireActivity())
+
+        var myRef = database.getReference("usuarios/" + processedEmail)
+
+        if (myRef != null){
+            var usuario : Usuario
+
+            myRef.addValueEventListener(object : ValueEventListener {
+
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    // Get datos de usuario
+                    // TODO Evitar que se pueda conseguir un usuario nulo. Siempre al logearse por primera vez añadir a BBDD el usuario
+                    usuario = dataSnapshot.getValue<Usuario>()!!
+
+                    // Seteo de los datos del usuario
+
+                    val nombreUsuario: TextView = binding.profileNameTv
+                    val descripcionUsuario: TextView = binding.profileUserDescriptionTv
+                    val numeroSeguidores: TextView = binding.profileFollowersTv
+                    val numeroSeguidos: TextView = binding.profileFollowingTv
+                    val fotoPerfil: ImageView = binding.profilePicIv
+                    val numeroActividades : TextView = binding.profileActivitiesTv
+                    val numeroRutas : TextView = binding.profileRoutesTv
+                    val numeroPublicaciones : TextView = binding.profilePublicationsTv
+
+                    nombreUsuario.text = usuario.nombre
+                    descripcionUsuario.text = usuario.descripcion
+                    numeroSeguidores.text = usuario.seguidores.size.toString() + " Seguidores"
+                    numeroSeguidos.text = usuario.seguidos.size.toString() + " Seguidos"
+                    numeroActividades.text = usuario.actividades.size.toString()
+                    numeroRutas.text = usuario.rutas.size.toString()
+                    numeroPublicaciones.text = usuario.publicaciones.size.toString()
+
+                    Funciones.establecerFotoPerfil(usuario.urlFotoPerfil, fotoPerfil)
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Getting Post failed, log a message
+                    Log.w("loadPost:onCancelled", databaseError.toException())
+                }
+            })
         }
 
         return root
