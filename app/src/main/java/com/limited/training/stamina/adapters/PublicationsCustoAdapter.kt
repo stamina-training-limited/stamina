@@ -2,16 +2,24 @@ package com.limited.training.stamina.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.Navigation
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.getValue
 import com.limited.training.stamina.R
+import com.limited.training.stamina.Util.Funciones
 import com.limited.training.stamina.Util.Utilidades
 import com.limited.training.stamina.objects.Publication
-
+import com.limited.training.stamina.objects.Usuario
+import com.squareup.picasso.Picasso
+import java.util.concurrent.TimeUnit
 
 
 class PublicationsCustoAdapter(var list: List<Publication>, var context: Context) : BaseAdapter(),
@@ -50,13 +58,45 @@ class PublicationsCustoAdapter(var list: List<Publication>, var context: Context
         val textDistance: TextView = view!!.findViewById(R.id.feedEntry1Distance_tv)
         val ritmo: TextView = view!!.findViewById(R.id.feedEntry1Pace_tv)
         val tiempo: TextView = view!!.findViewById(R.id.feedEntry1Time_tv)
+        val foto: ImageView = view!!.findViewById(R.id.feedEntry1profilePic_iv)
 
         textName.text = list[p0].nombre
         textDateAndLocation.text = list[p0].hora.plus(" - ").plus(list[p0].lugar)
         textTitle.text = list[p0].titulo
-        textDistance.text = list[p0].distancia.toString().plus("km")
-        ritmo.text = list[p0].ritmo.toString().plus("min/km")
-        tiempo.text = list[p0].tiempo.toString()
+        textDistance.text = list[p0].distancia.toString().plus(" km")
+        ritmo.text = list[p0].ritmo.toString().plus(" min/km")
+
+        val millis: Long = list[p0].tiempo
+        tiempo.text = String.format("%02d:%02d:%02d",
+            TimeUnit.MILLISECONDS.toHours(millis),
+            TimeUnit.MILLISECONDS.toMinutes(millis) -
+                    TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)), // The change is in this line
+            TimeUnit.MILLISECONDS.toSeconds(millis) -
+                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
+
+
+        var database = Funciones.recuperarReferenciaBBDD(context)
+        var myRef = database.getReference("usuarios/" + Funciones.remplazarPuntos(list[p0].usuario))
+
+        if (myRef != null){
+            var usuario : Usuario
+
+            myRef.addValueEventListener(object : ValueEventListener {
+
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    // Get datos de usuario
+                    // TODO Evitar que se pueda conseguir un usuario nulo. Siempre al logearse por primera vez añadir a BBDD el usuario
+                    usuario = dataSnapshot.getValue<Usuario>()!!
+                    println("@@## > {$usuario}")
+
+                    Funciones.establecerFotoPerfil(usuario.urlFotoPerfil, foto)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+            })
+        }
 
 
         likeButton!!.setOnClickListener {
