@@ -72,22 +72,20 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+    override fun onStart() {
+        super.onStart()
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-
         mapFrag = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFrag?.getMapAsync(this)
     }
 
     override fun onMapReady (googleMap: GoogleMap) {
         mGoogleMap = googleMap
-        mGoogleMap.mapType = GoogleMap.MAP_TYPE_HYBRID
+        mGoogleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
 
         var mLocationRequest : LocationRequest = LocationRequest.create()
-        mLocationRequest.interval = 120000 // two minute interval
-        mLocationRequest.fastestInterval = 120000
+        mLocationRequest.interval = 1000 //interval in milliseconds
+        mLocationRequest.fastestInterval = 1000 //interval in milliseconds
         mLocationRequest.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
