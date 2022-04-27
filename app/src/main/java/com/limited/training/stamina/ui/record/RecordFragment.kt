@@ -20,6 +20,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -189,11 +190,8 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
 
             } else {
                 // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(
-                    requireActivity(),
-                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                    MY_PERMISSIONS_REQUEST_LOCATION
-                )
+                requestPermissionLauncher.launch(
+                    Manifest.permission.ACCESS_FINE_LOCATION)
             }
         }
     }
@@ -234,6 +232,22 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
         }// other 'case' lines to check for other
         // permissions this app might request
     }
+
+    val requestPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
+            if (isGranted) {
+                // Permission is granted. Continue the action or workflow in your
+                // app.
+            } else {
+                // Explain to the user that the feature is unavailable because the
+                // features requires a permission that the user has denied. At the
+                // same time, respect the user's decision. Don't link to system
+                // settings in an effort to convince the user to change their
+                // decision.
+            }
+        }
 
     companion object {
         val MY_PERMISSIONS_REQUEST_LOCATION = 99
