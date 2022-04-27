@@ -73,11 +73,36 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+
+        checkLocationPermission()
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        return inflater.inflate(R.layout.fragment_maps, container, false)
+    }
+
     override fun onStart() {
         super.onStart()
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         mapFrag = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFrag?.getMapAsync(this)
+    }
+
+    public override fun onPause() {
+        super.onPause()
+
+        //stop location updates when Activity is no longer active
+        mFusedLocationClient?.removeLocationUpdates(mLocationCallback)
     }
 
     override fun onMapReady (googleMap: GoogleMap) {
@@ -115,25 +140,6 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        _binding = FragmentRecordBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        //checkLocationService(requireContext(), root)
-
-
-        val dashboardViewModel =
-            ViewModelProvider(this).get(RecordViewModel::class.java)
-
-
-        return inflater.inflate(R.layout.fragment_maps, container, false)
-    }
 
 
 
@@ -189,8 +195,11 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
 
             } else {
                 // No explanation needed, we can request the permission.
-                requestPermissionLauncher.launch(
-                    Manifest.permission.ACCESS_FINE_LOCATION)
+                ActivityCompat.requestPermissions(
+                    requireActivity(),
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    MY_PERMISSIONS_REQUEST_LOCATION
+                )
             }
         }
     }
@@ -231,22 +240,6 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
         }// other 'case' lines to check for other
         // permissions this app might request
     }
-
-    val requestPermissionLauncher =
-        registerForActivityResult(
-            ActivityResultContracts.RequestPermission()
-        ) { isGranted: Boolean ->
-            if (isGranted) {
-                // Permission is granted. Continue the action or workflow in your
-                // app.
-            } else {
-                // Explain to the user that the feature is unavailable because the
-                // features requires a permission that the user has denied. At the
-                // same time, respect the user's decision. Don't link to system
-                // settings in an effort to convince the user to change their
-                // decision.
-            }
-        }
 
     companion object {
         val MY_PERMISSIONS_REQUEST_LOCATION = 99
