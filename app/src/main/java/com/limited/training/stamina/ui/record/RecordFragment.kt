@@ -2,13 +2,6 @@ package com.limited.training.stamina.ui.record
 
 
 
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-
 import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Location
@@ -26,14 +19,15 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationResult
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.*
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
-
+import com.google.android.gms.maps.model.MarkerOptions
 import com.limited.training.stamina.R
 import com.limited.training.stamina.databinding.FragmentRecordBinding
 
@@ -67,7 +61,14 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
                 mCurrLocationMarker = mGoogleMap.addMarker(markerOptions)
 
                 //move map camera
-                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11.0F))
+                //mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11.0F))
+                val zoom: Float = mGoogleMap.getCameraPosition().zoom
+
+                mGoogleMap.animateCamera(
+                    CameraUpdateFactory.newLatLngZoom(latLng, zoom),
+                    1000,
+                    null
+                )
             }
         }
     }
