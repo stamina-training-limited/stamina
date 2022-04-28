@@ -13,12 +13,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -29,7 +27,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.limited.training.stamina.R
-import com.limited.training.stamina.databinding.FragmentRecordBinding
+//import com.limited.training.stamina.databinding.FragmentRecordBinding
 
 class RecordFragment : Fragment(), OnMapReadyCallback {
 
@@ -40,13 +38,14 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
     internal var mCurrLocationMarker: Marker? = null
     internal var mFusedLocationClient: FusedLocationProviderClient? = null
 
+
     internal var mLocationCallback: LocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
             val locationList = locationResult.locations
             if (locationList.isNotEmpty()) {
                 //The last location in the list is the newest
                 val location = locationList.last()
-                Log.i("MapsActivity", "Location: " + location.getLatitude() + " " + location.getLongitude())
+                Log.i("MapsActivity", "Location: " + location.latitude + " " + location.longitude)
                 mLastLocation = location
                 if (mCurrLocationMarker != null) {
                     mCurrLocationMarker?.remove()
@@ -56,13 +55,13 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
                 val latLng = LatLng(location.latitude, location.longitude)
                 val markerOptions = MarkerOptions()
                 markerOptions.position(latLng)
-                markerOptions.title("Current Position")
+                markerOptions.title(getString(R.string.Current_location))
                 markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
                 mCurrLocationMarker = mGoogleMap.addMarker(markerOptions)
 
                 //move map camera
                 //mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11.0F))
-                val zoom: Float = mGoogleMap.getCameraPosition().zoom
+                val zoom: Float = mGoogleMap.cameraPosition.zoom
 
                 mGoogleMap.animateCamera(
                     CameraUpdateFactory.newLatLngZoom(latLng, zoom),
@@ -73,6 +72,24 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+
+        //checkLocationPermission()
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        return inflater.inflate(R.layout.fragment_maps, container, false)
+    }
+
     override fun onStart() {
         super.onStart()
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
@@ -80,14 +97,22 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
         mapFrag?.getMapAsync(this)
     }
 
+     override fun onPause() {
+        super.onPause()
+
+        //stop location updates when Activity is no longer active
+        mFusedLocationClient?.removeLocationUpdates(mLocationCallback)
+    }
+
     override fun onMapReady (googleMap: GoogleMap) {
         mGoogleMap = googleMap
         mGoogleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
 
-        var mLocationRequest : LocationRequest = LocationRequest.create()
-        mLocationRequest.interval = 1000 //interval in milliseconds
-        mLocationRequest.fastestInterval = 1000 //interval in milliseconds
-        mLocationRequest.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
+
+        val mLocationRequest : LocationRequest = LocationRequest.create()
+        mLocationRequest.interval = UPDATE_INTERVAL //interval in milliseconds
+        mLocationRequest.fastestInterval = FASTEST_UPDATE_INTERVAL //interval in milliseconds
+        mLocationRequest.priority = PRIORITY
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(
@@ -108,40 +133,17 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    private var _binding: FragmentRecordBinding? = null
-
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    //private var _binding: FragmentRecordBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        _binding = FragmentRecordBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        //checkLocationService(requireContext(), root)
-
-
-        val dashboardViewModel =
-            ViewModelProvider(this).get(RecordViewModel::class.java)
-
-
-        return inflater.inflate(R.layout.fragment_maps, container, false)
-    }
-
-
+    //private val binding get() = _binding!!
 
     //override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     //    super.onViewCreated(view, savedInstanceState)
     //    val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
     //    mapFragment?.getMapAsync(callback)
-//
+    //
     //    val startButon: Button = binding.recordStartBtn
     //    startButon!!.setOnClickListener {
     //        val intActivityInProgress: Intent = Intent(activity, ProgressActivity::class.java)
@@ -149,10 +151,10 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
     //    }
     //}
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+    //override fun onDestroyView() {
+    //    super.onDestroyView()
+    //    _binding = null
+    //}
 
 
     private fun checkLocationPermission() {
@@ -171,14 +173,13 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
                 AlertDialog.Builder(requireContext())
-                    .setTitle("Location Permission Needed")
-                    .setMessage("This app needs the Location permission, please accept to use location functionality")
+                    .setTitle(getString(R.string.Location_services_needed_title))
+                    .setMessage(getString(R.string.Location_services_needed_text))
                     .setPositiveButton(
-                        "OK"
+                        getText(R.string.Accept)
                     ) { _, _ ->
                         //Prompt the user once explanation has been shown
-                        ActivityCompat.requestPermissions(
-                            requireActivity(),
+                        requestPermissions(
                             arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                             MY_PERMISSIONS_REQUEST_LOCATION
                         )
@@ -189,12 +190,16 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
 
             } else {
                 // No explanation needed, we can request the permission.
-                requestPermissionLauncher.launch(
-                    Manifest.permission.ACCESS_FINE_LOCATION)
+                requestPermissions(
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    MY_PERMISSIONS_REQUEST_LOCATION
+                )
             }
         }
     }
 
+
+    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>, grantResults: IntArray
@@ -212,6 +217,11 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
                         ) == PackageManager.PERMISSION_GRANTED
                     ) {
 
+                        val mLocationRequest : LocationRequest = LocationRequest.create()
+                        mLocationRequest.interval = UPDATE_INTERVAL //interval in milliseconds
+                        mLocationRequest.fastestInterval = FASTEST_UPDATE_INTERVAL //interval in milliseconds
+                        mLocationRequest.priority = PRIORITY
+
                         mFusedLocationClient?.requestLocationUpdates(
                             mLocationRequest,
                             mLocationCallback,
@@ -224,7 +234,8 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
 
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
-                    Toast.makeText(requireContext(), "permission denied", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), getText(R.string.No_location_services),
+                        Toast.LENGTH_LONG).show()
                 }
                 return
             }
@@ -232,23 +243,10 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
         // permissions this app might request
     }
 
-    val requestPermissionLauncher =
-        registerForActivityResult(
-            ActivityResultContracts.RequestPermission()
-        ) { isGranted: Boolean ->
-            if (isGranted) {
-                // Permission is granted. Continue the action or workflow in your
-                // app.
-            } else {
-                // Explain to the user that the feature is unavailable because the
-                // features requires a permission that the user has denied. At the
-                // same time, respect the user's decision. Don't link to system
-                // settings in an effort to convince the user to change their
-                // decision.
-            }
-        }
-
     companion object {
-        val MY_PERMISSIONS_REQUEST_LOCATION = 99
+        const val MY_PERMISSIONS_REQUEST_LOCATION = 99
+        const val UPDATE_INTERVAL = 2500L
+        const val FASTEST_UPDATE_INTERVAL = 2500L
+        const val PRIORITY = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
     }
 }
