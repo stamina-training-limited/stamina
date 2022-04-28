@@ -55,7 +55,7 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
                 val latLng = LatLng(location.latitude, location.longitude)
                 val markerOptions = MarkerOptions()
                 markerOptions.position(latLng)
-                markerOptions.title("Current Position")
+                markerOptions.title(getString(R.string.Current_location))
                 markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
                 mCurrLocationMarker = mGoogleMap.addMarker(markerOptions)
 
@@ -173,10 +173,10 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
                 AlertDialog.Builder(requireContext())
-                    .setTitle("Location Permission Needed")
-                    .setMessage("This app needs the Location permission, please accept to use location functionality")
+                    .setTitle(getString(R.string.Location_services_needed_title))
+                    .setMessage(getString(R.string.Location_services_needed_text))
                     .setPositiveButton(
-                        "OK"
+                        getText(R.string.Accept)
                     ) { _, _ ->
                         //Prompt the user once explanation has been shown
                         requestPermissions(
@@ -234,7 +234,8 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
 
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
-                    Toast.makeText(requireContext(), "permission denied", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), getText(R.string.No_location_services),
+                        Toast.LENGTH_LONG).show()
                 }
                 return
             }
