@@ -13,12 +13,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -29,7 +27,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.limited.training.stamina.R
-import com.limited.training.stamina.databinding.FragmentRecordBinding
+//import com.limited.training.stamina.databinding.FragmentRecordBinding
 
 class RecordFragment : Fragment(), OnMapReadyCallback {
 
@@ -40,13 +38,14 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
     internal var mCurrLocationMarker: Marker? = null
     internal var mFusedLocationClient: FusedLocationProviderClient? = null
 
+
     internal var mLocationCallback: LocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
             val locationList = locationResult.locations
             if (locationList.isNotEmpty()) {
                 //The last location in the list is the newest
                 val location = locationList.last()
-                Log.i("MapsActivity", "Location: " + location.getLatitude() + " " + location.getLongitude())
+                Log.i("MapsActivity", "Location: " + location.latitude + " " + location.longitude)
                 mLastLocation = location
                 if (mCurrLocationMarker != null) {
                     mCurrLocationMarker?.remove()
@@ -62,7 +61,7 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
 
                 //move map camera
                 //mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11.0F))
-                val zoom: Float = mGoogleMap.getCameraPosition().zoom
+                val zoom: Float = mGoogleMap.cameraPosition.zoom
 
                 mGoogleMap.animateCamera(
                     CameraUpdateFactory.newLatLngZoom(latLng, zoom),
@@ -79,7 +78,7 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
-        checkLocationPermission()
+        //checkLocationPermission()
     }
 
     override fun onCreateView(
@@ -98,7 +97,7 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
         mapFrag?.getMapAsync(this)
     }
 
-    public override fun onPause() {
+     override fun onPause() {
         super.onPause()
 
         //stop location updates when Activity is no longer active
@@ -109,10 +108,11 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
         mGoogleMap = googleMap
         mGoogleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
 
-        var mLocationRequest : LocationRequest = LocationRequest.create()
-        mLocationRequest.interval = 1000 //interval in milliseconds
-        mLocationRequest.fastestInterval = 1000 //interval in milliseconds
-        mLocationRequest.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
+
+        val mLocationRequest : LocationRequest = LocationRequest.create()
+        mLocationRequest.interval = UPDATE_INTERVAL //interval in milliseconds
+        mLocationRequest.fastestInterval = FASTEST_UPDATE_INTERVAL //interval in milliseconds
+        mLocationRequest.priority = PRIORITY
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(
@@ -133,21 +133,17 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    private var _binding: FragmentRecordBinding? = null
-
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    //private var _binding: FragmentRecordBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
-    private val binding get() = _binding!!
-
-
+    //private val binding get() = _binding!!
 
     //override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     //    super.onViewCreated(view, savedInstanceState)
     //    val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
     //    mapFragment?.getMapAsync(callback)
-//
+    //
     //    val startButon: Button = binding.recordStartBtn
     //    startButon!!.setOnClickListener {
     //        val intActivityInProgress: Intent = Intent(activity, ProgressActivity::class.java)
@@ -155,10 +151,10 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
     //    }
     //}
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+    //override fun onDestroyView() {
+    //    super.onDestroyView()
+    //    _binding = null
+    //}
 
 
     private fun checkLocationPermission() {
@@ -183,8 +179,7 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
                         "OK"
                     ) { _, _ ->
                         //Prompt the user once explanation has been shown
-                        ActivityCompat.requestPermissions(
-                            requireActivity(),
+                        requestPermissions(
                             arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                             MY_PERMISSIONS_REQUEST_LOCATION
                         )
@@ -195,8 +190,7 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
 
             } else {
                 // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(
-                    requireActivity(),
+                requestPermissions(
                     arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                     MY_PERMISSIONS_REQUEST_LOCATION
                 )
@@ -204,6 +198,8 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+
+    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>, grantResults: IntArray
@@ -220,6 +216,11 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
                             Manifest.permission.ACCESS_FINE_LOCATION
                         ) == PackageManager.PERMISSION_GRANTED
                     ) {
+
+                        val mLocationRequest : LocationRequest = LocationRequest.create()
+                        mLocationRequest.interval = UPDATE_INTERVAL //interval in milliseconds
+                        mLocationRequest.fastestInterval = FASTEST_UPDATE_INTERVAL //interval in milliseconds
+                        mLocationRequest.priority = PRIORITY
 
                         mFusedLocationClient?.requestLocationUpdates(
                             mLocationRequest,
@@ -242,6 +243,9 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
     }
 
     companion object {
-        val MY_PERMISSIONS_REQUEST_LOCATION = 99
+        const val MY_PERMISSIONS_REQUEST_LOCATION = 99
+        const val UPDATE_INTERVAL = 2500L
+        const val FASTEST_UPDATE_INTERVAL = 2500L
+        const val PRIORITY = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
     }
 }
