@@ -1,6 +1,7 @@
 package com.limited.training.stamina.activities
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.Navigation
@@ -44,7 +45,8 @@ class RegistrarUsuario : AppCompatActivity() {
                         emptyList(),
                         emptyList(),
                         emptyList(),
-                        emptyList()
+                        emptyList(),
+                        obtenerLinkFotoPerfil(cuentaDeGoogle?.photoUrl)
                     )
 
                 // Si se guarda en BBDD, se continua a la siguiente pantalla
@@ -58,5 +60,15 @@ class RegistrarUsuario : AppCompatActivity() {
             // TODO lanzar excepción si falla conexión contra BBDD
         }
 
+    }
+
+    fun obtenerLinkFotoPerfil(uri : Uri?) : String? {
+        var resultado : String? = ""
+
+        if(uri != null){
+            resultado = uri.toString()
+        }
+
+        return resultado
     }
 }

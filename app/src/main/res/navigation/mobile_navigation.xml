@@ -36,6 +36,16 @@
     </fragment>
 
     <fragment
+        android:id="@+id/edit_profile"
+        android:name="com.limited.training.stamina.ui.profile.EditProfile"
+        android:label="@string/title_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" >
+        <action
+            android:id="@+id/action_edit_profile_to_navigation_profile"
+            app:destination="@id/navigation_profile" />
+    </fragment>
+
+    <fragment
         android:id="@+id/navigation_routes"
         android:name="com.limited.training.stamina.ui.routes.RoutesFragment"
         android:label="@string/title_routes"
@@ -78,6 +88,9 @@
         <action
             android:id="@+id/action_navigation_profile_to_navigation_profile_activities"
             app:destination="@id/navigation_profile_activities" />
+        <action
+            android:id="@+id/action_navigation_profile_to_edit_profile"
+            app:destination="@id/edit_profile" />
     </fragment>
 
     <fragment
