@@ -1,4 +1,4 @@
-package com.limited.training.stamina.ui.routes
+package com.limited.training.stamina.ui.users
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,6 @@ import android.widget.ListView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.limited.training.stamina.adapters.RoutesClassificationCustomAdapter
-import com.limited.training.stamina.adapters.RoutesCustomAdapter
 import com.limited.training.stamina.databinding.FragmentRouteClassificationBinding
 
 
