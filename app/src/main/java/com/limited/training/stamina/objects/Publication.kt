@@ -3,6 +3,7 @@ package com.limited.training.stamina.objects
 import com.google.firebase.database.PropertyName
 
 class Publication (
+        @PropertyName("comentario") val comentario: List<Comentario>,
         @PropertyName("usuario") val usuario: String,
         @PropertyName("titulo") val titulo: String,
         @PropertyName("nombre") val nombre: String,
@@ -12,5 +13,5 @@ class Publication (
         @PropertyName("ritmo") val ritmo: Double,
         @PropertyName("tiempo") val tiempo: Long
 ) {
-    constructor() : this("","","", "", "", 0.0, 0.0, 0)
+    constructor() : this(listOf<Comentario>(),"","","", "", "", 0.0, 0.0, 0)
 }

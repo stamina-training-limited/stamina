@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -16,12 +17,13 @@ import com.limited.training.stamina.Util.Utilidades
 import com.limited.training.stamina.adapters.PublicationsCustoAdapter
 import com.limited.training.stamina.databinding.FragmentHomeBinding
 import com.limited.training.stamina.objects.Publication
+import com.limited.training.stamina.ui.routes.RoutesViewModel
 
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
-
+    private val model: HomeViewModel by activityViewModels()
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -43,7 +45,7 @@ class HomeFragment : Fragment() {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     pubs = dataSnapshot.getValue<List<Publication>>()!!
                     var listView: ListView = binding.listPublications
-                    listView.adapter = PublicationsCustoAdapter(pubs, requireActivity().applicationContext)
+                    listView.adapter = PublicationsCustoAdapter(model,pubs, requireActivity().applicationContext)
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -51,9 +53,6 @@ class HomeFragment : Fragment() {
                 }
             })
         }
-
-        //val routes: ArrayList<String> = arrayListOf("Ruta1", "Ruta2", "Ruta3", "Ruta4", "Ruta5", "Ruta6", "Ruta7", "Ruta8", "Ruta9", "Ruta10", "Ruta11")
-
 
         return root
 
