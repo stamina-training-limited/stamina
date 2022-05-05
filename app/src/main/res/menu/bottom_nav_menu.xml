@@ -8,7 +8,7 @@
 
     <item
         android:id="@+id/navigation_users"
-        android:icon="@drawable/ic_routes_24"
+        android:icon="@drawable/find"
         android:title="@string/title_users" />
 
     <item
