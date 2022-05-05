@@ -22,10 +22,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import com.limited.training.stamina.R
 //import com.limited.training.stamina.databinding.FragmentRecordBinding
 
@@ -34,7 +31,9 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
     lateinit var mGoogleMap: GoogleMap
     var mapFrag: SupportMapFragment? = null
     lateinit var mLocationRequest: LocationRequest
-    var mLastLocation: Location? = null
+    var mPreviousLocation: Location? = null
+    var mCurrentLocation: Location? = null
+    var mCurrentZoom: Float = -1.0F
     internal var mCurrLocationMarker: Marker? = null
     internal var mFusedLocationClient: FusedLocationProviderClient? = null
 
@@ -46,7 +45,22 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
                 //The last location in the list is the newest
                 val location = locationList.last()
                 Log.i("MapsActivity", "Location: " + location.latitude + " " + location.longitude)
-                mLastLocation = location
+                mCurrentLocation = location
+                if(mPreviousLocation == null){
+                    mPreviousLocation = location
+                } //Sólo añadimos una nueva línea si se ha cambiado de posición
+                if(mCurrentLocation!!.longitude != mPreviousLocation!!.longitude && mCurrentLocation!!.latitude != mPreviousLocation!!.latitude){
+                    mGoogleMap.addPolyline(
+                        PolylineOptions()
+                            .add(
+                                LatLng(mPreviousLocation!!.latitude, mPreviousLocation!!.longitude),
+                                LatLng(mCurrentLocation!!.latitude, mCurrentLocation!!.longitude)
+                            )
+                            .color(context?.let { ContextCompat.getColor(it,R.color.azul_stamina) }!!)
+                            .width(15.0F)
+                    )
+                    mPreviousLocation = mCurrentLocation
+                }
                 if (mCurrLocationMarker != null) {
                     mCurrLocationMarker?.remove()
                 }
@@ -61,10 +75,11 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
 
                 //move map camera
                 //mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11.0F))
-                val zoom: Float = mGoogleMap.cameraPosition.zoom
+                mCurrentZoom = if(mCurrentZoom < 0) STARTING_ZOOM
+                else mGoogleMap.cameraPosition.zoom
 
                 mGoogleMap.animateCamera(
-                    CameraUpdateFactory.newLatLngZoom(latLng, zoom),
+                    CameraUpdateFactory.newLatLngZoom(latLng, mCurrentZoom),
                     1000,
                     null
                 )
@@ -248,5 +263,6 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
         const val UPDATE_INTERVAL = 2500L
         const val FASTEST_UPDATE_INTERVAL = 2500L
         const val PRIORITY = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
+        const val STARTING_ZOOM = 16.0F
     }
 }
