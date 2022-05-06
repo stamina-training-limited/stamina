@@ -17,10 +17,11 @@ import com.limited.training.stamina.Util.Funciones
 import com.limited.training.stamina.Util.Utilidades
 import com.limited.training.stamina.objects.Publication
 import com.limited.training.stamina.objects.Usuario
+import com.limited.training.stamina.ui.users.UserViewModel
 import org.w3c.dom.Text
 import java.util.concurrent.TimeUnit
 
-class UsersCustomAdapter(var list: List<Usuario>, var context: Context) : BaseAdapter(),
+class UsersCustomAdapter(var list: List<Usuario>, var context: Context, var model: UserViewModel) : BaseAdapter(),
     ListAdapter {
 
     var util : Utilidades = Utilidades(0, 1)
@@ -61,6 +62,7 @@ class UsersCustomAdapter(var list: List<Usuario>, var context: Context) : BaseAd
         }
 
         got_to_profile!!.setOnClickListener {
+            model.select(list[p0])
             Navigation.findNavController(view).navigate(R.id.action_navigation_users_to_concreteUserPageFragment);
         }
 

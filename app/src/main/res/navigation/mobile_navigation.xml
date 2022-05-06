@@ -85,7 +85,7 @@
     <fragment
         android:id="@+id/concreteUserPageFragment"
         android:name="com.limited.training.stamina.ui.users.ConcreteUserPageFragment"
-        android:label="ConcreteUserPageFragment"
+        android:label="@string/profile"
         tools:layout="@layout/fragment_concrete_user_page"
         />
 </navigation>

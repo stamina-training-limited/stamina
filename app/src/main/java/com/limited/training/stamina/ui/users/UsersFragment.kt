@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ListView
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
 import com.limited.training.stamina.Util.Funciones
@@ -19,6 +20,7 @@ class UsersFragment : Fragment() {
 
     private var _binding: FragmentUsersBinding? = null
     private val binding get() = _binding!!
+    private val model : UserViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,12 +52,12 @@ class UsersFragment : Fragment() {
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(text: String): Boolean {
                     var aux = users.filterKeys { it.contains(text) }
-                    listView.adapter = UsersCustomAdapter(aux.values.toList(), requireActivity().applicationContext)
+                    listView.adapter = UsersCustomAdapter(aux.values.toList(), requireActivity().applicationContext, model)
                     return false
                 }
                 override fun onQueryTextChange(newText: String): Boolean {
                     var aux = users.filterKeys { it.contains(newText) }
-                    listView.adapter = UsersCustomAdapter(aux.values.toList(), requireActivity().applicationContext)
+                    listView.adapter = UsersCustomAdapter(aux.values.toList(), requireActivity().applicationContext, model)
 
                     return false
                 }

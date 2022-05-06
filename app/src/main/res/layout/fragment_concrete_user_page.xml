@@ -249,30 +249,16 @@
         app:srcCompat="@drawable/ic_mobile" />
 
     <Button
-        android:id="@+id/profileLogOut"
+        android:id="@+id/profileFollowUnfollowButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="38dp"
-        android:text="@string/Log_out"
-        android:textAllCaps="false"
-        android:textColor="#FFFFFF"
-        app:backgroundTint="#B23B3B"
-        app:layout_constraintBottom_toBottomOf="@+id/profileEditProfile_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/profileEditProfile_btn"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/profileEditProfile_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="38dp"
-        android:text="Editar perfil"
+        android:layout_marginBottom="144dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginLeft="0dp"
+        android:text="Seguir"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/profileLogOut"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/profileHorizontalDivider5"
-        app:layout_constraintTop_toBottomOf="@+id/profileHorizontalDivider5"
-        app:layout_constraintVertical_bias="0.447" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

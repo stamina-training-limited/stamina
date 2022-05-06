@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -39,6 +40,12 @@ class ConcreteUserPageFragment : Fragment() {
     ): View {
         _binding = FragmentConcreteUserPageBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        val model : UserViewModel by activityViewModels()
+        var usuario : Usuario? = model.selected.value
+
+        if (usuario != null) {
+            seteoCamposUsuario(_binding!!, usuario)
+        }
 
         //If is a tablet this textview is null
         val activitiesTextView : TextView? = binding.profileActivitiesSectionTv
@@ -56,14 +63,9 @@ class ConcreteUserPageFragment : Fragment() {
             }
         }
 
-        val editProfileButton : Button = binding.profileEditProfileBtn
-        editProfileButton!!.setOnClickListener {
-            Navigation.findNavController(root).navigate(R.id.action_navigation_profile_to_edit_profile);
-        }
-
-        val logOutButton : Button = binding.profileLogOut
-        logOutButton!!.setOnClickListener {
-            signOut()
+        val followUnfollowButton : Button = binding.profileFollowUnfollowButton
+        followUnfollowButton!!.setOnClickListener {
+            //TODO
         }
 
 
@@ -82,42 +84,6 @@ class ConcreteUserPageFragment : Fragment() {
         var myRef = database.getReference("usuarios/" + processedEmail)
 
         if (myRef != null){
-            var usuario : Usuario
-
-            myRef.addValueEventListener(object : ValueEventListener {
-
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    // Get datos de usuario
-                    // TODO Evitar que se pueda conseguir un usuario nulo. Siempre al logearse por primera vez añadir a BBDD el usuario
-                    usuario = dataSnapshot.getValue<Usuario>()!!
-
-                    // Seteo de los datos del usuario
-
-                    val nombreUsuario: TextView = binding.profileNameTv
-                    val descripcionUsuario: TextView = binding.profileUserDescriptionTv
-                    val numeroSeguidores: TextView = binding.profileFollowersTv
-                    val numeroSeguidos: TextView = binding.profileFollowingTv
-                    val fotoPerfil: ImageView = binding.profilePicIv
-                    val numeroActividades : TextView = binding.profileActivitiesTv
-                    val numeroRutas : TextView = binding.profileRoutesTv
-                    val numeroPublicaciones : TextView = binding.profilePublicationsTv
-
-                    nombreUsuario.text = usuario.nombre
-                    descripcionUsuario.text = usuario.descripcion
-                    numeroSeguidores.text = usuario.seguidores.size.toString() + " Seguidores"
-                    numeroSeguidos.text = usuario.seguidos.size.toString() + " Seguidos"
-                    numeroActividades.text = usuario.actividades.size.toString()
-                    numeroRutas.text = usuario.rutas.size.toString()
-                    numeroPublicaciones.text = usuario.publicaciones.size.toString()
-
-                    Funciones.establecerFotoPerfil(usuario.urlFotoPerfil, fotoPerfil)
-                }
-
-                override fun onCancelled(databaseError: DatabaseError) {
-                    // Getting Post failed, log a message
-                    Log.w("loadPost:onCancelled", databaseError.toException())
-                }
-            })
         }
 
         return root
@@ -140,5 +106,27 @@ class ConcreteUserPageFragment : Fragment() {
             val intent : Intent = Intent(context, MainScreen::class.java)
             startActivity(intent)
         }
+    }
+
+    fun seteoCamposUsuario(binding: FragmentConcreteUserPageBinding, usuario : Usuario){
+        // Seteo de los datos del usuario
+
+        val nombreUsuario: TextView = binding.profileNameTv
+        val descripcionUsuario: TextView = binding.profileUserDescriptionTv
+        val numeroSeguidores: TextView = binding.profileFollowersTv
+        val numeroSeguidos: TextView = binding.profileFollowingTv
+        val fotoPerfil: ImageView = binding.profilePicIv
+        val numeroActividades : TextView = binding.profileActivitiesTv
+        val numeroPublicaciones : TextView = binding.profilePublicationsTv
+
+        nombreUsuario.text = usuario.nombre
+        descripcionUsuario.text = usuario.descripcion
+        numeroSeguidores.text = usuario.seguidores.size.toString() + " Seguidores"
+        numeroSeguidos.text = usuario.seguidos.size.toString() + " Seguidos"
+        numeroActividades.text = usuario.actividades.size.toString()
+        numeroPublicaciones.text = usuario.publicaciones.size.toString()
+
+        Funciones.establecerFotoPerfil(usuario.urlFotoPerfil, fotoPerfil)
+
     }
 }
