@@ -17,7 +17,6 @@ import com.limited.training.stamina.Util.Utilidades
 import com.limited.training.stamina.adapters.PublicationsCustoAdapter
 import com.limited.training.stamina.databinding.FragmentHomeBinding
 import com.limited.training.stamina.objects.Publication
-import com.limited.training.stamina.ui.routes.RoutesViewModel
 
 
 class HomeFragment : Fragment() {

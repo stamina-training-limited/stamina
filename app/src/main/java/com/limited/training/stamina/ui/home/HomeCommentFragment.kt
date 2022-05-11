@@ -25,7 +25,6 @@ import com.limited.training.stamina.databinding.FragmentHomeBinding
 import com.limited.training.stamina.databinding.FragmentHomeCommentBinding
 import com.limited.training.stamina.objects.Comentario
 import com.limited.training.stamina.objects.Publication
-import com.limited.training.stamina.ui.routes.RoutesViewModel
 
 
 class HomeCommentFragment : Fragment() {

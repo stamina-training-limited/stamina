@@ -13,7 +13,7 @@ import com.limited.training.stamina.R
 import com.limited.training.stamina.Util.Funciones.Companion.obtenerHoraString
 import com.limited.training.stamina.objects.Comentario
 import com.limited.training.stamina.objects.Ruta
-import com.limited.training.stamina.ui.routes.RoutesViewModel
+
 
 
 class CommentCustomAdapter(var list: List<Comentario>?, var context: Context) : BaseAdapter(),
