@@ -44,27 +44,24 @@ class HomeCommentFragment : Fragment() {
         _binding = FragmentHomeCommentBinding.inflate(inflater, container, false)
         val model: HomeViewModel by activityViewModels()
         val root: View = binding.root
-        var publicacion = model.selected.value
-//        var database = Funciones.recuperarReferenciaBBDD(requireActivity())
-//        var dbRef  = database.getReference("publicaciones")
-//
-//        if(dbRef != null) {
-//
-//            dbRef.addValueEventListener(object : ValueEventListener {
-//                override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                    publicacion = dataSnapshot.getValue<Publication>()!!
-//                    var listView: ListView = binding.listComment
-//                    listView.adapter = CommentCustomAdapter(publicacion!!.comentario, requireActivity().applicationContext)
-//                }
-//
-//                override fun onCancelled(error: DatabaseError) {
-//                    TODO("Not yet implemented")
-//                }
-//            })
-//        }
+        var publicacion = model.selected.value 
+        var database = Funciones.recuperarReferenciaBBDD(requireActivity())
+        var dbRef  = database.getReference("publicaciones/" + publicacion!!.ref)
 
-        var listView: ListView = binding.listComment
-        listView.adapter = CommentCustomAdapter(publicacion?.comentario, requireActivity().applicationContext)
+        if(dbRef != null) {
+
+            dbRef.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    publicacion = dataSnapshot.getValue<Publication>()!!
+                    var listView: ListView = binding.listComment
+                    listView.adapter = CommentCustomAdapter(publicacion!!.comentario, requireActivity().applicationContext)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+            })
+        }
         val callback: OnBackPressedCallback =
             object : OnBackPressedCallback(true /* enabled by default */) {
                 override fun handleOnBackPressed() {

@@ -37,15 +37,15 @@ class HomeFragment : Fragment() {
         val root: View = binding.root
         var database = Funciones.recuperarReferenciaBBDD(requireActivity())
         var dbRef  = database.getReference("publicaciones")
-        var pubs : List<Publication>
+        var pubs : HashMap<String, Publication> = hashMapOf()
 
         if(dbRef != null) {
 
             dbRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    pubs = dataSnapshot.getValue<List<Publication>>()!!
+                    pubs = dataSnapshot.getValue<HashMap<String, Publication>>()!!
                     var listView: ListView = binding.listPublications
-                    listView.adapter = PublicationsCustoAdapter(model,pubs, requireActivity().applicationContext)
+                    listView.adapter = PublicationsCustoAdapter(model,pubs.values.toList(), requireActivity().applicationContext)
                 }
 
                 override fun onCancelled(error: DatabaseError) {

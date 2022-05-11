@@ -10,6 +10,7 @@ import android.widget.ListAdapter
 import android.widget.TextView
 import androidx.navigation.Navigation
 import com.limited.training.stamina.R
+import com.limited.training.stamina.Util.Funciones.Companion.obtenerHoraString
 import com.limited.training.stamina.objects.Comentario
 import com.limited.training.stamina.objects.Ruta
 import com.limited.training.stamina.ui.routes.RoutesViewModel
@@ -39,8 +40,11 @@ class CommentCustomAdapter(var list: List<Comentario>?, var context: Context) : 
                 view = inflater.inflate(R.layout.component_comment_button, null)
             }
 
-            val tvContact = view!!.findViewById<View>(R.id.tvContact) as TextView
-            tvContact.text = list?.get(p0)?.mensaje ?: "Error";
+            val tvMensaje = view!!.findViewById<View>(R.id.tvMensaje) as TextView
+            tvMensaje.text = list?.get(p0)?.mensaje ?: "Error";
+            val tvHora = view!!.findViewById<View>(R.id.tvHora) as TextView
+            val hora = obtenerHoraString(list?.get(p0)?.fecha)
+            tvHora.text = hora ?: "Error";
 
 
 
