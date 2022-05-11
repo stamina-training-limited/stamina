@@ -7,17 +7,15 @@
 
 
 
-
-
     <ImageView
         android:id="@+id/profilePic_iv"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@id/profileActivitiesSection_tv"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_profile" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/profileName_tv"
@@ -229,7 +227,7 @@
         android:id="@+id/profileLogOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="48dp"
+        android:layout_marginEnd="38dp"
         android:text="@string/Log_out"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
@@ -243,15 +241,16 @@
         android:id="@+id/profileEditProfile_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginBottom="38dp"
         android:text="Editar perfil"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/profileLogOut"
-        app:layout_constraintHorizontal_bias="0.772"
-        app:layout_constraintStart_toStartOf="@+id/profileHorizontalDivider5"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.016" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/profileName_tv"
+        app:layout_constraintBottom_toTopOf="@+id/profileHorizontalDivider1"
+        app:layout_constraintVertical_bias="0.447" />
 
 
     <ListView
