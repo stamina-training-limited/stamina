@@ -12,6 +12,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.database.FirebaseDatabase
 import com.limited.training.stamina.R
 import com.squareup.picasso.Picasso
+import java.sql.Timestamp
+import java.text.SimpleDateFormat
+import java.util.*
 
 class Funciones {
 
@@ -55,6 +58,19 @@ class Funciones {
                 .error(R.drawable.google_perfil)
                 .into(imageView);
         }
+
+        //Obtenemos la hora que viene como timestamp en formato date
+        fun obtenerHoraString (tiempo : Int?) : String{
+
+            val stamp = Timestamp(tiempo?.toLong() ?: 0)
+            val sdf = SimpleDateFormat("dd/MM/yy hh:mm")
+            val dateStamp = Date(stamp.time)
+            val date =sdf.format(dateStamp)
+            val stringDate = date.toString()
+
+            return stringDate
+        }
+
 
 
     }

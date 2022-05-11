@@ -61,17 +61,6 @@ class RoutesFragment : Fragment() {
             }
         })
 
-//        val routes: ArrayList<String> = arrayListOf(
-//            "Ruta sierra morena",
-//            "Ruta mortal me morí",
-//            "Esta era la facilita",
-//            "Aquí me caí",
-//            "La de la viaja entrañable",
-//            "Tramo camino de santiago",
-//            "Donde la zona de petting",
-//            "Dura de carallo",
-//            "Monte a través"
-//        )
 
         return root
     }

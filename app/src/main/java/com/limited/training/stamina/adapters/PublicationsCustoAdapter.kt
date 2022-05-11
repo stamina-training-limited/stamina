@@ -18,11 +18,12 @@ import com.limited.training.stamina.Util.Funciones
 import com.limited.training.stamina.Util.Utilidades
 import com.limited.training.stamina.objects.Publication
 import com.limited.training.stamina.objects.Usuario
+import com.limited.training.stamina.ui.home.HomeViewModel
 import com.squareup.picasso.Picasso
 import java.util.concurrent.TimeUnit
 
 
-class PublicationsCustoAdapter(var list: List<Publication>, var context: Context) : BaseAdapter(),
+class PublicationsCustoAdapter(var model: HomeViewModel, var list: List<Publication>, var context: Context) : BaseAdapter(),
     ListAdapter {
 
     var util : Utilidades = Utilidades(0, 1)
@@ -106,14 +107,7 @@ class PublicationsCustoAdapter(var list: List<Publication>, var context: Context
 
             // Para que funcione tanto desde perfil como desde home, se comprueba desde que pantalla se viene y se añade
 
- //          if(padre == util.FLAG_PERFIL){
- //              ref.parentFragmentManager.commit {
- //                  replace<ProfileActivities>(R.id.nav_host_fragment_activity_main)
- //                  setReorderingAllowed(true)
- //                  addToBackStack("name") // name can be null
- //              }
- //          }
-
+            model.select(list[p0])
             Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_navigation_home_comment);
         }
 

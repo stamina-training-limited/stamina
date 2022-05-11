@@ -6,13 +6,26 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ListView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.getValue
 import com.limited.training.stamina.R
+import com.limited.training.stamina.Util.Funciones
+import com.limited.training.stamina.adapters.CommentCustomAdapter
+import com.limited.training.stamina.adapters.PublicationsCustoAdapter
+import com.limited.training.stamina.databinding.FragmentHomeBinding
 import com.limited.training.stamina.databinding.FragmentHomeCommentBinding
+import com.limited.training.stamina.objects.Comentario
+import com.limited.training.stamina.objects.Publication
+import com.limited.training.stamina.ui.routes.RoutesViewModel
 
 
 class HomeCommentFragment : Fragment() {
@@ -29,22 +42,40 @@ class HomeCommentFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeCommentBinding.inflate(inflater, container, false)
+        val model: HomeViewModel by activityViewModels()
         val root: View = binding.root
+        var publicacion = model.selected.value 
+        var database = Funciones.recuperarReferenciaBBDD(requireActivity())
+        var dbRef  = database.getReference("publicaciones/" + publicacion!!.ref)
 
+        if(dbRef != null) {
+
+            dbRef.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    publicacion = dataSnapshot.getValue<Publication>()!!
+                    var listView: ListView = binding.listComment
+                    listView.adapter = CommentCustomAdapter(publicacion!!.comentario, requireActivity().applicationContext)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+            })
+        }
         val callback: OnBackPressedCallback =
             object : OnBackPressedCallback(true /* enabled by default */) {
                 override fun handleOnBackPressed() {
                     Navigation.findNavController(root).navigate(R.id.action_navigation_home_comment_to_navigation_home);
                 }
             }
+
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
         val editProfileButton : Button = binding.publishBtn
         editProfileButton!!.setOnClickListener {
-            Toast.makeText(this@HomeCommentFragment.requireContext(), "Comentario realizado", Toast.LENGTH_SHORT).show()
+
             Navigation.findNavController(root).navigate(R.id.action_navigation_home_comment_to_navigation_home);
-//            val intLike = Intent(activity, MainActivity::class.java)
-//            startActivity(intLike)
+
         }
         
 
