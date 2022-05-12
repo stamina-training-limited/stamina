@@ -1,7 +1,6 @@
 package com.limited.training.stamina.Util.room
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.limited.training.stamina.objects.Coordenada
@@ -19,4 +18,7 @@ interface CoordenadaDAO {
 
 //    @Delete
 //    fun delete(coordenada: Coordenada)
+
+    @Query("DELETE FROM coordenadas")
+    fun deleteAll()
 }

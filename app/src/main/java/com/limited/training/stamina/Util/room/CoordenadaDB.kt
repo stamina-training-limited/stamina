@@ -23,9 +23,17 @@ abstract class CoordenadaDB : RoomDatabase() {
                     context.applicationContext,
                     CoordenadaDB::class.java,
                     DATABASE_NAME
-                ).build()
+                ).fallbackToDestructiveMigration().build()
             }
             return INSTANCE
+        }
+
+        fun clearAllTables(){
+            INSTANCE?.clearAllTables()
+        }
+
+        fun closeInstance(){
+            INSTANCE?.close()
         }
     }
 }

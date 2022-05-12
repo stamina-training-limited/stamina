@@ -3,6 +3,7 @@ package com.limited.training.stamina.ui.record
 
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Build
@@ -12,11 +13,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -27,13 +30,15 @@ import com.google.android.gms.maps.model.*
 import com.limited.training.stamina.R
 import com.limited.training.stamina.Util.room.CoordenadaDAO
 import com.limited.training.stamina.Util.room.CoordenadaDB
+import com.limited.training.stamina.databinding.FragmentMapsBinding
 import com.limited.training.stamina.objects.Coordenada
 import kotlinx.coroutines.launch
 
 //import com.limited.training.stamina.databinding.FragmentRecordBinding
 
 class RecordFragment : Fragment(), OnMapReadyCallback {
-
+    private var trackLocation = false
+    private val model: RecordViewModel by activityViewModels()
     lateinit var coordsDB: CoordenadaDB
     lateinit var coordsDAO: CoordenadaDAO
     lateinit var mGoogleMap: GoogleMap
@@ -58,19 +63,21 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
                     mPreviousLocation = location
                 } //Sólo añadimos una nueva línea si se ha cambiado de posición
                 if(mCurrentLocation!!.longitude != mPreviousLocation!!.longitude && mCurrentLocation!!.latitude != mPreviousLocation!!.latitude){
-                    val coord:Coordenada = Coordenada(mCurrentLocation!!.longitude,mCurrentLocation!!.latitude)
-                    lifecycleScope.launch { coordsDAO.insert(coord) }
-                    mGoogleMap.addPolyline(
-                        PolylineOptions()
-                            .add(
-                                LatLng(mPreviousLocation!!.latitude, mPreviousLocation!!.longitude),
-                                LatLng(mCurrentLocation!!.latitude, mCurrentLocation!!.longitude)
-                            )
-                            .color(context?.let { ContextCompat.getColor(it,R.color.azul_stamina) }!!)
-                            .width(15.0F)
-                    )
-                    var coords: List<Coordenada>
-                    lifecycleScope.launch { coords = coordsDAO.getAll() }
+                    if(trackLocation){
+                        val coord:Coordenada = Coordenada(mCurrentLocation!!.longitude,mCurrentLocation!!.latitude)
+                        lifecycleScope.launch { coordsDAO.insert(coord) }
+                        mGoogleMap.addPolyline(
+                            PolylineOptions()
+                                .add(
+                                    LatLng(mPreviousLocation!!.latitude, mPreviousLocation!!.longitude),
+                                    LatLng(mCurrentLocation!!.latitude, mCurrentLocation!!.longitude)
+                                )
+                                .color(context?.let { ContextCompat.getColor(it,R.color.azul_stamina) }!!)
+                                .width(15.0F)
+                        )
+                    }
+//                    var coords: List<Coordenada>
+//                    lifecycleScope.launch { coords = coordsDAO.getAll() }
                     mPreviousLocation = mCurrentLocation
                 }
                 if (mCurrLocationMarker != null) {
@@ -95,15 +102,15 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
                     1000,
                     null
                 )
+                val startButton : Button = view?.findViewById<Button>(R.id.mapStart_btn)!!
+                if(startButton.visibility == View.INVISIBLE) startButton.visibility = View.VISIBLE
             }
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        coordsDB = CoordenadaDB.getInstance(requireContext())!!
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-
+//        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         //checkLocationPermission()
     }
 
@@ -112,12 +119,32 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val view = inflater.inflate(R.layout.fragment_maps, container, false)
+        val startBtn : Button = view?.findViewById(R.id.mapStart_btn)!!
+        startBtn.setOnClickListener {
+            toggleTracking(startBtn)
+        }
+        coordsDB = CoordenadaDB.getInstance(requireContext())!!
         coordsDAO = coordsDB.coordenadaDao()
-        return inflater.inflate(R.layout.fragment_maps, container, false)
+        return view
+    }
+
+    private fun toggleStartButtonText(startBtn : Button){
+        if(startBtn.text.toString() == requireContext().getText(R.string.start))
+            startBtn.text = requireContext().getText(R.string.stop)
+        else
+            startBtn.text = requireContext().getText(R.string.start)
+    }
+
+    private fun toggleTracking(startBtn : Button){
+        trackLocation = !trackLocation
+        toggleStartButtonText(startBtn)
     }
 
     override fun onStart() {
         super.onStart()
+        val startButton : Button = view?.findViewById<Button>(R.id.mapStart_btn)!!
+        startButton.visibility = View.INVISIBLE
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         mapFrag = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFrag?.getMapAsync(this)
@@ -128,13 +155,25 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
 
         //stop location updates when Activity is no longer active
         mFusedLocationClient?.removeLocationUpdates(mLocationCallback)
-         coordsDB.close()
+    }
+
+    override fun onStop() {
+        super.onStop()
+//        var coords: List<Coordenada>
+        CoordenadaDB.closeInstance()
+//        CoordenadaDB.getInstance(requireContext())
+//        lifecycleScope.launch { CoordenadaDB.clearAllTables() }
+//            .invokeOnCompletion { CoordenadaDB.closeInstance()}
+//        coordsDB = CoordenadaDB.getInstance(requireContext())!!
+//        coordsDAO = coordsDB.coordenadaDao()
+//        lifecycleScope.launch { coords = coordsDAO.getAll() }
+//        lifecycleScope.launch { coordsDAO.deleteAll() }
+//        CoordenadaDB.closeInstance()
     }
 
     override fun onMapReady (googleMap: GoogleMap) {
         mGoogleMap = googleMap
-        mGoogleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
-
+        mGoogleMap.mapType = MAP_TYPE
 
         val mLocationRequest : LocationRequest = LocationRequest.create()
         mLocationRequest.interval = UPDATE_INTERVAL //interval in milliseconds
@@ -178,10 +217,9 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
     //    }
     //}
 
-    //override fun onDestroyView() {
-    //    super.onDestroyView()
-    //    _binding = null
-    //}
+//    override fun onDestroyView() {
+//        super.onDestroyView()
+//    }
 
 
     private fun checkLocationPermission() {
@@ -271,10 +309,11 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
     }
 
     companion object {
+        const val MAP_TYPE = GoogleMap.MAP_TYPE_NORMAL
         const val MY_PERMISSIONS_REQUEST_LOCATION = 99
-        const val UPDATE_INTERVAL = 2500L
-        const val FASTEST_UPDATE_INTERVAL = 2500L
+        const val UPDATE_INTERVAL = 3000L
+        const val FASTEST_UPDATE_INTERVAL = 3000L
         const val PRIORITY = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
-        const val STARTING_ZOOM = 16.0F
+        const val STARTING_ZOOM = 18.0F
     }
 }

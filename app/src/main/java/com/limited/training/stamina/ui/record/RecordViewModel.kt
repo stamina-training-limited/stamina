@@ -3,11 +3,12 @@ package com.limited.training.stamina.ui.record
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.limited.training.stamina.objects.Coordenada
 
 class RecordViewModel : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is Record Fragment"
+    val coordenadasList = MutableLiveData<List<Coordenada>>()
+    fun select(coordList: List<Coordenada>){
+        coordenadasList.value = coordList
     }
-    val text: LiveData<String> = _text
 }
