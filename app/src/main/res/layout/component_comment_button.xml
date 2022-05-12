@@ -9,7 +9,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
@@ -21,7 +21,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/route_button_layout"
             android:layout_width="match_parent"
-            android:layout_height="130dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="15dp"
@@ -30,32 +30,35 @@
             tools:context=".ui.home.HomeFragment">
 
             <TextView
-                android:id="@+id/tvContact"
+                android:id="@+id/tvMensaje"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="25dp"
+                android:layout_margin="1dp"
                 android:gravity="center_horizontal"
                 android:text="Default example text"
-                android:textSize="22sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/btn"
-                android:layout_width="fill_parent"
-                android:layout_height="58dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginBottom="10dp"
-                android:text="@string/ver"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintRight_toRightOf="parent" />
+            <TextView
+                android:id="@+id/tvHora"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_margin="1dp"
+                android:text="Default example text"
+                android:textSize="6sp"
+                android:textStyle="bold"
+                card_view:layout_constraintStart_toStartOf="@+id/tvMensaje"
+                card_view:layout_constraintTop_toBottomOf="@+id/tvMensaje"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.cardview.widget.CardView>
+
+
 
 
 </GridLayout>

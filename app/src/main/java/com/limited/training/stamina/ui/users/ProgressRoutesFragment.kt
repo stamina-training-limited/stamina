@@ -1,4 +1,4 @@
-package com.limited.training.stamina.ui.routes
+package com.limited.training.stamina.ui.users
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.limited.training.stamina.activities.PausedActivity
-import com.limited.training.stamina.activities.ProgressActivity
 import com.limited.training.stamina.databinding.FragmentRouteProgressBinding
 
 

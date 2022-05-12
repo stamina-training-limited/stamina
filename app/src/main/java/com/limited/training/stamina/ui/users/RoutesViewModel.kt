@@ -1,4 +1,4 @@
-package com.limited.training.stamina.ui.routes
+package com.limited.training.stamina.ui.users
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -27,6 +28,7 @@ import com.limited.training.stamina.databinding.FragmentProfileBinding
 import com.limited.training.stamina.objects.Publication
 import com.limited.training.stamina.objects.Ruta
 import com.limited.training.stamina.objects.Usuario
+import com.limited.training.stamina.ui.home.HomeViewModel
 import com.squareup.picasso.Picasso
 import org.w3c.dom.Text
 import java.lang.StringBuilder
@@ -39,7 +41,7 @@ class ProfileFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-
+    private val model: HomeViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -65,7 +67,7 @@ class ProfileFragment : Fragment() {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         pubs = dataSnapshot.getValue<List<Publication>>()!!
                         var listView: ListView = binding.listPublications!!
-                        listView.adapter = PublicationsCustoAdapter(pubs, requireActivity().applicationContext)
+                        listView.adapter = PublicationsCustoAdapter(model,pubs, requireActivity().applicationContext)
                     }
 
                     override fun onCancelled(error: DatabaseError) {

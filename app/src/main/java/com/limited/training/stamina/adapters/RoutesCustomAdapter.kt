@@ -8,7 +8,7 @@ import android.widget.*
 import androidx.navigation.Navigation
 import com.limited.training.stamina.R
 import com.limited.training.stamina.objects.Ruta
-import com.limited.training.stamina.ui.routes.RoutesViewModel
+import com.limited.training.stamina.ui.users.RoutesViewModel
 
 
 class RoutesCustomAdapter(var model: RoutesViewModel,var list: List<Ruta>, var context: Context) : BaseAdapter(), ListAdapter {
@@ -40,7 +40,7 @@ class RoutesCustomAdapter(var model: RoutesViewModel,var list: List<Ruta>, var c
         val callbtn: Button = view.findViewById(R.id.btn)
         callbtn.setOnClickListener {
             model.select(list[p0])
-            Navigation.findNavController(view).navigate(R.id.action_navigation_routes_to_navigation_concrete_routes);
+            //Navigation.findNavController(view).navigate(R.id.action_navigation_routes_to_navigation_concrete_routes);
         }
 
         return view
