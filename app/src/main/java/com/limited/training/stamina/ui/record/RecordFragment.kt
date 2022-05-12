@@ -17,6 +17,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -24,10 +25,17 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.limited.training.stamina.R
+import com.limited.training.stamina.Util.room.CoordenadaDAO
+import com.limited.training.stamina.Util.room.CoordenadaDB
+import com.limited.training.stamina.objects.Coordenada
+import kotlinx.coroutines.launch
+
 //import com.limited.training.stamina.databinding.FragmentRecordBinding
 
 class RecordFragment : Fragment(), OnMapReadyCallback {
 
+    lateinit var coordsDB: CoordenadaDB
+    lateinit var coordsDAO: CoordenadaDAO
     lateinit var mGoogleMap: GoogleMap
     var mapFrag: SupportMapFragment? = null
     lateinit var mLocationRequest: LocationRequest
@@ -50,6 +58,8 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
                     mPreviousLocation = location
                 } //Sólo añadimos una nueva línea si se ha cambiado de posición
                 if(mCurrentLocation!!.longitude != mPreviousLocation!!.longitude && mCurrentLocation!!.latitude != mPreviousLocation!!.latitude){
+                    val coord:Coordenada = Coordenada(mCurrentLocation!!.longitude,mCurrentLocation!!.latitude)
+                    lifecycleScope.launch { coordsDAO.insert(coord) }
                     mGoogleMap.addPolyline(
                         PolylineOptions()
                             .add(
@@ -59,6 +69,8 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
                             .color(context?.let { ContextCompat.getColor(it,R.color.azul_stamina) }!!)
                             .width(15.0F)
                     )
+                    var coords: List<Coordenada>
+                    lifecycleScope.launch { coords = coordsDAO.getAll() }
                     mPreviousLocation = mCurrentLocation
                 }
                 if (mCurrLocationMarker != null) {
@@ -89,8 +101,7 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
+        coordsDB = CoordenadaDB.getInstance(requireContext())!!
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
         //checkLocationPermission()
@@ -101,7 +112,7 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        coordsDAO = coordsDB.coordenadaDao()
         return inflater.inflate(R.layout.fragment_maps, container, false)
     }
 
@@ -117,6 +128,7 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
 
         //stop location updates when Activity is no longer active
         mFusedLocationClient?.removeLocationUpdates(mLocationCallback)
+         coordsDB.close()
     }
 
     override fun onMapReady (googleMap: GoogleMap) {

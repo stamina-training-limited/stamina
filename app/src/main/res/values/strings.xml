@@ -102,6 +102,9 @@ This EULA agreement, and any dispute arising out of or in connection with this E
     <!-- URL de Firebase -->
     <string name="datasource_firebase">https://stamina-training-default-rtdb.europe-west1.firebasedatabase.app/</string>
 
+    <!-- Room DB -->
+    <string name="coordenadas_database">coordenadas_database</string>
+
     <!-- Editar perfil -->
     <string name="nuevo_nombre">Introduzca el nuevo nombre</string>
     <string name="nueva_descripcion">Introduzca la nueva descripcion</string>
