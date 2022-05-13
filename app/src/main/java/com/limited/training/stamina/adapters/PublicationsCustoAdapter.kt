@@ -119,6 +119,9 @@ class PublicationsCustoAdapter(var model: HomeViewModel, var list: List<Publicat
                     if(!numeroMegustasUsuarios!!.contains(emailUsuarioActual)){
                         val nuevaListaMeGusta = numeroMegustasUsuarios!! + emailUsuarioActual
                         referenciaUsuariosBBDD.child(list[p0].ref).child("megustas").setValue(nuevaListaMeGusta)
+                    }else{
+                        val nuevaListaMeGusta = numeroMegustasUsuarios!! - emailUsuarioActual
+                        referenciaUsuariosBBDD.child(list[p0].ref).child("megustas").setValue(nuevaListaMeGusta)
                     }
                 }
             }
