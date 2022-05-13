@@ -20,5 +20,5 @@ interface CoordenadaDAO {
 //    fun delete(coordenada: Coordenada)
 
     @Query("DELETE FROM coordenadas")
-    fun deleteAll()
+    suspend fun deleteAll()
 }
