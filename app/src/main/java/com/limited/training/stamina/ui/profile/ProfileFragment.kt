@@ -38,6 +38,8 @@ class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
 
+
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -49,6 +51,8 @@ class ProfileFragment : Fragment() {
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        val datosGoogle = Funciones.recuperarDatosCuentaGoogle(requireActivity())
+        val emailUsuario = datosGoogle?.email
 
         //If is a tablet this textview is null
         val activitiesTextView : TextView? = binding.profileActivitiesSectionTv
@@ -67,7 +71,7 @@ class ProfileFragment : Fragment() {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         pubs = dataSnapshot.getValue<HashMap<String,Publication>>()!!
                         var listView: ListView = binding.listPublications!!
-                        listView.adapter = PublicationsCustoAdapter(model,pubs.values.toList(), requireActivity().applicationContext)
+                        listView.adapter = PublicationsCustoAdapter(model,pubs.values.toList(), requireActivity().applicationContext, emailUsuario!!)
                     }
 
                     override fun onCancelled(error: DatabaseError) {
