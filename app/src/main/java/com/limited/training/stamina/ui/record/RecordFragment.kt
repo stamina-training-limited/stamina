@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.GoogleMap
@@ -15,13 +17,17 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.limited.training.stamina.R
 import com.limited.training.stamina.Util.MapController
 import com.limited.training.stamina.Util.room.CoordenadaDB
-import com.limited.training.stamina.objects.Coordenada
 import kotlinx.coroutines.launch
 
 class RecordFragment : MapController() {
     lateinit var cordsDB: CoordenadaDB
     var mapFrag: SupportMapFragment? = null
     var startBtn: Button? = null;
+    var stopBtn: Button? = null;
+    var resumeBtn: Button? = null;
+    var finishBtn: Button? = null;
+    var recordingLayout: ConstraintLayout? = null;
+    var recordingStopLayout: ConstraintLayout? = null;
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,35 +35,69 @@ class RecordFragment : MapController() {
         savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(R.layout.fragment_maps, container, false)
+        recordingLayout = view?.findViewById(R.id.recording_layout)!!
+        recordingStopLayout = view?.findViewById(R.id.recording_stop_layout)
         startBtn = view?.findViewById(R.id.mapStart_btn)!!
+        stopBtn = view?.findViewById(R.id.routeProgressStop_btn)!!
+        resumeBtn = view?.findViewById(R.id.routeProgressResume_btn)!!
+        finishBtn = view?.findViewById(R.id.routeProgressFinish_btn)!!
+
         startBtn!!.setOnClickListener {
-            toggleTracking(startBtn!!)
+            startRecording(startBtn!!, recordingLayout!!)
         }
+
+        stopBtn!!.setOnClickListener{
+            stopRecording(recordingLayout!!, recordingStopLayout!!)
+        }
+
+        resumeBtn!!.setOnClickListener{
+            resumeRecording(recordingStopLayout!!, recordingLayout!!)
+        }
+
+        finishBtn!!.setOnClickListener{
+            finishRecording(recordingStopLayout!!, startBtn!!)
+        }
+
         cordsDB = CoordenadaDB.getInstance(requireContext())!!
         cordsDAO = cordsDB.coordenadaDao()
         return view
     }
 
-    private fun toggleStartButtonText(startBtn : Button){
-        if(startBtn.text.toString() == requireContext().getText(R.string.start)) {
-            startBtn.text = requireContext().getText(R.string.stop)
-            lifecycleScope.launch {
-                cordsDAO.deleteAll()
-                Log.i("MapsActivity", cordsDAO.getAll().toString())
-            }
-        } else {
-            startBtn.text = requireContext().getText(R.string.start)
-            lifecycleScope.launch {
-                Log.i("MapsActivity", cordsDAO.getAll().toString())
-            }
+    private fun startRecording(startBtn : Button, recodingLy: ConstraintLayout){
+        trackLocation = true
+        startBtn.visibility = View.GONE
+        recodingLy.visibility = View.VISIBLE
+        lifecycleScope.launch {
+            Log.i("MapsActivity", cordsDAO.getAll().toString())
         }
-
-        Log.i("MapsActivity","TrackLocation var value " + trackLocation)
     }
 
-    private fun toggleTracking(startBtn : Button){
-        trackLocation = !trackLocation
-        toggleStartButtonText(startBtn)
+    private fun stopRecording(recodingLy: ConstraintLayout, recodingStopLy: ConstraintLayout){
+        trackLocation = false
+        recodingLy.visibility = View.GONE
+        recodingStopLy.visibility = View.VISIBLE
+    }
+
+    private fun resumeRecording(recodingStopLy: ConstraintLayout, recodingLy: ConstraintLayout){
+        trackLocation = true
+        recodingStopLy.visibility = View.GONE
+        recodingLy.visibility = View.VISIBLE
+        lifecycleScope.launch {
+            Log.i("MapsActivity", cordsDAO.getAll().toString())
+        }
+    }
+
+    private fun finishRecording(recodingStopLy: ConstraintLayout, startBtn : Button){
+        trackLocation = false
+        recodingStopLy.visibility = View.GONE
+        startBtn.visibility = View.VISIBLE
+
+        lifecycleScope.launch {
+            Log.i("MapsActivity", cordsDAO.getAll().toString())
+            cordsDAO.deleteAll()
+        }
+
+        Toast.makeText(activity, "Se ha finalizado la actividad", Toast.LENGTH_SHORT).show()
     }
 
     override fun onStart() {
