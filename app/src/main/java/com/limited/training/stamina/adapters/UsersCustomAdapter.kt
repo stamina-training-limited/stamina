@@ -57,10 +57,6 @@ class UsersCustomAdapter(var list: List<Usuario>, var context: Context, var mode
         user_name.text = list[p0].nombre
         user_description.text = list[p0].descripcion
 
-        follow_button!!.setOnClickListener {
-            Toast.makeText(context, "Has empezado a seguir a ${list[p0].nombre}", Toast.LENGTH_SHORT).show()
-        }
-
         got_to_profile!!.setOnClickListener {
             model.select(list[p0])
             Navigation.findNavController(view).navigate(R.id.action_navigation_users_to_concreteUserPageFragment);
