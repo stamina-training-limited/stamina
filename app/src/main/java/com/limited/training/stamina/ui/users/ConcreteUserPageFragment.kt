@@ -1,6 +1,8 @@
 package com.limited.training.stamina.ui.users
 
+import android.content.Context
 import android.content.Intent
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,10 +11,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -43,9 +47,7 @@ class ConcreteUserPageFragment : Fragment() {
         val model : UserViewModel by activityViewModels()
         var usuario : Usuario? = model.selected.value
 
-        if (usuario != null) {
-            seteoCamposUsuario(_binding!!, usuario)
-        }
+        seteoCamposUsuario(_binding!!, usuario!!)
 
         //If is a tablet this textview is null
         val activitiesTextView : TextView? = binding.profileActivitiesSectionTv
@@ -59,32 +61,41 @@ class ConcreteUserPageFragment : Fragment() {
 
             if(dbRef != null) {
 
-
             }
         }
 
-        val followUnfollowButton : Button = binding.profileFollowUnfollowButton
-        followUnfollowButton!!.setOnClickListener {
-            //TODO
+        // Se recupera el usuario logeado en la aplicación. Con el mail recuperaremos
+        // la lista de usuarios que sigue.
+        val usuarioAplicacion : GoogleSignInAccount? =
+            Funciones.recuperarDatosCuentaGoogle(requireActivity())
+
+        val emailUsuario = usuarioAplicacion?.email
+
+        // Si el usuario actual no sigue al usuario concreto, el botón debería dar la
+        // opción de dejar de seguir. En caso contrario, el botón debería permitir al usuario.
+        comprobarSiUsuarioLogeadoSigue(requireContext(), Funciones.remplazarPuntos(emailUsuario!!),
+                Funciones.remplazarPuntos(usuario.correo))
+
+        val botonSeguir : Button = binding!!.profileFollow
+        val botonDejarDeSeguir : Button = binding!!.profileUnfollow
+
+        botonSeguir.setOnClickListener {
+            seguirUsuario(requireContext(), Funciones.remplazarPuntos(emailUsuario!!),
+                Funciones.remplazarPuntos(usuario.correo))
+
+            Toast.makeText(context, getString(R.string.usuarioSeguidoCorrectamente),
+                Toast.LENGTH_LONG).show();
+
         }
 
+        botonDejarDeSeguir.setOnClickListener {
+            dejarDeSeguir(requireContext(), Funciones.remplazarPuntos(emailUsuario!!),
+                Funciones.remplazarPuntos(usuario.correo))
 
-        // Recuperacion de datos de usuario y seteo de los mismos de BBDD
-
-        // Se recupera el email del usuario para buscar sus datos en BBDD
-        val cuentaGoogle = Funciones.recuperarDatosCuentaGoogle(requireActivity())
-        val personEmail = cuentaGoogle?.email
-        val personProfileImageUrl = cuentaGoogle?.photoUrl
-
-        // Se eliminan los puntos para poder usarlo de clave contra el JSON de BBDD
-        var processedEmail : String = Funciones.remplazarPuntos(personEmail!!)
-
-        var database = Funciones.recuperarReferenciaBBDD(requireActivity())
-
-        var myRef = database.getReference("usuarios/" + processedEmail)
-
-        if (myRef != null){
+            Toast.makeText(context, getString(R.string.usuarioDejadoDeSeguirCorrectamente),
+                Toast.LENGTH_LONG).show();
         }
+
 
         return root
     }
@@ -92,20 +103,6 @@ class ConcreteUserPageFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    fun signOut(){
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .build()
-
-        // Build a GoogleSignInClient with the options specified by gso.
-        val mGoogleSignInClient = context?.let { GoogleSignIn.getClient(it, gso) };
-
-        mGoogleSignInClient?.signOut()?.addOnCompleteListener{
-            val intent : Intent = Intent(context, MainScreen::class.java)
-            startActivity(intent)
-        }
     }
 
     fun seteoCamposUsuario(binding: FragmentConcreteUserPageBinding, usuario : Usuario){
@@ -127,6 +124,150 @@ class ConcreteUserPageFragment : Fragment() {
         numeroPublicaciones.text = usuario.publicaciones.size.toString()
 
         Funciones.establecerFotoPerfil(usuario.urlFotoPerfil, fotoPerfil)
+
+    }
+
+    fun seguirUsuario(context: Context, emailUsuarioLogeado: String, emailUsuarioConcreto: String){
+        var database = Funciones.recuperarReferenciaBBDD(context)
+
+        // Añadir a la lista del ususario logeado el usuario que sigue
+        var referenciaUsuarioLogeadoBBDD = database.getReference("usuarios/"
+                + Funciones.remplazarPuntos(emailUsuarioLogeado))
+        var usuario : Usuario
+
+        if (referenciaUsuarioLogeadoBBDD != null){
+            referenciaUsuarioLogeadoBBDD.addValueEventListener(object : ValueEventListener {
+
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    // Get datos de usuario
+                    usuario = dataSnapshot.getValue<Usuario>()!!
+
+                    if(!usuario.seguidos.contains(emailUsuarioConcreto)) {
+                        val nuevaListaSeguidos = usuario.seguidos + emailUsuarioConcreto
+                        referenciaUsuarioLogeadoBBDD.child("seguidos")
+                            .setValue(nuevaListaSeguidos)
+                    }
+
+
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+            })
+        }
+
+        // Añadir a la lista del seguido el seguidor
+
+        var referenciaUsuarioConcretoBBDD = database.getReference("usuarios/"
+                + Funciones.remplazarPuntos(emailUsuarioConcreto))
+        var usuarioConcreto : Usuario
+
+        if (referenciaUsuarioConcretoBBDD != null){
+            referenciaUsuarioConcretoBBDD.addValueEventListener(object : ValueEventListener {
+
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    // Get datos de usuario
+                    usuarioConcreto = dataSnapshot.getValue<Usuario>()!!
+
+                    if(!usuarioConcreto.seguidores.contains(emailUsuarioLogeado)) {
+                        val nuevaListaSeguidores = usuarioConcreto.seguidores + emailUsuarioLogeado
+                        referenciaUsuarioConcretoBBDD
+                            .child("seguidores").setValue(nuevaListaSeguidores)
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+            })
+        }
+    }
+
+    fun dejarDeSeguir(context: Context, emailUsuarioLogeado: String, emailUsuarioConcreto: String){
+        var database = Funciones.recuperarReferenciaBBDD(context)
+
+        // Añadir a la lista del ususario logeado el usuario que sigue
+        var referenciaUsuarioLogeadoBBDD = database.getReference("usuarios/"
+                + Funciones.remplazarPuntos(emailUsuarioLogeado))
+        var usuario : Usuario
+
+        if (referenciaUsuarioLogeadoBBDD != null){
+            referenciaUsuarioLogeadoBBDD.addValueEventListener(object : ValueEventListener {
+
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    // Get datos de usuario
+                    usuario = dataSnapshot.getValue<Usuario>()!!
+
+                    if(usuario.seguidos.contains(emailUsuarioConcreto)) {
+                        val nuevaListaSeguidos = usuario.seguidos - emailUsuarioConcreto
+                        referenciaUsuarioLogeadoBBDD.child("seguidos")
+                            .setValue(nuevaListaSeguidos)
+                    }
+
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+            })
+        }
+
+        // Añadir a la lista del seguido el seguidor
+
+        var referenciaUsuarioConcretoBBDD = database.getReference("usuarios/"
+                + Funciones.remplazarPuntos(emailUsuarioConcreto))
+        var usuarioConcreto : Usuario
+
+        if (referenciaUsuarioConcretoBBDD != null){
+            referenciaUsuarioConcretoBBDD.addValueEventListener(object : ValueEventListener {
+
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    // Get datos de usuario
+                    usuarioConcreto = dataSnapshot.getValue<Usuario>()!!
+
+                    if(usuarioConcreto.seguidores.contains(emailUsuarioLogeado)) {
+                        val nuevaListaSeguidores = usuarioConcreto.seguidores - emailUsuarioLogeado
+                        referenciaUsuarioConcretoBBDD
+                            .child("seguidores").setValue(nuevaListaSeguidores)
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+            })
+        }
+    }
+
+    fun comprobarSiUsuarioLogeadoSigue(context : Context, emailUsuarioLogeado : String,
+                                       emailUsuarioConcreto : String){
+
+        var database = Funciones.recuperarReferenciaBBDD(context)
+        var myRef = database.getReference("usuarios/"
+                + Funciones.remplazarPuntos(emailUsuarioLogeado))
+        var usuario : Usuario
+
+        if (myRef != null){
+            myRef.addValueEventListener(object : ValueEventListener {
+
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    // Get datos de usuario
+                    usuario = dataSnapshot.getValue<Usuario>()!!
+
+                    if(usuario.seguidos.contains(emailUsuarioConcreto))
+                    {
+                        binding.profileUnfollow.visibility = View.VISIBLE
+                        binding.profileFollow.visibility = View.INVISIBLE
+                    }else{
+                        binding.profileFollow.visibility = View.VISIBLE
+                        binding.profileUnfollow.visibility = View.INVISIBLE
+                    }
+
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+            })
+        }
+
+
 
     }
 }
