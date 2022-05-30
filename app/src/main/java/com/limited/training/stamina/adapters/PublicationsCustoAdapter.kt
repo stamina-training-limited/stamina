@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat.startActivity
+import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -15,6 +16,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 import com.limited.training.stamina.R
 import com.limited.training.stamina.Util.Funciones
+import com.limited.training.stamina.Util.SelectViewModel
 import com.limited.training.stamina.Util.Utilidades
 import com.limited.training.stamina.objects.Publication
 import com.limited.training.stamina.objects.Usuario
@@ -23,7 +25,7 @@ import com.squareup.picasso.Picasso
 import java.util.concurrent.TimeUnit
 
 
-class PublicationsCustoAdapter(var model: HomeViewModel, var list: List<Publication>, var context: Context, var emailUsuarioActual : String) : BaseAdapter(),
+class PublicationsCustoAdapter(var model: SelectViewModel, var list: List<Publication>, var context: Context, var emailUsuarioActual : String) : BaseAdapter(),
     ListAdapter {
 
     var util : Utilidades = Utilidades(0, 1)
