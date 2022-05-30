@@ -80,15 +80,20 @@ class ConcreteUserPageFragment : Fragment() {
         val botonDejarDeSeguir : Button = binding!!.profileUnfollow
 
         botonSeguir.setOnClickListener {
+
+            getActivity()?.onBackPressed();
+
             seguirUsuario(requireContext(), Funciones.remplazarPuntos(emailUsuario!!),
                 Funciones.remplazarPuntos(usuario.correo))
 
             Toast.makeText(context, getString(R.string.usuarioSeguidoCorrectamente),
                 Toast.LENGTH_LONG).show();
-
         }
 
         botonDejarDeSeguir.setOnClickListener {
+
+            getActivity()?.onBackPressed();
+
             dejarDeSeguir(requireContext(), Funciones.remplazarPuntos(emailUsuario!!),
                 Funciones.remplazarPuntos(usuario.correo))
 
