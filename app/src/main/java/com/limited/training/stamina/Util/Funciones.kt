@@ -9,8 +9,13 @@ import android.util.Log
 import android.widget.ImageView
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.getValue
 import com.limited.training.stamina.R
+import com.limited.training.stamina.objects.Usuario
 import com.squareup.picasso.Picasso
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
@@ -71,7 +76,16 @@ class Funciones {
             return stringDate
         }
 
+        fun seguirUsuario(emailSeguido : String, emailSeguidor: String ){
 
+        }
 
+        fun dejarDeSeguirUsuario(emailSeguido : String, emailSeguidor: String ){
+
+        }
+
+        fun usuarioSigueAUsuario (emailSeguido : String, emailSeguidor: String ){
+
+        }
     }
 }

@@ -59,20 +59,6 @@
                 card_view:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
-                android:id="@+id/user_card_follow_button"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:padding="5dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:background="@null"
-                android:scaleType="centerCrop"
-                android:tint="@color/grisOscuro_stamina"
-                android:src="@drawable/ic_add"
-                card_view:layout_constraintStart_toEndOf="@+id/user_card_go_to_profile_button"
-                card_view:layout_constraintTop_toBottomOf="@+id/user_card_description" />
-
-            <ImageButton
                 android:id="@+id/user_card_go_to_profile_button"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
