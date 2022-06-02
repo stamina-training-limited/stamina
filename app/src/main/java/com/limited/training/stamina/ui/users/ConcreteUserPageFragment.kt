@@ -32,6 +32,8 @@ import com.limited.training.stamina.objects.Usuario
 class ConcreteUserPageFragment : Fragment() {
 
     private var _binding: FragmentConcreteUserPageBinding? = null
+    private lateinit var _c_user: Usuario
+    private lateinit var _l_user: Usuario
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -64,15 +66,11 @@ class ConcreteUserPageFragment : Fragment() {
             }
         }
 
-        // Se recupera el usuario logeado en la aplicación. Con el mail recuperaremos
-        // la lista de usuarios que sigue.
         val usuarioAplicacion : GoogleSignInAccount? =
             Funciones.recuperarDatosCuentaGoogle(requireActivity())
 
         val emailUsuario = usuarioAplicacion?.email
 
-        // Si el usuario actual no sigue al usuario concreto, el botón debería dar la
-        // opción de dejar de seguir. En caso contrario, el botón debería permitir al usuario.
         comprobarSiUsuarioLogeadoSigue(requireContext(), Funciones.remplazarPuntos(emailUsuario!!),
                 Funciones.remplazarPuntos(usuario.correo))
 
@@ -80,27 +78,41 @@ class ConcreteUserPageFragment : Fragment() {
         val botonDejarDeSeguir : Button = binding!!.profileUnfollow
 
         botonSeguir.setOnClickListener {
-
-            getActivity()?.onBackPressed();
-
-            seguirUsuario(requireContext(), Funciones.remplazarPuntos(emailUsuario!!),
+            follow(requireContext(), Funciones.remplazarPuntos(emailUsuario!!),
                 Funciones.remplazarPuntos(usuario.correo))
-
-            Toast.makeText(context, getString(R.string.usuarioSeguidoCorrectamente),
-                Toast.LENGTH_LONG).show();
         }
 
         botonDejarDeSeguir.setOnClickListener {
-
-            getActivity()?.onBackPressed();
-
-            dejarDeSeguir(requireContext(), Funciones.remplazarPuntos(emailUsuario!!),
+            unfollow(requireContext(), Funciones.remplazarPuntos(emailUsuario!!),
                 Funciones.remplazarPuntos(usuario.correo))
-
-            Toast.makeText(context, getString(R.string.usuarioDejadoDeSeguirCorrectamente),
-                Toast.LENGTH_LONG).show();
         }
 
+        // Actualizamos o atributo coa información do usuario cando algo cambie na base de datos
+
+        var database = Funciones.recuperarReferenciaBBDD(requireContext())
+        var lUserRef = database.getReference("usuarios/"
+                + Funciones.remplazarPuntos(emailUsuario))
+
+        lUserRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                _l_user = dataSnapshot.getValue<Usuario>()!!
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+
+        var cUserRef = database.getReference("usuarios/"
+                + Funciones.remplazarPuntos(usuario.correo))
+
+        cUserRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                _c_user = dataSnapshot.getValue<Usuario>()!!
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
 
         return root
     }
@@ -132,113 +144,64 @@ class ConcreteUserPageFragment : Fragment() {
 
     }
 
-    fun seguirUsuario(context: Context, emailUsuarioLogeado: String, emailUsuarioConcreto: String){
+    fun follow(context: Context, emailUsuarioLogeado: String, emailUsuarioConcreto: String) {
         var database = Funciones.recuperarReferenciaBBDD(context)
 
         // Añadir a la lista del ususario logeado el usuario que sigue
-        var referenciaUsuarioLogeadoBBDD = database.getReference("usuarios/"
+        var lUserRef = database.getReference("usuarios/"
                 + Funciones.remplazarPuntos(emailUsuarioLogeado))
-        var usuario : Usuario
 
-        if (referenciaUsuarioLogeadoBBDD != null){
-            referenciaUsuarioLogeadoBBDD.addValueEventListener(object : ValueEventListener {
-
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    // Get datos de usuario
-                    usuario = dataSnapshot.getValue<Usuario>()!!
-
-                    if(!usuario.seguidos.contains(emailUsuarioConcreto)) {
-                        val nuevaListaSeguidos = usuario.seguidos + emailUsuarioConcreto
-                        referenciaUsuarioLogeadoBBDD.child("seguidos")
-                            .setValue(nuevaListaSeguidos)
-                    }
-
-
-                }
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
-            })
-        }
-
-        // Añadir a la lista del seguido el seguidor
-
-        var referenciaUsuarioConcretoBBDD = database.getReference("usuarios/"
+        var cUserRef = database.getReference("usuarios/"
                 + Funciones.remplazarPuntos(emailUsuarioConcreto))
-        var usuarioConcreto : Usuario
 
-        if (referenciaUsuarioConcretoBBDD != null){
-            referenciaUsuarioConcretoBBDD.addValueEventListener(object : ValueEventListener {
-
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    // Get datos de usuario
-                    usuarioConcreto = dataSnapshot.getValue<Usuario>()!!
-
-                    if(!usuarioConcreto.seguidores.contains(emailUsuarioLogeado)) {
-                        val nuevaListaSeguidores = usuarioConcreto.seguidores + emailUsuarioLogeado
-                        referenciaUsuarioConcretoBBDD
-                            .child("seguidores").setValue(nuevaListaSeguidores)
-                    }
-                }
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
-            })
+        if(!_l_user.seguidos.contains(emailUsuarioConcreto)) {
+            val nuevaListaSeguidos = _l_user.seguidos + emailUsuarioConcreto
+            lUserRef.child("seguidos").setValue(nuevaListaSeguidos)
+        } else {
+            print("Error, no debería ser posible")
+            return
         }
+
+        if(!_c_user.seguidos.contains(emailUsuarioLogeado)) {
+            val nuevaListaSeguidos = _c_user.seguidos + emailUsuarioLogeado
+            cUserRef.child("seguidos").setValue(nuevaListaSeguidos)
+        } else {
+            print("Error, no debería ser posible")
+            return
+        }
+
+        Toast.makeText(context, getString(R.string.usuarioSeguidoCorrectamente),
+            Toast.LENGTH_LONG).show();
     }
 
-    fun dejarDeSeguir(context: Context, emailUsuarioLogeado: String, emailUsuarioConcreto: String){
+    fun unfollow(context: Context, emailUsuarioLogeado: String, emailUsuarioConcreto: String) {
         var database = Funciones.recuperarReferenciaBBDD(context)
 
         // Añadir a la lista del ususario logeado el usuario que sigue
-        var referenciaUsuarioLogeadoBBDD = database.getReference("usuarios/"
+        var lUserRef = database.getReference("usuarios/"
                 + Funciones.remplazarPuntos(emailUsuarioLogeado))
-        var usuario : Usuario
 
-        if (referenciaUsuarioLogeadoBBDD != null){
-            referenciaUsuarioLogeadoBBDD.addValueEventListener(object : ValueEventListener {
-
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    // Get datos de usuario
-                    usuario = dataSnapshot.getValue<Usuario>()!!
-
-                    if(usuario.seguidos.contains(emailUsuarioConcreto)) {
-                        val nuevaListaSeguidos = usuario.seguidos - emailUsuarioConcreto
-                        referenciaUsuarioLogeadoBBDD.child("seguidos")
-                            .setValue(nuevaListaSeguidos)
-                    }
-
-                }
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
-            })
-        }
-
-        // Añadir a la lista del seguido el seguidor
-
-        var referenciaUsuarioConcretoBBDD = database.getReference("usuarios/"
+        var cUserRef = database.getReference("usuarios/"
                 + Funciones.remplazarPuntos(emailUsuarioConcreto))
-        var usuarioConcreto : Usuario
 
-        if (referenciaUsuarioConcretoBBDD != null){
-            referenciaUsuarioConcretoBBDD.addValueEventListener(object : ValueEventListener {
-
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    // Get datos de usuario
-                    usuarioConcreto = dataSnapshot.getValue<Usuario>()!!
-
-                    if(usuarioConcreto.seguidores.contains(emailUsuarioLogeado)) {
-                        val nuevaListaSeguidores = usuarioConcreto.seguidores - emailUsuarioLogeado
-                        referenciaUsuarioConcretoBBDD
-                            .child("seguidores").setValue(nuevaListaSeguidores)
-                    }
-                }
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
-            })
+        if(_l_user.seguidos.contains(emailUsuarioConcreto)) {
+            val nuevaListaSeguidos = _l_user.seguidos - emailUsuarioConcreto
+            lUserRef.child("seguidos").setValue(nuevaListaSeguidos)
+        } else {
+            print("Error, no debería ser posible")
+            return
         }
+
+        if(_c_user.seguidos.contains(emailUsuarioLogeado)) {
+            val nuevaListaSeguidos = _c_user.seguidos - emailUsuarioLogeado
+            cUserRef.child("seguidos").setValue(nuevaListaSeguidos)
+        } else {
+            print("Error, no debería ser posible")
+            return
+        }
+
+        Toast.makeText(context, getString(R.string.usuarioDejadoDeSeguirCorrectamente),
+            Toast.LENGTH_LONG).show();
     }
 
     fun comprobarSiUsuarioLogeadoSigue(context : Context, emailUsuarioLogeado : String,
@@ -271,8 +234,5 @@ class ConcreteUserPageFragment : Fragment() {
                 }
             })
         }
-
-
-
     }
 }
