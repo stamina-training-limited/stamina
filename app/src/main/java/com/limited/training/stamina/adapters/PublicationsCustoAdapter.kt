@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat.startActivity
+import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -15,6 +16,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 import com.limited.training.stamina.R
 import com.limited.training.stamina.Util.Funciones
+import com.limited.training.stamina.Util.SelectViewModel
 import com.limited.training.stamina.Util.Utilidades
 import com.limited.training.stamina.objects.Publication
 import com.limited.training.stamina.objects.Usuario
@@ -23,7 +25,7 @@ import com.squareup.picasso.Picasso
 import java.util.concurrent.TimeUnit
 
 
-class PublicationsCustoAdapter(var model: HomeViewModel, var list: List<Publication>, var context: Context) : BaseAdapter(),
+class PublicationsCustoAdapter(var model: SelectViewModel, var list: List<Publication>, var context: Context, var emailUsuarioActual : String) : BaseAdapter(),
     ListAdapter {
 
     var util : Utilidades = Utilidades(0, 1)
@@ -60,12 +62,14 @@ class PublicationsCustoAdapter(var model: HomeViewModel, var list: List<Publicat
         val ritmo: TextView = view!!.findViewById(R.id.feedEntry1Pace_tv)
         val tiempo: TextView = view!!.findViewById(R.id.feedEntry1Time_tv)
         val foto: ImageView = view!!.findViewById(R.id.feedEntry1profilePic_iv)
+        val megustas: TextView = view!!.findViewById(R.id.megustas)
 
         textName.text = list[p0].nombre
         textDateAndLocation.text = list[p0].hora.plus(" - ").plus(list[p0].lugar)
         textTitle.text = list[p0].titulo
         textDistance.text = list[p0].distancia.toString().plus(" km")
         ritmo.text = list[p0].ritmo.toString().plus(" min/km")
+        megustas.text = list[p0].megustas.size.toString()
 
         val millis: Long = list[p0].tiempo
         tiempo.text = String.format("%02d:%02d:%02d",
@@ -99,10 +103,32 @@ class PublicationsCustoAdapter(var model: HomeViewModel, var list: List<Publicat
             })
         }
 
+        // Dar me gusta a una publicación
 
         likeButton!!.setOnClickListener {
-            Toast.makeText(context, "Me gusta mucho", Toast.LENGTH_SHORT).show()
+            val refBBDD = Funciones.recuperarReferenciaBBDD(context)
+            val referenciaUsuariosBBDD = refBBDD.getReference("publicaciones")
+            var numeroMegustas = referenciaUsuariosBBDD.child(list[p0].ref).child("megustas")
+            var numeroMegustasUsuarios : List<String>?
+            if (numeroMegustas != null)
+            {
+                numeroMegustas.get().addOnSuccessListener {
+                    numeroMegustasUsuarios = it.value as List<String>?
+                    if(numeroMegustasUsuarios == null){
+                        numeroMegustasUsuarios = emptyList()
+                    }
+                    //Si el usuario no le ha dado a me gusta previamente, se le permite dar me gusta
+                    if(!numeroMegustasUsuarios!!.contains(emailUsuarioActual)){
+                        val nuevaListaMeGusta = numeroMegustasUsuarios!! + emailUsuarioActual
+                        referenciaUsuariosBBDD.child(list[p0].ref).child("megustas").setValue(nuevaListaMeGusta)
+                    }else{
+                        val nuevaListaMeGusta = numeroMegustasUsuarios!! - emailUsuarioActual
+                        referenciaUsuariosBBDD.child(list[p0].ref).child("megustas").setValue(nuevaListaMeGusta)
+                    }
+                }
+            }
         }
+
         commentButton!!.setOnClickListener {
 
             // Para que funcione tanto desde perfil como desde home, se comprueba desde que pantalla se viene y se añade

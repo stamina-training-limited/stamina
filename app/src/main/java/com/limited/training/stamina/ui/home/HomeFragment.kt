@@ -27,6 +27,7 @@ class HomeFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,6 +38,9 @@ class HomeFragment : Fragment() {
         var database = Funciones.recuperarReferenciaBBDD(requireActivity())
         var dbRef  = database.getReference("publicaciones")
         var pubs : HashMap<String, Publication> = hashMapOf()
+        val datosGoogle = Funciones.recuperarDatosCuentaGoogle(requireActivity())
+        val emailUsuario = datosGoogle?.email
+
 
         if(dbRef != null) {
 
@@ -44,7 +48,7 @@ class HomeFragment : Fragment() {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     pubs = dataSnapshot.getValue<HashMap<String, Publication>>()!!
                     var listView: ListView = binding.listPublications
-                    listView.adapter = PublicationsCustoAdapter(model,pubs.values.toList(), requireActivity().applicationContext)
+                    listView.adapter = PublicationsCustoAdapter(model,pubs.values.toList(), requireActivity().applicationContext, emailUsuario!!)
                 }
 
                 override fun onCancelled(error: DatabaseError) {

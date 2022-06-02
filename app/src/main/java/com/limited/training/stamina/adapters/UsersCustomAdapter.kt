@@ -50,16 +50,11 @@ class UsersCustomAdapter(var list: List<Usuario>, var context: Context, var mode
         val user_name: TextView = view!!.findViewById(R.id.user_card_name)
         val user_description: TextView = view!!.findViewById(R.id.user_card_description)
         val user_pic: ImageView = view!!.findViewById(R.id.user_card_pic)
-        val follow_button: ImageButton = view!!.findViewById(R.id.user_card_follow_button)
         val got_to_profile: ImageButton = view!!.findViewById(R.id.user_card_go_to_profile_button)
 
         Funciones.establecerFotoPerfil(list[p0].urlFotoPerfil, user_pic)
         user_name.text = list[p0].nombre
         user_description.text = list[p0].descripcion
-
-        follow_button!!.setOnClickListener {
-            Toast.makeText(context, "Has empezado a seguir a ${list[p0].nombre}", Toast.LENGTH_SHORT).show()
-        }
 
         got_to_profile!!.setOnClickListener {
             model.select(list[p0])

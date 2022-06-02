@@ -117,4 +117,10 @@ This EULA agreement, and any dispute arising out of or in connection with this E
     <!-- Comentarios -->
     <string name="hint_comentario">Introduzca un comentario</string>
 
+    <!-- Seguir y dejar de seguir -->
+    <string name="seguir">Seguir</string>
+    <string name="dejarDeSeguir">Dejar de seguir</string>
+    <string name="usuarioSeguidoCorrectamente">Se ha seguido al usuario</string>
+    <string name="usuarioDejadoDeSeguirCorrectamente">Se ha dejado de seguir al usuario</string>
+
 </resources>

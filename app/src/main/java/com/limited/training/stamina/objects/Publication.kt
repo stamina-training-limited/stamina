@@ -12,7 +12,8 @@ class Publication (
         @PropertyName("lugar") val lugar : String,
         @PropertyName("distancia") val distancia : Double,
         @PropertyName("ritmo") val ritmo : Double,
-        @PropertyName("tiempo") val tiempo : Long
+        @PropertyName("tiempo") val tiempo : Long,
+        @PropertyName("megustas") val megustas : List<String>
 ) {
-    constructor() : this("", emptyList(),"","","", "", "", 0.0, 0.0, 0)
+    constructor() : this("", emptyList(),"","","", "", "", 0.0, 0.0, 0, emptyList())
 }

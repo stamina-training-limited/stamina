@@ -14,7 +14,6 @@ data class Usuario(
     @PropertyName("publicaciones") val publicaciones : List<String>,
     @PropertyName("urlFotoPerfil") val urlFotoPerfil : String?,
 
-
 ){
     constructor() : this("", "", "", emptyList(), emptyList(), emptyList(), emptyList(), emptyList(), "")
 }
