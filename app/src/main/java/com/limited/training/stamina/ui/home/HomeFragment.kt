@@ -12,8 +12,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
-import com.google.firebase.firestore.ListenerRegistration
 import com.limited.training.stamina.Util.Funciones
+import com.limited.training.stamina.Util.Utilidades
 import com.limited.training.stamina.adapters.PublicationsCustoAdapter
 import com.limited.training.stamina.databinding.FragmentHomeBinding
 import com.limited.training.stamina.objects.Publication
@@ -50,7 +50,13 @@ class HomeFragment : Fragment() {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     pubs = dataSnapshot.getValue<HashMap<String, Publication>>()!!
                     var listView: ListView = binding.listPublications
-                    listView.adapter = PublicationsCustoAdapter(model,pubs.values.toList(), requireActivity().applicationContext, emailUsuario!!)
+                    listView.adapter = PublicationsCustoAdapter(
+                        model,
+                        pubs.values.toList(),
+                        requireActivity().applicationContext,
+                        emailUsuario!!,
+                        Utilidades.FLAG_HOME
+                    )
                 }
 
                 override fun onCancelled(error: DatabaseError) {

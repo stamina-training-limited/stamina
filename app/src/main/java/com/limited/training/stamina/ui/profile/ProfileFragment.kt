@@ -1,7 +1,6 @@
 package com.limited.training.stamina.ui.profile
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,7 +14,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 import com.limited.training.stamina.R
@@ -23,15 +21,10 @@ import com.limited.training.stamina.Util.Funciones
 import com.limited.training.stamina.Util.Utilidades
 import com.limited.training.stamina.activities.MainScreen
 import com.limited.training.stamina.adapters.PublicationsCustoAdapter
-import com.limited.training.stamina.adapters.RoutesCustomAdapter
 import com.limited.training.stamina.databinding.FragmentProfileBinding
 import com.limited.training.stamina.objects.Publication
-import com.limited.training.stamina.objects.Ruta
 import com.limited.training.stamina.objects.Usuario
 import com.limited.training.stamina.ui.home.HomeViewModel
-import com.squareup.picasso.Picasso
-import org.w3c.dom.Text
-import java.lang.StringBuilder
 
 
 class ProfileFragment : Fragment() {
@@ -71,7 +64,13 @@ class ProfileFragment : Fragment() {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         pubs = dataSnapshot.getValue<HashMap<String,Publication>>()!!
                         var listView: ListView = binding.listPublications!!
-                        listView.adapter = PublicationsCustoAdapter(model,pubs.values.toList(), requireActivity().applicationContext, emailUsuario!!)
+                        listView.adapter = PublicationsCustoAdapter(
+                            model,
+                            pubs.values.toList(),
+                            requireActivity().applicationContext,
+                            emailUsuario!!,
+                            Utilidades.FLAG_PERFIL
+                        )
                     }
 
                     override fun onCancelled(error: DatabaseError) {

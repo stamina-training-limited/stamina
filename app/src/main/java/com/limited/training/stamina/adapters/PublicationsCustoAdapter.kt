@@ -25,10 +25,14 @@ import com.squareup.picasso.Picasso
 import java.util.concurrent.TimeUnit
 
 
-class PublicationsCustoAdapter(var model: SelectViewModel, var list: List<Publication>, var context: Context, var emailUsuarioActual : String) : BaseAdapter(),
+class PublicationsCustoAdapter(
+    var model: SelectViewModel,
+    var list: List<Publication>,
+    var context: Context,
+    var emailUsuarioActual: String,
+    var flagFragment: Int
+) : BaseAdapter(),
     ListAdapter {
-
-    var util : Utilidades = Utilidades(0, 1)
 
     override fun getCount(): Int {
         return list.size;
@@ -133,8 +137,20 @@ class PublicationsCustoAdapter(var model: SelectViewModel, var list: List<Public
 
             // Para que funcione tanto desde perfil como desde home, se comprueba desde que pantalla se viene y se añade
 
-            model.select(list[p0])
-            Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_navigation_home_comment);
+
+
+            if(flagFragment == Utilidades.FLAG_HOME){
+                val infoViewModel : Pair<Publication, Int> = Pair(list[p0], Utilidades.FLAG_HOME)
+                model.select(infoViewModel)
+                Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_navigation_home_comment);
+            }
+
+            if (flagFragment == Utilidades.FLAG_PERFIL){
+                val infoViewModel : Pair<Publication, Int> = Pair(list[p0], Utilidades.FLAG_PERFIL)
+                model.select(infoViewModel)
+                Navigation.findNavController(view).navigate(R.id.action_navigation_profile_activities_to_navigation_home_comment);
+            }
+
         }
 
         shareButton!!.setOnClickListener {

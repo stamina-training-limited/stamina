@@ -12,6 +12,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -20,6 +21,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 import com.limited.training.stamina.R
 import com.limited.training.stamina.Util.Funciones
+import com.limited.training.stamina.Util.Utilidades
 import com.limited.training.stamina.adapters.CommentCustomAdapter
 import com.limited.training.stamina.adapters.PublicationsCustoAdapter
 import com.limited.training.stamina.databinding.FragmentHomeBinding
@@ -46,7 +48,8 @@ class HomeCommentFragment : Fragment() {
         _binding = FragmentHomeCommentBinding.inflate(inflater, container, false)
         val model: HomeViewModel by activityViewModels()
         val root: View = binding.root
-        var publicacion = model.selected.value 
+        var publicacion = model.selected.value?.first
+        val flagFragment = model.selected.value?.second
         var database = Funciones.recuperarReferenciaBBDD(requireActivity())
         dbRef  = database.getReference("publicaciones/" + publicacion!!.ref)
 
@@ -67,21 +70,34 @@ class HomeCommentFragment : Fragment() {
         val callback: OnBackPressedCallback =
             object : OnBackPressedCallback(true /* enabled by default */) {
                 override fun handleOnBackPressed() {
-                    Navigation.findNavController(root).navigate(R.id.action_navigation_home_comment_to_navigation_home);
+                    if(flagFragment == Utilidades.FLAG_HOME) {
+                        Navigation.findNavController(root)
+                            .navigate(R.id.action_navigation_home_comment_to_navigation_home);
+                    }
+
+                    if(flagFragment == Utilidades.FLAG_PERFIL) {
+                        Navigation.findNavController(root)
+                            .navigate(R.id.action_navigation_home_comment_to_navigation_profile_activities);
+                    }
                 }
             }
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
-        val editProfileButton : Button = binding.publishBtn
-        editProfileButton!!.setOnClickListener {
+        val publishButton : Button = binding.publishBtn
 
-            Navigation.findNavController(root).navigate(R.id.action_navigation_home_comment_to_navigation_home);
+        publishButton!!.setOnClickListener {
 
+            if(flagFragment == Utilidades.FLAG_HOME) {
+                Navigation.findNavController(root)
+                    .navigate(R.id.action_navigation_home_comment_to_navigation_home);
+            }
+
+            if(flagFragment == Utilidades.FLAG_PERFIL) {
+                Navigation.findNavController(root)
+                    .navigate(R.id.action_navigation_home_comment_to_navigation_profile_activities);
+            }
         }
-        
-
-
         return root
     }
 

@@ -6,9 +6,9 @@ import com.limited.training.stamina.objects.Publication
 
 open class SelectViewModel : ViewModel() {
 
-    val selected = MutableLiveData<Publication>()
+    val selected = MutableLiveData<Pair<Publication, Int>>()
 
-    fun select(item: Publication) {
+    fun select(item: Pair<Publication, Int>) {
         selected.value = item
     }
 
