@@ -108,6 +108,7 @@ class ConcreteUserPageFragment : Fragment() {
         cUserRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 _c_user = dataSnapshot.getValue<Usuario>()!!
+                seteoCamposUsuario(binding, _c_user)
             }
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
