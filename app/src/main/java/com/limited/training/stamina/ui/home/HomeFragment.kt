@@ -9,11 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
+import com.google.firebase.firestore.ListenerRegistration
 import com.limited.training.stamina.Util.Funciones
-import com.limited.training.stamina.Util.Utilidades
-
 import com.limited.training.stamina.adapters.PublicationsCustoAdapter
 import com.limited.training.stamina.databinding.FragmentHomeBinding
 import com.limited.training.stamina.objects.Publication
@@ -25,6 +25,8 @@ class HomeFragment : Fragment() {
     private val model: HomeViewModel by activityViewModels()
     // This property is only valid between onCreateView and
     // onDestroyView.
+    private lateinit var dbRef: DatabaseReference
+    private lateinit var listener : ValueEventListener
     private val binding get() = _binding!!
 
 
@@ -36,7 +38,7 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
         var database = Funciones.recuperarReferenciaBBDD(requireActivity())
-        var dbRef  = database.getReference("publicaciones")
+        dbRef  = database.getReference("publicaciones")
         var pubs : HashMap<String, Publication> = hashMapOf()
         val datosGoogle = Funciones.recuperarDatosCuentaGoogle(requireActivity())
         val emailUsuario = datosGoogle?.email
@@ -44,7 +46,7 @@ class HomeFragment : Fragment() {
 
         if(dbRef != null) {
 
-            dbRef.addValueEventListener(object : ValueEventListener {
+            listener = dbRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     pubs = dataSnapshot.getValue<HashMap<String, Publication>>()!!
                     var listView: ListView = binding.listPublications
@@ -61,8 +63,10 @@ class HomeFragment : Fragment() {
 
     }
 
+
     override fun onDestroyView() {
         super.onDestroyView()
+        dbRef?.removeEventListener(listener!!)
         _binding = null
     }
 }
