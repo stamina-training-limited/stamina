@@ -15,6 +15,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 import com.limited.training.stamina.R
@@ -33,6 +34,8 @@ class HomeCommentFragment : Fragment() {
 
     // This property is only valid between onCreateView and
     // onDestroyView.
+    private lateinit var dbRef : DatabaseReference
+    private lateinit var listener : ValueEventListener
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -45,11 +48,11 @@ class HomeCommentFragment : Fragment() {
         val root: View = binding.root
         var publicacion = model.selected.value 
         var database = Funciones.recuperarReferenciaBBDD(requireActivity())
-        var dbRef  = database.getReference("publicaciones/" + publicacion!!.ref)
+        dbRef  = database.getReference("publicaciones/" + publicacion!!.ref)
 
         if(dbRef != null) {
 
-            dbRef.addValueEventListener(object : ValueEventListener {
+            listener = dbRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     publicacion = dataSnapshot.getValue<Publication>()!!
                     var listView: ListView = binding.listComment
@@ -84,6 +87,7 @@ class HomeCommentFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        dbRef.removeEventListener(listener)
         _binding = null
     }
 }
