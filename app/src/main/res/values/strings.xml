@@ -123,4 +123,12 @@ This EULA agreement, and any dispute arising out of or in connection with this E
     <string name="usuarioSeguidoCorrectamente">Se ha seguido al usuario</string>
     <string name="usuarioDejadoDeSeguirCorrectamente">Se ha dejado de seguir al usuario</string>
 
+    <!-- Compartir resumen de actividad -->
+    <string name="introResumenActividad">¡He realizado una actividad utilizando Stamina!</string>
+    <string name="distancia">He recorrido</string>
+    <string name="unidad_distancia">kilómetros</string>
+    <string name="ritmo">a un ritmo de</string>
+    <string name="unidad_ritmo">kilómetros minuto</string>
+    <string name="tiempo">en un tiempo de</string>
+
 </resources>

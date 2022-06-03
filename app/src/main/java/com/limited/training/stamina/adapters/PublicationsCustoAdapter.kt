@@ -2,13 +2,11 @@ package com.limited.training.stamina.adapters
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat.startActivity
-import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -20,9 +18,8 @@ import com.limited.training.stamina.Util.SelectViewModel
 import com.limited.training.stamina.Util.Utilidades
 import com.limited.training.stamina.objects.Publication
 import com.limited.training.stamina.objects.Usuario
-import com.limited.training.stamina.ui.home.HomeViewModel
-import com.squareup.picasso.Picasso
 import java.util.concurrent.TimeUnit
+import kotlin.text.StringBuilder
 
 
 class PublicationsCustoAdapter(
@@ -155,9 +152,31 @@ class PublicationsCustoAdapter(
 
         shareButton!!.setOnClickListener {
 
+            val millis: Long = list[p0].tiempo
+            val tiempoFormateado = String.format("%02d:%02d:%02d",
+                TimeUnit.MILLISECONDS.toHours(millis),
+                TimeUnit.MILLISECONDS.toMinutes(millis) -
+                        TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)), // The change is in this line
+                TimeUnit.MILLISECONDS.toSeconds(millis) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
+
+            var sharedString : StringBuilder = StringBuilder()
+            sharedString.append(context.getString(R.string.introResumenActividad))
+            sharedString.append(" ")
+            sharedString.append(context.getString(R.string.distancia))
+            sharedString.append(" " + list[p0].distancia + " ")
+            sharedString.append(context.getString(R.string.unidad_distancia))
+            sharedString.append(" ")
+            sharedString.append(context.getString(R.string.ritmo))
+            sharedString.append(" " + list[p0].ritmo + " ")
+            sharedString.append(context.getString(R.string.unidad_ritmo))
+            sharedString.append(" ")
+            sharedString.append(context.getString(R.string.tiempo))
+            sharedString.append(" $tiempoFormateado. ")
+
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, "This is my text to send.")
+                putExtra(Intent.EXTRA_TEXT, sharedString.toString())
                 type = "text/plain"
             }
 
