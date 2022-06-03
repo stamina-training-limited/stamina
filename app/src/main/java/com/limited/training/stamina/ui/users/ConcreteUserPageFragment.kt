@@ -20,6 +20,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 import com.limited.training.stamina.R
@@ -34,6 +35,15 @@ class ConcreteUserPageFragment : Fragment() {
     private var _binding: FragmentConcreteUserPageBinding? = null
     private lateinit var _c_user: Usuario
     private lateinit var _l_user: Usuario
+
+    private lateinit var lUserRef: DatabaseReference
+    private lateinit var lUserRef_listener: ValueEventListener
+
+    private lateinit var cUserRef: DatabaseReference
+    private lateinit var cUserRef_listener: ValueEventListener
+
+    private lateinit var myRef: DatabaseReference
+    private lateinit var myRef_listener: ValueEventListener
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -90,10 +100,10 @@ class ConcreteUserPageFragment : Fragment() {
         // Actualizamos o atributo coa información do usuario cando algo cambie na base de datos
 
         var database = Funciones.recuperarReferenciaBBDD(requireContext())
-        var lUserRef = database.getReference("usuarios/"
+        lUserRef = database.getReference("usuarios/"
                 + Funciones.remplazarPuntos(emailUsuario))
 
-        lUserRef.addValueEventListener(object : ValueEventListener {
+        lUserRef_listener = lUserRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 _l_user = dataSnapshot.getValue<Usuario>()!!
             }
@@ -102,10 +112,10 @@ class ConcreteUserPageFragment : Fragment() {
             }
         })
 
-        var cUserRef = database.getReference("usuarios/"
+        cUserRef = database.getReference("usuarios/"
                 + Funciones.remplazarPuntos(usuario.correo))
 
-        cUserRef.addValueEventListener(object : ValueEventListener {
+        cUserRef_listener = cUserRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 _c_user = dataSnapshot.getValue<Usuario>()!!
                 seteoCamposUsuario(binding, _c_user)
@@ -116,11 +126,6 @@ class ConcreteUserPageFragment : Fragment() {
         })
 
         return root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     fun seteoCamposUsuario(binding: FragmentConcreteUserPageBinding, usuario : Usuario){
@@ -209,12 +214,12 @@ class ConcreteUserPageFragment : Fragment() {
                                        emailUsuarioConcreto : String){
 
         var database = Funciones.recuperarReferenciaBBDD(context)
-        var myRef = database.getReference("usuarios/"
+        myRef = database.getReference("usuarios/"
                 + Funciones.remplazarPuntos(emailUsuarioLogeado))
         var usuario : Usuario
 
         if (myRef != null){
-            myRef.addValueEventListener(object : ValueEventListener {
+            myRef_listener = myRef.addValueEventListener(object : ValueEventListener {
 
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     // Get datos de usuario
@@ -235,5 +240,14 @@ class ConcreteUserPageFragment : Fragment() {
                 }
             })
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+
+        if(this::lUserRef.isInitialized) lUserRef.removeEventListener(lUserRef_listener)
+        if(this::cUserRef.isInitialized) cUserRef.removeEventListener(cUserRef_listener)
+        if(this::myRef.isInitialized) myRef.removeEventListener(myRef_listener)
     }
 }
