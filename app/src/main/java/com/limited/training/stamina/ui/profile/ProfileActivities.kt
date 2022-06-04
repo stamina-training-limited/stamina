@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 import com.limited.training.stamina.R
@@ -24,7 +25,9 @@ import com.limited.training.stamina.ui.home.HomeViewModel
 class ProfileActivities : Fragment() {
 
     private var _binding: FragmentProfileActivitiesBinding? = null
-    private val model: ProfileActivitiesViewModel by activityViewModels()
+    private val model: HomeViewModel by activityViewModels()
+    private lateinit var dbRef : DatabaseReference
+    private lateinit var listener : ValueEventListener
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -45,7 +48,7 @@ class ProfileActivities : Fragment() {
         }
 
         var database = Funciones.recuperarReferenciaBBDD(requireActivity())
-        var dbRef  = database.getReference("publicaciones")
+        dbRef  = database.getReference("publicaciones")
         var pubs : HashMap<String, Publication> = hashMapOf()
         val datosGoogle = Funciones.recuperarDatosCuentaGoogle(requireActivity())
         val emailUsuario = datosGoogle?.email
@@ -53,13 +56,19 @@ class ProfileActivities : Fragment() {
 
         if(dbRef != null) {
 
-            dbRef.addValueEventListener(object : ValueEventListener {
+            listener = dbRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     pubs = dataSnapshot.getValue<HashMap<String, Publication>>()!!
                     val pubsPropias = soloPublicacionesPropias(pubs, emailUsuario)
 
                     var listView: ListView = binding.listPublications
-                    listView.adapter = PublicationsCustoAdapter(model,pubsPropias.values.toList(), requireActivity().applicationContext, emailUsuario!!)
+                    listView.adapter =
+                        PublicationsCustoAdapter(
+                            model,
+                            pubsPropias.values.toList(),
+                            requireActivity().applicationContext,
+                            emailUsuario!!,
+                            Utilidades.FLAG_PERFIL)
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -81,6 +90,11 @@ class ProfileActivities : Fragment() {
 
         return pubsPropias
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if(this::dbRef.isInitialized) dbRef.removeEventListener(listener)
     }
 
 }

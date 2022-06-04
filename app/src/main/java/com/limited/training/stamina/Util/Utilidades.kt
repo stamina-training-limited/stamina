@@ -1,7 +1,8 @@
 package com.limited.training.stamina.Util
 
-data class Utilidades(
-
-    var FLAG_HOME : Int,
-    var FLAG_PERFIL : Int
-)
+class Utilidades {
+    companion object {
+        var FLAG_HOME: Int = 0
+        var FLAG_PERFIL: Int = 1
+    }
+}

@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.limited.training.stamina.R
 import com.limited.training.stamina.databinding.FragmentConcreteUserPageBinding
-import org.w3c.dom.Text
 
 
 class ConcreteUserPageFragment : Fragment() {

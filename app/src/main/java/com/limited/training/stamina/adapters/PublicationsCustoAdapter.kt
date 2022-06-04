@@ -2,13 +2,11 @@ package com.limited.training.stamina.adapters
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat.startActivity
-import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -20,15 +18,18 @@ import com.limited.training.stamina.Util.SelectViewModel
 import com.limited.training.stamina.Util.Utilidades
 import com.limited.training.stamina.objects.Publication
 import com.limited.training.stamina.objects.Usuario
-import com.limited.training.stamina.ui.home.HomeViewModel
-import com.squareup.picasso.Picasso
 import java.util.concurrent.TimeUnit
+import kotlin.text.StringBuilder
 
 
-class PublicationsCustoAdapter(var model: SelectViewModel, var list: List<Publication>, var context: Context, var emailUsuarioActual : String) : BaseAdapter(),
+class PublicationsCustoAdapter(
+    var model: SelectViewModel,
+    var list: List<Publication>,
+    var context: Context,
+    var emailUsuarioActual: String,
+    var flagFragment: Int
+) : BaseAdapter(),
     ListAdapter {
-
-    var util : Utilidades = Utilidades(0, 1)
 
     override fun getCount(): Int {
         return list.size;
@@ -133,15 +134,49 @@ class PublicationsCustoAdapter(var model: SelectViewModel, var list: List<Public
 
             // Para que funcione tanto desde perfil como desde home, se comprueba desde que pantalla se viene y se añade
 
-            model.select(list[p0])
-            Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_navigation_home_comment);
+
+
+            if(flagFragment == Utilidades.FLAG_HOME){
+                val infoViewModel : Pair<Publication, Int> = Pair(list[p0], Utilidades.FLAG_HOME)
+                model.select(infoViewModel)
+                Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_navigation_home_comment);
+            }
+
+            if (flagFragment == Utilidades.FLAG_PERFIL){
+                val infoViewModel : Pair<Publication, Int> = Pair(list[p0], Utilidades.FLAG_PERFIL)
+                model.select(infoViewModel)
+                Navigation.findNavController(view).navigate(R.id.action_navigation_profile_activities_to_navigation_home_comment);
+            }
+
         }
 
         shareButton!!.setOnClickListener {
 
+            val millis: Long = list[p0].tiempo
+            val tiempoFormateado = String.format("%02d:%02d:%02d",
+                TimeUnit.MILLISECONDS.toHours(millis),
+                TimeUnit.MILLISECONDS.toMinutes(millis) -
+                        TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)), // The change is in this line
+                TimeUnit.MILLISECONDS.toSeconds(millis) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
+
+            var sharedString : StringBuilder = StringBuilder()
+            sharedString.append(context.getString(R.string.introResumenActividad))
+            sharedString.append(" ")
+            sharedString.append(context.getString(R.string.distancia))
+            sharedString.append(" " + list[p0].distancia + " ")
+            sharedString.append(context.getString(R.string.unidad_distancia))
+            sharedString.append(" ")
+            sharedString.append(context.getString(R.string.ritmo))
+            sharedString.append(" " + list[p0].ritmo + " ")
+            sharedString.append(context.getString(R.string.unidad_ritmo))
+            sharedString.append(" ")
+            sharedString.append(context.getString(R.string.tiempo))
+            sharedString.append(" $tiempoFormateado. ")
+
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, "This is my text to send.")
+                putExtra(Intent.EXTRA_TEXT, sharedString.toString())
                 type = "text/plain"
             }
 

@@ -24,8 +24,6 @@ import java.util.concurrent.TimeUnit
 class UsersCustomAdapter(var list: List<Usuario>, var context: Context, var model: UserViewModel) : BaseAdapter(),
     ListAdapter {
 
-    var util : Utilidades = Utilidades(0, 1)
-
     override fun getCount(): Int {
         return list.size;
     }

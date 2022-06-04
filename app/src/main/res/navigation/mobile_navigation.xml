@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_navigation_home_comment_to_navigation_home"
             app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_navigation_home_comment_to_navigation_profile_activities"
+            app:destination="@id/navigation_profile_activities" />
     </fragment>
 
     <fragment
@@ -78,7 +81,7 @@
             android:id="@+id/action_navigation_profile_activities_to_navigation_profile"
             app:destination="@id/navigation_profile" />
         <action
-            android:id="@+id/action_navigation_home_to_navigation_home_comment"
+            android:id="@+id/action_navigation_profile_activities_to_navigation_home_comment"
             app:destination="@id/navigation_home_comment" />
     </fragment>
 
