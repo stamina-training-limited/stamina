@@ -14,6 +14,7 @@ import androidx.fragment.app.activityViewModels
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 import com.limited.training.stamina.R
@@ -26,6 +27,14 @@ class ConcreteUserProfileFragment: Fragment() {
     private var _binding: ComponentConcreteUserProfileBinding? = null
     private lateinit var _cUser: Usuario
     private lateinit var _lUser: Usuario
+    private lateinit var _lUserRef: DatabaseReference
+    private lateinit var _lUserRefListener: ValueEventListener
+
+    private lateinit var _cUserRef: DatabaseReference
+    private lateinit var _cUserRefListener: ValueEventListener
+
+    private lateinit var _myRef: DatabaseReference
+    private lateinit var _myRefListener: ValueEventListener
 
     private val binding get() = _binding!!
 
@@ -63,10 +72,10 @@ class ConcreteUserProfileFragment: Fragment() {
         }
 
         val database = Funciones.recuperarReferenciaBBDD(requireContext())
-        val lUserRef = database.getReference("usuarios/"
+        _lUserRef = database.getReference("usuarios/"
                 + Funciones.remplazarPuntos(appUserMail))
 
-        lUserRef.addValueEventListener(object : ValueEventListener {
+        _lUserRefListener = _lUserRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 _lUser = dataSnapshot.getValue<Usuario>()!!
             }
@@ -75,10 +84,10 @@ class ConcreteUserProfileFragment: Fragment() {
             }
         })
 
-        val cUserRef = database.getReference("usuarios/"
+        _cUserRef = database.getReference("usuarios/"
                 + Funciones.remplazarPuntos(actualUser.correo))
 
-        cUserRef.addValueEventListener(object : ValueEventListener {
+        _cUserRefListener = _cUserRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 _cUser = dataSnapshot.getValue<Usuario>()!!
             }
@@ -111,17 +120,10 @@ class ConcreteUserProfileFragment: Fragment() {
     }
 
     private fun follow(context: Context, loggedUserMail: String, concreteUserMail: String) {
-        val database = Funciones.recuperarReferenciaBBDD(context)
-
-        val lUserRef = database.getReference("usuarios/"
-                + Funciones.remplazarPuntos(loggedUserMail))
-
-        val cUserRef = database.getReference("usuarios/"
-                + Funciones.remplazarPuntos(concreteUserMail))
 
         if(!_lUser.seguidos.contains(concreteUserMail)) {
             val newFollowingList = _lUser.seguidos + concreteUserMail
-            lUserRef.child("seguidos").setValue(newFollowingList)
+            _lUserRef.child("seguidos").setValue(newFollowingList)
         } else {
             print("Error, no debería ser posible")
             return
@@ -129,7 +131,7 @@ class ConcreteUserProfileFragment: Fragment() {
 
         if(!_cUser.seguidos.contains(loggedUserMail)) {
             val newFollowingList = _cUser.seguidos + loggedUserMail
-            cUserRef.child("seguidos").setValue(newFollowingList)
+            _cUserRef.child("seguidos").setValue(newFollowingList)
         } else {
             print("Error, no debería ser posible")
             return
@@ -140,17 +142,10 @@ class ConcreteUserProfileFragment: Fragment() {
     }
 
     private fun unfollow(context: Context, loggedUserMail: String, concreteUserMail: String) {
-        val database = Funciones.recuperarReferenciaBBDD(context)
-
-        val lUserRef = database.getReference("usuarios/"
-                + Funciones.remplazarPuntos(loggedUserMail))
-
-        val cUserRef = database.getReference("usuarios/"
-                + Funciones.remplazarPuntos(concreteUserMail))
 
         if(_lUser.seguidos.contains(concreteUserMail)) {
             val newFollowingList = _lUser.seguidos - concreteUserMail
-            lUserRef.child("seguidos").setValue(newFollowingList)
+            _lUserRef.child("seguidos").setValue(newFollowingList)
         } else {
             print("Error, no debería ser posible")
             return
@@ -158,7 +153,7 @@ class ConcreteUserProfileFragment: Fragment() {
 
         if(_cUser.seguidos.contains(loggedUserMail)) {
             val newFollowingList = _cUser.seguidos - loggedUserMail
-            cUserRef.child("seguidos").setValue(newFollowingList)
+            _cUserRef.child("seguidos").setValue(newFollowingList)
         } else {
             print("Error, no debería ser posible")
             return
@@ -172,11 +167,11 @@ class ConcreteUserProfileFragment: Fragment() {
     private fun checkIfUserFollowsUser(context : Context, loggedUserMail : String,
                                        concreteUserMail : String){
         val database = Funciones.recuperarReferenciaBBDD(context)
-        val myRef = database.getReference("usuarios/"
+        _myRef = database.getReference("usuarios/"
                 + Funciones.remplazarPuntos(loggedUserMail))
         var usuario : Usuario
 
-        myRef.addValueEventListener(object : ValueEventListener {
+        _myRefListener = _myRef.addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 usuario = dataSnapshot.getValue<Usuario>()!!
@@ -195,6 +190,15 @@ class ConcreteUserProfileFragment: Fragment() {
                 TODO("Not yet implemented")
             }
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+
+        if(this::_lUserRef.isInitialized) _lUserRef.removeEventListener(_lUserRefListener)
+        if(this::_cUserRef.isInitialized) _cUserRef.removeEventListener(_cUserRefListener)
+        if(this::_myRef.isInitialized) _myRef.removeEventListener(_myRefListener)
     }
 
 }

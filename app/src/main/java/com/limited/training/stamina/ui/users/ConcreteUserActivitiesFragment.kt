@@ -13,6 +13,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 import com.limited.training.stamina.Util.Funciones
+import com.limited.training.stamina.Util.Utilidades
 import com.limited.training.stamina.adapters.PublicationsCustoAdapter
 import com.limited.training.stamina.databinding.ComponentConcreteUserActivitiesBinding
 import com.limited.training.stamina.objects.Publication
@@ -47,7 +48,7 @@ class ConcreteUserActivitiesFragment: Fragment() {
                 val selectedPubs = onlyUserPublications(pubs, actualUser?.correo)
 
                 val listView: ListView = binding.listPublications
-                listView.adapter = PublicationsCustoAdapter(model,selectedPubs.values.toList(), requireActivity().applicationContext, appUserMail!!)
+                listView.adapter = PublicationsCustoAdapter(model,selectedPubs.values.toList(), requireActivity().applicationContext, appUserMail!!, Utilidades.FLAG_PERFIL)
             }
 
             override fun onCancelled(error: DatabaseError) {
