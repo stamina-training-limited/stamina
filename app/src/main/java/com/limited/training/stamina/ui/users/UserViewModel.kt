@@ -2,13 +2,14 @@ package com.limited.training.stamina.ui.users
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.limited.training.stamina.Util.SelectViewModel
 import com.limited.training.stamina.objects.Usuario
 
-class UserViewModel : ViewModel() {
+class UserViewModel : SelectViewModel() {
 
-    val selected = MutableLiveData<Usuario>()
+    val selected_u = MutableLiveData<Usuario>()
 
     fun select(item: Usuario){
-        selected.value = item
+        selected_u.value = item
     }
 }
