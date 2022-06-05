@@ -4,7 +4,7 @@ import com.google.firebase.database.PropertyName
 
 class Publication (
         @PropertyName("ref") val ref : String,
-        @PropertyName("comentario") val comentario : List<Comentario>,
+        @PropertyName("comentarios") val comentarios : List<Comentario>,
         @PropertyName("usuario") val usuario: String,
         @PropertyName("titulo") val titulo : String,
         @PropertyName("nombre") val nombre : String,

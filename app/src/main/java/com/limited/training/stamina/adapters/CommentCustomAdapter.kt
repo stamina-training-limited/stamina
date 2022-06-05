@@ -5,15 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.Button
 import android.widget.ListAdapter
 import android.widget.TextView
-import androidx.navigation.Navigation
 import com.limited.training.stamina.R
 import com.limited.training.stamina.Util.Funciones.Companion.obtenerHoraString
 import com.limited.training.stamina.objects.Comentario
-import com.limited.training.stamina.objects.Ruta
-
 
 
 class CommentCustomAdapter(var list: List<Comentario>?, var context: Context) : BaseAdapter(),

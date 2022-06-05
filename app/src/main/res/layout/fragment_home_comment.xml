@@ -12,7 +12,10 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:divider="@null"
-        android:paddingBottom="60dp">
+        android:paddingBottom="60dp"
+        app:layout_constraintBottom_toTopOf="@+id/publish_btn"
+        tools:layout_editor_absoluteX="0dp">
+
     </ListView>
 
     <EditText

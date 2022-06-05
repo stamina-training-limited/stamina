@@ -1,11 +1,13 @@
 package com.limited.training.stamina.ui.home
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ListView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -14,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -53,20 +56,23 @@ class HomeCommentFragment : Fragment() {
         var database = Funciones.recuperarReferenciaBBDD(requireActivity())
         dbRef  = database.getReference("publicaciones/" + publicacion!!.ref)
 
-        if(dbRef != null) {
 
-            listener = dbRef.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    publicacion = dataSnapshot.getValue<Publication>()!!
-                    var listView: ListView = binding.listComment
-                    listView.adapter = CommentCustomAdapter(publicacion!!.comentario, requireActivity().applicationContext)
-                }
+        val appUser : GoogleSignInAccount? =
+            Funciones.recuperarDatosCuentaGoogle(requireActivity())
+        val appUserMail = appUser?.email
 
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
-            })
-        }
+        listener = dbRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                publicacion = dataSnapshot.getValue<Publication>()!!
+                var listView: ListView = binding.listComment
+                listView.adapter = CommentCustomAdapter(publicacion!!.comentarios, requireActivity().applicationContext)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+
         val callback: OnBackPressedCallback =
             object : OnBackPressedCallback(true /* enabled by default */) {
                 override fun handleOnBackPressed() {
@@ -85,20 +91,29 @@ class HomeCommentFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
         val publishButton : Button = binding.publishBtn
-
+        val nuevoComentario: EditText = binding.commentPt
         publishButton!!.setOnClickListener {
 
-            if(flagFragment == Utilidades.FLAG_HOME) {
-                Navigation.findNavController(root)
-                    .navigate(R.id.action_navigation_home_comment_to_navigation_home);
-            }
-
-            if(flagFragment == Utilidades.FLAG_PERFIL) {
-                Navigation.findNavController(root)
-                    .navigate(R.id.action_navigation_home_comment_to_navigation_profile_activities);
-            }
+            publicarComentario(requireContext(), Funciones.remplazarPuntos(appUserMail!!),
+                publicacion!!,nuevoComentario.text.toString())
+//            if(flagFragment == Utilidades.FLAG_HOME) {
+//                Navigation.findNavController(root)
+//                    .navigate(R.id.action_navigation_home_comment_to_navigation_home);
+//            }
+//
+//            if(flagFragment == Utilidades.FLAG_PERFIL) {
+//                Navigation.findNavController(root)
+//                    .navigate(R.id.action_navigation_home_comment_to_navigation_profile_activities);
+//            }
         }
         return root
+    }
+    private fun publicarComentario(context: Context, loggedUserMail: String,publicacion: Publication, mensaje: String) {
+
+        val newComentario = Comentario(loggedUserMail,System.nanoTime(),mensaje)
+        val newCommentList = publicacion.comentarios + newComentario
+        dbRef.child("comentarios").setValue(newCommentList)
+
     }
 
     override fun onDestroyView() {

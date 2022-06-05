@@ -65,7 +65,7 @@ class Funciones {
         }
 
         //Obtenemos la hora que viene como timestamp en formato date
-        fun obtenerHoraString (tiempo : Int?) : String{
+        fun obtenerHoraString (tiempo: Long?) : String{
 
             val stamp = Timestamp(tiempo?.toLong() ?: 0)
             val sdf = SimpleDateFormat("dd/MM/yy hh:mm")
