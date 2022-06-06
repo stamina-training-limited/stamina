@@ -97,8 +97,8 @@ class RecordFragment : MapController() {
     }
 
     private fun finishRecording(recodingStopLy: ConstraintLayout, startBtn : Button){
-        trackLocation = false
         drawMarker = DrawMarker.END
+        resetValues()
         recodingStopLy.visibility = View.GONE
         startBtn.visibility = View.VISIBLE
 
@@ -126,14 +126,5 @@ class RecordFragment : MapController() {
     override fun onStop() {
         super.onStop()
         CoordenadaDB.closeInstance()
-    }
-
-    companion object {
-        const val MAP_TYPE = GoogleMap.MAP_TYPE_NORMAL
-        const val MY_PERMISSIONS_REQUEST_LOCATION = 99
-        const val UPDATE_INTERVAL = 3000L
-        const val FASTEST_UPDATE_INTERVAL = 3000L
-        const val PRIORITY = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
-        const val STARTING_ZOOM = 18.0F
     }
 }

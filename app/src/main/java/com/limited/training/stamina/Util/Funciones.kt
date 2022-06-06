@@ -20,6 +20,7 @@ import com.squareup.picasso.Picasso
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class Funciones {
 
@@ -89,9 +90,21 @@ class Funciones {
         }
 
         //Convierte metros por segundo a kilómetros por hora
-        fun MpsToKph(mps: Float): Float{
+        fun mpsToKph(mps: Float): Float{
             val speed = mps * 3.6F
             return speed
+        }
+
+        //
+        fun getTimeStringBetweenElapsedMillis(startTime: Long, endTime: Long): String{
+            val time = String.format("%02d:%02d:%02d",
+                TimeUnit.MILLISECONDS.toHours(endTime - startTime),
+                TimeUnit.MILLISECONDS.toMinutes(endTime - startTime) -
+                        TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(endTime - startTime)),
+                TimeUnit.MILLISECONDS.toSeconds(endTime - startTime) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(endTime - startTime)));
+
+            return  time
         }
     }
 }

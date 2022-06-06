@@ -5,7 +5,6 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Build
 import android.os.Looper
-import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -39,6 +38,7 @@ open class MapController : Fragment(), OnMapReadyCallback {
     internal var trackLocation = false
     internal var currSpeed = 0.0F
     internal var currDistance = 0.0F
+    internal var startingTime: Long = 0L
     private lateinit var startBtn: Button
     private lateinit var durationTV: TextView
     private lateinit var distanceTV: TextView
@@ -47,7 +47,7 @@ open class MapController : Fragment(), OnMapReadyCallback {
     lateinit var cordsDAO: CoordenadaDAO
     internal var mFusedLocationClient: FusedLocationProviderClient? = null
     internal var drawMarker : DrawMarker = DrawMarker.NO
-    var prevLoc: LatLng? = null
+    var prevLatLng: LatLng? = null
     private var mCurrentZoom: Float = -1.0F
 
     fun distance(x1: Location, x2: LatLng?): Double {
@@ -67,7 +67,7 @@ open class MapController : Fragment(), OnMapReadyCallback {
     }
 
     fun updateCamera(pos: LatLng) {
-        mCurrentZoom = if(mCurrentZoom < 0) RecordFragment.STARTING_ZOOM
+        mCurrentZoom = if(mCurrentZoom < 0) STARTING_ZOOM
         else mGoogleMap.cameraPosition.zoom
 
         mGoogleMap.animateCamera(
@@ -84,30 +84,31 @@ open class MapController : Fragment(), OnMapReadyCallback {
 
                 val location = locationList.last()
                 currSpeed = if(location.hasSpeed())
-                    Funciones.MpsToKph(location.speed)
+                    Funciones.mpsToKph(location.speed)
                 else
                     0.00F
                 Log.i("MapController", "Location: $location.latitude $location.longitude Speed: $currSpeed km/h")
-                val currLoc = LatLng(location.latitude, location.longitude)
+                val currLatLng = LatLng(location.latitude, location.longitude)
                 Log.i("MapController", "TrackLocation var value $trackLocation")
                 if (trackLocation) {
-                    if(prevLoc == null) {
-                        prevLoc = currLoc
+                    if(prevLatLng == null) { //Primera iteración
+                        prevLatLng = currLatLng
                         currDistance = 0.0F
+                        startingTime = location.time
                     }
-                    else {
+                    else if(prevLatLng != currLatLng) {
                         val distanceResult:FloatArray = FloatArray(2)
-                        Location.distanceBetween(prevLoc!!.latitude,prevLoc!!.longitude,currLoc!!.latitude,currLoc!!.longitude,distanceResult)
+                        Location.distanceBetween(prevLatLng!!.latitude,prevLatLng!!.longitude,currLatLng!!.latitude,currLatLng!!.longitude,distanceResult)
                         currDistance += (distanceResult[0] / 1000)
                     }
                     if(::speedTV.isInitialized)
                         speedTV.text = String.format("%.2f km/h",currSpeed)
                     if(::distanceTV.isInitialized)
                         distanceTV.text = String.format("%.4f Km", currDistance)
-                    if(::durationTV.isInitialized)
-                        durationTV.text = "00:00:00"
-
-                    if(distance(location, prevLoc) > 0.5 || true){
+                    if(::durationTV.isInitialized) {
+                        durationTV.text = Funciones.getTimeStringBetweenElapsedMillis(startingTime, location.time)
+                    }
+                    if(distance(location, prevLatLng) > 0.5 || true){
                         Log.i("MapController","passing if ")
                         lifecycleScope.launch {
                             cordsDAO.insert(Coordenada(location.longitude,location.latitude))
@@ -115,7 +116,7 @@ open class MapController : Fragment(), OnMapReadyCallback {
                         }
                         mGoogleMap.addPolyline(
                             PolylineOptions()
-                                .add(prevLoc,currLoc)
+                                .add(prevLatLng,currLatLng)
                                 .color(context?.let { ContextCompat.getColor(it,R.color.azul_stamina) }!!)
                                 .width(15.0F)
                         )
@@ -128,12 +129,12 @@ open class MapController : Fragment(), OnMapReadyCallback {
                     else
                         getString(R.string.End_location)
 
-                    updateMarker(currLoc,title)
+                    updateMarker(currLatLng,title)
                     drawMarker = DrawMarker.NO
                 }
-                updateCamera(currLoc)
+                updateCamera(currLatLng)
 
-                prevLoc = currLoc
+                prevLatLng = currLatLng
 
                 if(::startBtn.isInitialized && startBtn.visibility == View.INVISIBLE) startBtn.visibility = View.VISIBLE
             }
@@ -142,13 +143,13 @@ open class MapController : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         mGoogleMap = googleMap
-        mGoogleMap.mapType = RecordFragment.MAP_TYPE
+        mGoogleMap.mapType = MAP_TYPE
 
         val mLocationRequest : LocationRequest = LocationRequest.create()
-        mLocationRequest.interval = RecordFragment.UPDATE_INTERVAL //interval in milliseconds
+        mLocationRequest.interval = UPDATE_INTERVAL //interval in milliseconds
         mLocationRequest.fastestInterval =
-            RecordFragment.FASTEST_UPDATE_INTERVAL //interval in milliseconds
-        mLocationRequest.priority = RecordFragment.PRIORITY
+            FASTEST_UPDATE_INTERVAL //interval in milliseconds
+        mLocationRequest.priority = PRIORITY
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(
@@ -189,7 +190,7 @@ open class MapController : Fragment(), OnMapReadyCallback {
                         //Prompt the user once explanation has been shown
                         requestPermissions(
                             arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                            RecordFragment.MY_PERMISSIONS_REQUEST_LOCATION
+                            MY_PERMISSIONS_REQUEST_LOCATION
                         )
                     }
                     .create()
@@ -199,7 +200,7 @@ open class MapController : Fragment(), OnMapReadyCallback {
             } else {
                 requestPermissions(
                     arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                    RecordFragment.MY_PERMISSIONS_REQUEST_LOCATION
+                    MY_PERMISSIONS_REQUEST_LOCATION
                 )
             }
         }
@@ -211,7 +212,7 @@ open class MapController : Fragment(), OnMapReadyCallback {
         permissions: Array<String>, grantResults: IntArray
     ) {
         when (requestCode) {
-            RecordFragment.MY_PERMISSIONS_REQUEST_LOCATION -> {
+            MY_PERMISSIONS_REQUEST_LOCATION -> {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
@@ -225,10 +226,10 @@ open class MapController : Fragment(), OnMapReadyCallback {
 
                         val mLocationRequest : LocationRequest = LocationRequest.create()
                         mLocationRequest.interval =
-                            RecordFragment.UPDATE_INTERVAL //interval in milliseconds
+                            UPDATE_INTERVAL //interval in milliseconds
                         mLocationRequest.fastestInterval =
-                            RecordFragment.FASTEST_UPDATE_INTERVAL //interval in milliseconds
-                        mLocationRequest.priority = RecordFragment.PRIORITY
+                            FASTEST_UPDATE_INTERVAL //interval in milliseconds
+                        mLocationRequest.priority = PRIORITY
 
                         mFusedLocationClient?.requestLocationUpdates(
                             mLocationRequest,
@@ -256,5 +257,25 @@ open class MapController : Fragment(), OnMapReadyCallback {
         durationTV = durationTextView
         distanceTV = distanceTextView
         speedTV = speedTextView
+    }
+
+    internal fun resetValues(){
+        trackLocation = false
+        currSpeed = 0.0F
+        currDistance = 0.0F
+        startingTime = 0L
+        prevLatLng = null
+        mCurrentZoom = -1.0F
+        drawMarker = DrawMarker.NO
+        mGoogleMap.clear()
+    }
+
+    companion object {
+        const val MAP_TYPE = GoogleMap.MAP_TYPE_NORMAL
+        const val MY_PERMISSIONS_REQUEST_LOCATION = 99
+        const val UPDATE_INTERVAL = 3000L
+        const val FASTEST_UPDATE_INTERVAL = 3000L
+        const val PRIORITY = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
+        const val STARTING_ZOOM = 18.0F
     }
 }
