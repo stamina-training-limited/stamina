@@ -81,7 +81,6 @@ open class MapController : Fragment(), OnMapReadyCallback {
         override fun onLocationResult(locationResult: LocationResult) {
             val locationList = locationResult.locations
             if (locationList.isNotEmpty()) {
-
                 val location = locationList.last()
                 currSpeed = if(location.hasSpeed())
                     Funciones.mpsToKph(location.speed)
@@ -91,12 +90,11 @@ open class MapController : Fragment(), OnMapReadyCallback {
                 val currLatLng = LatLng(location.latitude, location.longitude)
                 Log.i("MapController", "TrackLocation var value $trackLocation")
                 if (trackLocation) {
-                    if(prevLatLng == null) { //Primera iteración
-                        prevLatLng = currLatLng
+                    if(startingTime == 0L) { //Primera iteración desde que comenzó el tracking
                         currDistance = 0.0F
                         startingTime = location.time
                     }
-                    else if(prevLatLng != currLatLng) {
+                    if(prevLatLng != currLatLng) {
                         val distanceResult:FloatArray = FloatArray(2)
                         Location.distanceBetween(prevLatLng!!.latitude,prevLatLng!!.longitude,currLatLng!!.latitude,currLatLng!!.longitude,distanceResult)
                         currDistance += (distanceResult[0] / 1000)
@@ -133,7 +131,6 @@ open class MapController : Fragment(), OnMapReadyCallback {
                     drawMarker = DrawMarker.NO
                 }
                 updateCamera(currLatLng)
-
                 prevLatLng = currLatLng
 
                 if(::startBtn.isInitialized && startBtn.visibility == View.INVISIBLE) startBtn.visibility = View.VISIBLE
