@@ -8,6 +8,7 @@ import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
@@ -27,34 +28,46 @@ import com.limited.training.stamina.Util.room.CoordenadaDAO
 import com.limited.training.stamina.objects.Coordenada
 import com.limited.training.stamina.ui.record.RecordFragment
 import kotlinx.coroutines.launch
-import java.lang.Math.*
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 open class MapController : Fragment(), OnMapReadyCallback {
+    enum class DrawMarker{
+        NO, START, END
+    }
     internal var trackLocation = false
+    internal var currSpeed = 0.0F
+    internal var currDistance = 0.0F
+    internal var startingTime: Long = 0L
+    private lateinit var startBtn: Button
+    private lateinit var durationTV: TextView
+    private lateinit var distanceTV: TextView
+    private lateinit var speedTV: TextView
     lateinit var mGoogleMap: GoogleMap
     lateinit var cordsDAO: CoordenadaDAO
     internal var mFusedLocationClient: FusedLocationProviderClient? = null
-    var prevLoc: LatLng? = null
-    var mCurrentZoom: Float = -1.0F
+    internal var drawMarker : DrawMarker = DrawMarker.NO
+    var prevLatLng: LatLng? = null
+    private var mCurrentZoom: Float = -1.0F
 
     fun distance(x1: Location, x2: LatLng?): Double {
         if(x2 == null){
             return 0.0
         }
         //Distancia euclidea
-        return sqrt( pow(x2.latitude-x1.latitude, 2.0) + pow(x2.longitude-x1.longitude, 2.0) )
+        return sqrt((x2.latitude - x1.latitude).pow(2.0) + (x2.longitude - x1.longitude).pow(2.0))
     }
 
-    fun updateMarker(pos: LatLng): Marker? {
+    fun updateMarker(pos: LatLng, title: String): Marker? {
         val markerOptions = MarkerOptions()
-        markerOptions.title(getString(R.string.Current_location))
+        markerOptions.title(title)
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
         markerOptions.position(pos)
         return mGoogleMap.addMarker(markerOptions)
     }
 
     fun updateCamera(pos: LatLng) {
-        mCurrentZoom = if(mCurrentZoom < 0) RecordFragment.STARTING_ZOOM
+        mCurrentZoom = if(mCurrentZoom < 0) STARTING_ZOOM
         else mGoogleMap.cameraPosition.zoom
 
         mGoogleMap.animateCamera(
@@ -68,16 +81,32 @@ open class MapController : Fragment(), OnMapReadyCallback {
         override fun onLocationResult(locationResult: LocationResult) {
             val locationList = locationResult.locations
             if (locationList.isNotEmpty()) {
-
                 val location = locationList.last()
-                Log.i("MapController", "Location: " + location.latitude + " " + location.longitude)
-                val currLoc = LatLng(location.latitude, location.longitude)
-                Log.i("MapController","TrackLocation var value " + trackLocation)
+                currSpeed = if(location.hasSpeed())
+                    Funciones.mpsToKph(location.speed)
+                else
+                    0.00F
+                Log.i("MapController", "Location: $location.latitude $location.longitude Speed: $currSpeed km/h")
+                val currLatLng = LatLng(location.latitude, location.longitude)
+                Log.i("MapController", "TrackLocation var value $trackLocation")
                 if (trackLocation) {
-                    if(prevLoc == null){
-                        prevLoc = currLoc
+                    if(startingTime == 0L) { //Primera iteración desde que comenzó el tracking
+                        currDistance = 0.0F
+                        startingTime = location.time
                     }
-                    if(distance(location, prevLoc) > 0.5 || true){
+                    if(prevLatLng != currLatLng) {
+                        val distanceResult:FloatArray = FloatArray(2)
+                        Location.distanceBetween(prevLatLng!!.latitude,prevLatLng!!.longitude,currLatLng!!.latitude,currLatLng!!.longitude,distanceResult)
+                        currDistance += (distanceResult[0] / 1000)
+                    }
+                    if(::speedTV.isInitialized)
+                        speedTV.text = String.format("%.2f km/h",currSpeed)
+                    if(::distanceTV.isInitialized)
+                        distanceTV.text = String.format("%.4f Km", currDistance)
+                    if(::durationTV.isInitialized) {
+                        durationTV.text = Funciones.getTimeStringBetweenElapsedMillis(startingTime, location.time)
+                    }
+                    if(distance(location, prevLatLng) > 0.5 || true){
                         Log.i("MapController","passing if ")
                         lifecycleScope.launch {
                             cordsDAO.insert(Coordenada(location.longitude,location.latitude))
@@ -85,33 +114,39 @@ open class MapController : Fragment(), OnMapReadyCallback {
                         }
                         mGoogleMap.addPolyline(
                             PolylineOptions()
-                                .add(prevLoc,currLoc)
+                                .add(prevLatLng,currLatLng)
                                 .color(context?.let { ContextCompat.getColor(it,R.color.azul_stamina) }!!)
                                 .width(15.0F)
                         )
                     }
                 }
 
-                updateMarker(currLoc)
-                updateCamera(currLoc)
+                if(drawMarker != DrawMarker.NO) {
+                    val title = if(drawMarker == DrawMarker.START)
+                        getString(R.string.Start_location)
+                    else
+                        getString(R.string.End_location)
 
-                prevLoc = currLoc
+                    updateMarker(currLatLng,title)
+                    drawMarker = DrawMarker.NO
+                }
+                updateCamera(currLatLng)
+                prevLatLng = currLatLng
 
-                val startButton : Button = view?.findViewById<Button>(R.id.mapStart_btn)!!
-                if(startButton.visibility == View.INVISIBLE) startButton.visibility = View.VISIBLE
+                if(::startBtn.isInitialized && startBtn.visibility == View.INVISIBLE) startBtn.visibility = View.VISIBLE
             }
         }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         mGoogleMap = googleMap
-        mGoogleMap.mapType = RecordFragment.MAP_TYPE
+        mGoogleMap.mapType = MAP_TYPE
 
         val mLocationRequest : LocationRequest = LocationRequest.create()
-        mLocationRequest.interval = RecordFragment.UPDATE_INTERVAL //interval in milliseconds
+        mLocationRequest.interval = UPDATE_INTERVAL //interval in milliseconds
         mLocationRequest.fastestInterval =
-            RecordFragment.FASTEST_UPDATE_INTERVAL //interval in milliseconds
-        mLocationRequest.priority = RecordFragment.PRIORITY
+            FASTEST_UPDATE_INTERVAL //interval in milliseconds
+        mLocationRequest.priority = PRIORITY
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(
@@ -152,7 +187,7 @@ open class MapController : Fragment(), OnMapReadyCallback {
                         //Prompt the user once explanation has been shown
                         requestPermissions(
                             arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                            RecordFragment.MY_PERMISSIONS_REQUEST_LOCATION
+                            MY_PERMISSIONS_REQUEST_LOCATION
                         )
                     }
                     .create()
@@ -162,7 +197,7 @@ open class MapController : Fragment(), OnMapReadyCallback {
             } else {
                 requestPermissions(
                     arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                    RecordFragment.MY_PERMISSIONS_REQUEST_LOCATION
+                    MY_PERMISSIONS_REQUEST_LOCATION
                 )
             }
         }
@@ -174,7 +209,7 @@ open class MapController : Fragment(), OnMapReadyCallback {
         permissions: Array<String>, grantResults: IntArray
     ) {
         when (requestCode) {
-            RecordFragment.MY_PERMISSIONS_REQUEST_LOCATION -> {
+            MY_PERMISSIONS_REQUEST_LOCATION -> {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
@@ -188,10 +223,10 @@ open class MapController : Fragment(), OnMapReadyCallback {
 
                         val mLocationRequest : LocationRequest = LocationRequest.create()
                         mLocationRequest.interval =
-                            RecordFragment.UPDATE_INTERVAL //interval in milliseconds
+                            UPDATE_INTERVAL //interval in milliseconds
                         mLocationRequest.fastestInterval =
-                            RecordFragment.FASTEST_UPDATE_INTERVAL //interval in milliseconds
-                        mLocationRequest.priority = RecordFragment.PRIORITY
+                            FASTEST_UPDATE_INTERVAL //interval in milliseconds
+                        mLocationRequest.priority = PRIORITY
 
                         mFusedLocationClient?.requestLocationUpdates(
                             mLocationRequest,
@@ -212,5 +247,32 @@ open class MapController : Fragment(), OnMapReadyCallback {
             }
         }// other 'case' lines to check for other
         // permissions this app might request
+    }
+
+    internal fun setViewControls(startButton: Button, durationTextView: TextView, distanceTextView: TextView, speedTextView: TextView){
+        startBtn = startButton
+        durationTV = durationTextView
+        distanceTV = distanceTextView
+        speedTV = speedTextView
+    }
+
+    internal fun resetValues(){
+        trackLocation = false
+        currSpeed = 0.0F
+        currDistance = 0.0F
+        startingTime = 0L
+        prevLatLng = null
+        mCurrentZoom = -1.0F
+        drawMarker = DrawMarker.NO
+        mGoogleMap.clear()
+    }
+
+    companion object {
+        const val MAP_TYPE = GoogleMap.MAP_TYPE_NORMAL
+        const val MY_PERMISSIONS_REQUEST_LOCATION = 99
+        const val UPDATE_INTERVAL = 3000L
+        const val FASTEST_UPDATE_INTERVAL = 3000L
+        const val PRIORITY = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
+        const val STARTING_ZOOM = 18.0F
     }
 }
