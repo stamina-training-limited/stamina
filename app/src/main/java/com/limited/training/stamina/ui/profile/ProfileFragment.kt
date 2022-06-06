@@ -14,6 +14,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 import com.limited.training.stamina.R
@@ -35,6 +36,10 @@ class ProfileFragment : Fragment() {
 
     // This property is only valid between onCreateView and
     // onDestroyView.
+    private lateinit var dbRef : DatabaseReference
+    private lateinit var listener : ValueEventListener
+    private lateinit var myRef : DatabaseReference
+    private lateinit var myListener : ValueEventListener
     private val binding get() = _binding!!
     private val model: HomeViewModel by activityViewModels()
     override fun onCreateView(
@@ -55,12 +60,12 @@ class ProfileFragment : Fragment() {
             }
         }else{
             var database = Funciones.recuperarReferenciaBBDD(requireActivity())
-            var dbRef  = database.getReference("publicaciones")
+            dbRef  = database.getReference("publicaciones")
             var pubs : HashMap<String,Publication> = hashMapOf()
 
             if(dbRef != null) {
 
-                dbRef.addValueEventListener(object : ValueEventListener {
+                listener = dbRef.addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         pubs = dataSnapshot.getValue<HashMap<String,Publication>>()!!
                         var listView: ListView = binding.listPublications!!
@@ -103,12 +108,12 @@ class ProfileFragment : Fragment() {
 
         var database = Funciones.recuperarReferenciaBBDD(requireActivity())
 
-        var myRef = database.getReference("usuarios/" + processedEmail)
+        myRef = database.getReference("usuarios/" + processedEmail)
 
         if (myRef != null){
             var usuario : Usuario
 
-            myRef.addValueEventListener(object : ValueEventListener {
+            myListener =  myRef.addValueEventListener(object : ValueEventListener {
 
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     // Get datos de usuario
@@ -149,6 +154,11 @@ class ProfileFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+
+        if(this::dbRef.isInitialized) dbRef.removeEventListener(listener)
+
+        if(this::myRef.isInitialized) myRef.removeEventListener(myListener)
+
         _binding = null
     }
 
