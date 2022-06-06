@@ -51,11 +51,11 @@ It will also terminate immediately if you fail to comply with any term of this E
 Governing Law
 This EULA agreement, and any dispute arising out of or in connection with this EULA agreement, shall be governed by and construed in accordance with the laws of es.</string>
 
-    <!-- Location -->
-
+    <!-- Location/Actividad -->
     <string name="Current_location">Tu ubicación.</string>
     <string name="Start_location">Inicio</string>
     <string name="End_location">Fin</string>
+    <string name="Route_in_progress">Ruta en progreso...</string>
     <string name="No_location_services">Sin servicios de localizacion.</string>
     <string name="Location_services_needed_title">Se necesitan los servicios de localización.</string>
     <string name="Location_services_needed_text">La aplicación necesita los servicios de localización. Por favor, acepte para poder usar esta funcionalidad.</string>

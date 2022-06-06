@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Build
 import android.os.Looper
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -37,9 +38,11 @@ open class MapController : Fragment(), OnMapReadyCallback {
     }
     internal var trackLocation = false
     internal var currSpeed = 0.0F
+    internal var currDistance = 0.0F
     private lateinit var startBtn: Button
-    private lateinit var speedTV: TextView
+    private lateinit var durationTV: TextView
     private lateinit var distanceTV: TextView
+    private lateinit var speedTV: TextView
     lateinit var mGoogleMap: GoogleMap
     lateinit var cordsDAO: CoordenadaDAO
     internal var mFusedLocationClient: FusedLocationProviderClient? = null
@@ -88,11 +91,22 @@ open class MapController : Fragment(), OnMapReadyCallback {
                 val currLoc = LatLng(location.latitude, location.longitude)
                 Log.i("MapController", "TrackLocation var value $trackLocation")
                 if (trackLocation) {
+                    if(prevLoc == null) {
+                        prevLoc = currLoc
+                        currDistance = 0.0F
+                    }
+                    else {
+                        val distanceResult:FloatArray = FloatArray(2)
+                        Location.distanceBetween(prevLoc!!.latitude,prevLoc!!.longitude,currLoc!!.latitude,currLoc!!.longitude,distanceResult)
+                        currDistance += (distanceResult[0] / 1000)
+                    }
                     if(::speedTV.isInitialized)
                         speedTV.text = String.format("%.2f km/h",currSpeed)
-                    if(prevLoc == null){
-                        prevLoc = currLoc
-                    }
+                    if(::distanceTV.isInitialized)
+                        distanceTV.text = String.format("%.4f Km", currDistance)
+                    if(::durationTV.isInitialized)
+                        durationTV.text = "00:00:00"
+
                     if(distance(location, prevLoc) > 0.5 || true){
                         Log.i("MapController","passing if ")
                         lifecycleScope.launch {
@@ -237,9 +251,10 @@ open class MapController : Fragment(), OnMapReadyCallback {
         // permissions this app might request
     }
 
-    internal fun setViewControls(startButton: Button, speedTextView: TextView, distanceTextView: TextView){
+    internal fun setViewControls(startButton: Button, durationTextView: TextView, distanceTextView: TextView, speedTextView: TextView){
         startBtn = startButton
-        speedTV = speedTextView
+        durationTV = durationTextView
         distanceTV = distanceTextView
+        speedTV = speedTextView
     }
 }

@@ -27,8 +27,9 @@ class RecordFragment : MapController() {
     var stopBtn: Button? = null
     var resumeBtn: Button? = null
     var finishBtn: Button? = null
-    var progressSpeedTv: TextView? = null
+    var progressDurationTv: TextView? = null
     var progressDistanceTv: TextView? = null
+    var progressSpeedTv: TextView? = null
     var recordingLayout: ConstraintLayout? = null
     var recordingStopLayout: ConstraintLayout? = null
 
@@ -44,9 +45,10 @@ class RecordFragment : MapController() {
         stopBtn = view?.findViewById(R.id.routeProgressStop_btn)!!
         resumeBtn = view?.findViewById(R.id.routeProgressResume_btn)!!
         finishBtn = view?.findViewById(R.id.routeProgressFinish_btn)!!
-        progressSpeedTv = view?.findViewById(R.id.routeProgressSpeedKm_tv)
+        progressDurationTv = view?.findViewById(R.id.routeProgressDurationTime_tv)
         progressDistanceTv = view?.findViewById(R.id.routeProgressDistanceKm_tv)
-        setViewControls(startBtn!!, progressSpeedTv!!, progressDistanceTv!!)
+        progressSpeedTv = view?.findViewById(R.id.routeProgressSpeedKm_tv)
+        setViewControls(startBtn!!, progressDurationTv!!, progressDistanceTv!!, progressSpeedTv!!)
 
         startBtn!!.setOnClickListener {
             startRecording(startBtn!!, recordingLayout!!)
