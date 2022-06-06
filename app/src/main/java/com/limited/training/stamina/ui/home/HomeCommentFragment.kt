@@ -96,23 +96,19 @@ class HomeCommentFragment : Fragment() {
 
             publicarComentario(requireContext(), Funciones.remplazarPuntos(appUserMail!!),
                 publicacion!!,nuevoComentario.text.toString())
-//            if(flagFragment == Utilidades.FLAG_HOME) {
-//                Navigation.findNavController(root)
-//                    .navigate(R.id.action_navigation_home_comment_to_navigation_home);
-//            }
-//
-//            if(flagFragment == Utilidades.FLAG_PERFIL) {
-//                Navigation.findNavController(root)
-//                    .navigate(R.id.action_navigation_home_comment_to_navigation_profile_activities);
-//            }
+            nuevoComentario.text.clear()
+
         }
         return root
     }
     private fun publicarComentario(context: Context, loggedUserMail: String,publicacion: Publication, mensaje: String) {
-
-        val newComentario = Comentario(loggedUserMail,System.nanoTime(),mensaje)
-        val newCommentList = publicacion.comentarios + newComentario
-        dbRef.child("comentarios").setValue(newCommentList)
+        if(mensaje==""){
+            Toast.makeText(context,"Es necesario insertar un comentario", Toast.LENGTH_SHORT).show()
+        }else {
+            val newComentario = Comentario(loggedUserMail, System.nanoTime(), mensaje)
+            val newCommentList = publicacion.comentarios + newComentario
+            dbRef.child("comentarios").setValue(newCommentList)
+       }
 
     }
 
