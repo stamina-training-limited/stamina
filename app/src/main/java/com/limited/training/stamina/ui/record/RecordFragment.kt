@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.lifecycleScope
@@ -22,12 +23,15 @@ import kotlinx.coroutines.launch
 class RecordFragment : MapController() {
     lateinit var cordsDB: CoordenadaDB
     var mapFrag: SupportMapFragment? = null
-    var startBtn: Button? = null;
-    var stopBtn: Button? = null;
-    var resumeBtn: Button? = null;
-    var finishBtn: Button? = null;
-    var recordingLayout: ConstraintLayout? = null;
-    var recordingStopLayout: ConstraintLayout? = null;
+    var startBtn: Button? = null
+    var stopBtn: Button? = null
+    var resumeBtn: Button? = null
+    var finishBtn: Button? = null
+    var progressDurationTv: TextView? = null
+    var progressDistanceTv: TextView? = null
+    var progressSpeedTv: TextView? = null
+    var recordingLayout: ConstraintLayout? = null
+    var recordingStopLayout: ConstraintLayout? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,6 +45,10 @@ class RecordFragment : MapController() {
         stopBtn = view?.findViewById(R.id.routeProgressStop_btn)!!
         resumeBtn = view?.findViewById(R.id.routeProgressResume_btn)!!
         finishBtn = view?.findViewById(R.id.routeProgressFinish_btn)!!
+        progressDurationTv = view?.findViewById(R.id.routeProgressDurationTime_tv)
+        progressDistanceTv = view?.findViewById(R.id.routeProgressDistanceKm_tv)
+        progressSpeedTv = view?.findViewById(R.id.routeProgressSpeedKm_tv)
+        setViewControls(startBtn!!, progressDurationTv!!, progressDistanceTv!!, progressSpeedTv!!)
 
         startBtn!!.setOnClickListener {
             startRecording(startBtn!!, recordingLayout!!)
@@ -65,6 +73,7 @@ class RecordFragment : MapController() {
 
     private fun startRecording(startBtn : Button, recodingLy: ConstraintLayout){
         trackLocation = true
+        drawMarker = DrawMarker.START
         startBtn.visibility = View.GONE
         recodingLy.visibility = View.VISIBLE
         lifecycleScope.launch {
@@ -88,7 +97,8 @@ class RecordFragment : MapController() {
     }
 
     private fun finishRecording(recodingStopLy: ConstraintLayout, startBtn : Button){
-        trackLocation = false
+        drawMarker = DrawMarker.END
+        resetValues()
         recodingStopLy.visibility = View.GONE
         startBtn.visibility = View.VISIBLE
 
@@ -116,14 +126,5 @@ class RecordFragment : MapController() {
     override fun onStop() {
         super.onStop()
         CoordenadaDB.closeInstance()
-    }
-
-    companion object {
-        const val MAP_TYPE = GoogleMap.MAP_TYPE_NORMAL
-        const val MY_PERMISSIONS_REQUEST_LOCATION = 99
-        const val UPDATE_INTERVAL = 3000L
-        const val FASTEST_UPDATE_INTERVAL = 3000L
-        const val PRIORITY = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
-        const val STARTING_ZOOM = 18.0F
     }
 }
