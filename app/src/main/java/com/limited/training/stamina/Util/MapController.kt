@@ -30,10 +30,14 @@ import kotlinx.coroutines.launch
 import java.lang.Math.*
 
 open class MapController : Fragment(), OnMapReadyCallback {
+    enum class DrawMarker{
+        NO, START, END
+    }
     internal var trackLocation = false
     lateinit var mGoogleMap: GoogleMap
     lateinit var cordsDAO: CoordenadaDAO
     internal var mFusedLocationClient: FusedLocationProviderClient? = null
+    internal var drawMarker : DrawMarker = DrawMarker.NO
     var prevLoc: LatLng? = null
     var mCurrentZoom: Float = -1.0F
 
@@ -45,9 +49,9 @@ open class MapController : Fragment(), OnMapReadyCallback {
         return sqrt( pow(x2.latitude-x1.latitude, 2.0) + pow(x2.longitude-x1.longitude, 2.0) )
     }
 
-    fun updateMarker(pos: LatLng): Marker? {
+    fun updateMarker(pos: LatLng, title: String): Marker? {
         val markerOptions = MarkerOptions()
-        markerOptions.title(getString(R.string.Current_location))
+        markerOptions.title(title)
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
         markerOptions.position(pos)
         return mGoogleMap.addMarker(markerOptions)
@@ -92,7 +96,15 @@ open class MapController : Fragment(), OnMapReadyCallback {
                     }
                 }
 
-                updateMarker(currLoc)
+                if(drawMarker != DrawMarker.NO) {
+                    val title = if(drawMarker == DrawMarker.START)
+                        getString(R.string.Start_location)
+                    else
+                        getString(R.string.End_location)
+
+                    updateMarker(currLoc,title)
+                    drawMarker = DrawMarker.NO
+                }
                 updateCamera(currLoc)
 
                 prevLoc = currLoc

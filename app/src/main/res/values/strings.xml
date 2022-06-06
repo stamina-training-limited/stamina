@@ -54,6 +54,8 @@ This EULA agreement, and any dispute arising out of or in connection with this E
     <!-- Location -->
 
     <string name="Current_location">Tu ubicación.</string>
+    <string name="Start_location">Inicio</string>
+    <string name="End_location">Fin</string>
     <string name="No_location_services">Sin servicios de localizacion.</string>
     <string name="Location_services_needed_title">Se necesitan los servicios de localización.</string>
     <string name="Location_services_needed_text">La aplicación necesita los servicios de localización. Por favor, acepte para poder usar esta funcionalidad.</string>
