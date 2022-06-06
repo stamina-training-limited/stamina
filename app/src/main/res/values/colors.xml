@@ -9,5 +9,9 @@
     <color name="white">#FFFFFFFF</color>
     <!-- Colores propios Stamina -->
     <color name="azul_stamina">#3F47CC</color>
+    <color name="azulOscuro_stamina">#2e3293</color>
     <color name="morado_stamina">#835BF3</color>
+    <color name="gris_stamina">#BDBDBD</color>
+    <color name="grisOscuro_stamina">#46535E</color>
+    <color name="grisClaro_stamina">#F9FAFC</color>
 </resources>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<GridLayout xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="340dp"
+        android:layout_height="480dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        card_view:cardCornerRadius="8dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/publication_layout_id"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            tools:context=".ui.home.HomeFragment">
+
+            <TextView
+                android:id="@+id/feedEntry1TimeTitle_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/time"
+                android:textColor="@color/gris_stamina"
+                android:textSize="14sp"
+                card_view:layout_constraintStart_toEndOf="@+id/feedEntry1PaceTitle_tv"
+                card_view:layout_constraintTop_toBottomOf="@+id/feedEntry1Title_tv" />
+
+            <ImageView
+                android:id="@+id/feedEntry1profilePic_iv"
+                android:layout_width="86dp"
+                android:layout_height="88dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/feedEntry1Name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="1dp"
+                android:text="Christine Froome"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                card_view:layout_constraintStart_toEndOf="@+id/feedEntry1profilePic_iv"
+                card_view:layout_constraintTop_toTopOf="@+id/feedEntry1profilePic_iv" />
+
+            <TextView
+                android:id="@+id/feedEntry1Title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:text="Rodaje matutino"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                card_view:layout_constraintStart_toEndOf="@+id/feedEntry1profilePic_iv"
+                card_view:layout_constraintTop_toBottomOf="@+id/feedEntry1DateAndLocation_tv" />
+
+            <TextView
+                android:id="@+id/feedEntry1DateAndLocation_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="8dp"
+                android:text="Hoy a las 10:28 - Mogán, Canarias"
+                android:textSize="11sp"
+                card_view:layout_constraintStart_toEndOf="@+id/feedEntry1profilePic_iv"
+                card_view:layout_constraintTop_toBottomOf="@+id/feedEntry1Name_tv" />
+
+            <TextView
+                android:id="@+id/feedEntry1DistanceTitle_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-50dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/distance"
+                android:textColor="@color/gris_stamina"
+                android:textSize="14sp"
+                card_view:layout_constraintStart_toEndOf="@+id/feedEntry1profilePic_iv"
+                card_view:layout_constraintTop_toBottomOf="@+id/feedEntry1Title_tv" />
+
+            <TextView
+                android:id="@+id/feedEntry1Distance_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-50dp"
+                android:layout_marginTop="11dp"
+                android:text="3.08 km"
+                android:textSize="14sp"
+                card_view:layout_constraintStart_toEndOf="@+id/feedEntry1profilePic_iv"
+                card_view:layout_constraintTop_toBottomOf="@+id/feedEntry1DistanceTitle_tv" />
+
+            <TextView
+                android:id="@+id/feedEntry1Pace_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="11dp"
+                android:text="5 min/km"
+                android:textSize="14sp"
+                card_view:layout_constraintStart_toEndOf="@+id/feedEntry1Distance_tv"
+                card_view:layout_constraintTop_toBottomOf="@+id/feedEntry1DistanceTitle_tv" />
+
+            <TextView
+                android:id="@+id/feedEntry1Time_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="11dp"
+                android:text="00:15:23"
+                android:textSize="14sp"
+                card_view:layout_constraintStart_toEndOf="@+id/feedEntry1Pace_tv"
+                card_view:layout_constraintTop_toBottomOf="@+id/feedEntry1TimeTitle_tv" />
+
+            <TextView
+                android:id="@+id/feedEntry1PaceTitle_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="38dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/pace"
+                android:textColor="@color/gris_stamina"
+                android:textSize="14sp"
+                card_view:layout_constraintStart_toEndOf="@+id/feedEntry1DistanceTitle_tv"
+                card_view:layout_constraintTop_toBottomOf="@+id/feedEntry1Title_tv" />
+
+            <ImageView
+                android:id="@+id/feedEntry1Map_iv"
+                android:layout_width="301dp"
+                android:layout_height="206dp"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="20dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/feed_map"
+                card_view:layout_constraintStart_toStartOf="@+id/feedEntry1profilePic_iv"
+                card_view:layout_constraintTop_toBottomOf="@+id/feedEntry1Time_tv" />
+
+            <ImageButton
+                android:id="@+id/PublicationEntry1Like_btn"
+                android:layout_width="45dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_like"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/feedEntry1Map_iv" />
+
+            <ImageButton
+                android:id="@+id/PublicationEntry1Comment_btn"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="53dp"
+                android:layout_marginTop="20dp"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_comment"
+                card_view:layout_constraintStart_toEndOf="@+id/PublicationEntry1Like_btn"
+                card_view:layout_constraintTop_toBottomOf="@+id/feedEntry1Map_iv" />
+
+            <ImageButton
+                android:id="@+id/PublicationEntry1Share_btn"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="53dp"
+                android:layout_marginTop="20dp"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_share"
+                card_view:layout_constraintStart_toEndOf="@+id/PublicationEntry1Comment_btn"
+                card_view:layout_constraintTop_toBottomOf="@+id/feedEntry1Map_iv" />
+
+            <TextView
+                android:id="@+id/megustas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_marginTop="20dp"
+                android:layout_column="0"
+                android:text="TextView"
+                card_view:layout_constraintTop_toBottomOf="@+id/feedEntry1Map_iv"
+                card_view:layout_constraintLeft_toLeftOf="@id/PublicationEntry1Like_btn"
+                card_view:layout_constraintRight_toLeftOf="@id/PublicationEntry1Comment_btn"
+
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</GridLayout>

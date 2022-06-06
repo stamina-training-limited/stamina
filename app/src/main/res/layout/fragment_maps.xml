@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.record.RecordFragment">
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/map"
+    class="com.google.android.gms.maps.SupportMapFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MapsFragment"
+    />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="184dp"
+        android:visibility="gone"
+        android:id="@+id/recording_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="40dp"
+        >
+
+        <TextView
+            android:id="@+id/routeProgressWhiteBackground_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.75"
+            android:background="@color/white"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/routeProgressName_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="39dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="5dp"
+            android:text="Ruta Ciudad Vieja - Matogrande"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/routeProgressWhiteBackground_tv"
+            app:layout_constraintTop_toTopOf="@+id/routeProgressWhiteBackground_tv" />
+
+        <Button
+            android:id="@+id/routeProgressStop_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="69dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/style_start_button"
+            android:text="@string/stop"
+            android:textSize="8pt"
+            android:typeface="monospace"
+            app:layout_constraintStart_toEndOf="@+id/routeProgressSpeedKm_tv"
+            app:layout_constraintTop_toTopOf="@+id/routeProgressDuration_tv" />
+
+        <TextView
+            android:id="@+id/routeProgressDuration_tv"
+            android:layout_width="131dp"
+            android:layout_height="39dp"
+            android:text="@string/duration"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/routeProgressName_tv"
+            app:layout_constraintTop_toBottomOf="@+id/routeProgressName_tv" />
+
+        <TextView
+            android:id="@+id/routeProgressDurationTime_tv"
+            android:layout_width="100dp"
+            android:layout_height="39dp"
+            android:text="00:46:15"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/routeProgressDuration_tv"
+            app:layout_constraintTop_toTopOf="@id/routeProgressDuration_tv" />
+
+        <TextView
+            android:id="@+id/routeProgressDistance_tv"
+            android:layout_width="131dp"
+            android:layout_height="39dp"
+            android:text="@string/distance"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/routeProgressDuration_tv"
+            app:layout_constraintTop_toBottomOf="@+id/routeProgressDuration_tv" />
+
+        <TextView
+            android:id="@+id/routeProgressSpeed_tv"
+            android:layout_width="131dp"
+            android:layout_height="39dp"
+            android:text="@string/speed"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/routeProgressDuration_tv"
+            app:layout_constraintTop_toBottomOf="@+id/routeProgressDistance_tv" />
+
+        <TextView
+            android:id="@+id/routeProgressDistanceKm_tv"
+            android:layout_width="100dp"
+            android:layout_height="39dp"
+            android:text="9.450 Km"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/routeProgressSpeed_tv"
+            app:layout_constraintTop_toTopOf="@+id/routeProgressSpeed_tv" />
+
+        <TextView
+            android:id="@+id/routeProgressSpeedKm_tv"
+            android:layout_width="100dp"
+            android:layout_height="39dp"
+            android:text="11.2 Km/h"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/routeProgressDistance_tv"
+            app:layout_constraintTop_toTopOf="@id/routeProgressDistance_tv" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="184dp"
+        android:visibility="gone"
+        android:id="@+id/recording_stop_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="40dp"
+        >
+
+        <TextView
+            android:id="@+id/routeStopWhiteBackground_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:alpha="0.75"
+            android:background="@color/white"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+        <Button
+            android:id="@+id/routeProgressResume_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="69dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/style_start_button"
+            android:text="@string/resume"
+            android:textSize="8pt"
+            android:typeface="monospace"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/routeProgressFinish_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="69dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/style_start_button"
+            android:text="@string/finish"
+            android:textSize="8pt"
+            android:typeface="monospace"
+            app:layout_constraintStart_toEndOf="@+id/guideline3"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <Button
+        android:id="@+id/mapStart_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="69dp"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/style_start_button"
+        android:text="@string/start"
+        android:textSize="8pt"
+        android:typeface="monospace"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
