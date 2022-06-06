@@ -8,6 +8,7 @@ import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
@@ -27,26 +28,31 @@ import com.limited.training.stamina.Util.room.CoordenadaDAO
 import com.limited.training.stamina.objects.Coordenada
 import com.limited.training.stamina.ui.record.RecordFragment
 import kotlinx.coroutines.launch
-import java.lang.Math.*
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 open class MapController : Fragment(), OnMapReadyCallback {
     enum class DrawMarker{
         NO, START, END
     }
     internal var trackLocation = false
+    internal var currSpeed = 0.0F
+    private lateinit var startBtn: Button
+    private lateinit var speedTV: TextView
+    private lateinit var distanceTV: TextView
     lateinit var mGoogleMap: GoogleMap
     lateinit var cordsDAO: CoordenadaDAO
     internal var mFusedLocationClient: FusedLocationProviderClient? = null
     internal var drawMarker : DrawMarker = DrawMarker.NO
     var prevLoc: LatLng? = null
-    var mCurrentZoom: Float = -1.0F
+    private var mCurrentZoom: Float = -1.0F
 
     fun distance(x1: Location, x2: LatLng?): Double {
         if(x2 == null){
             return 0.0
         }
         //Distancia euclidea
-        return sqrt( pow(x2.latitude-x1.latitude, 2.0) + pow(x2.longitude-x1.longitude, 2.0) )
+        return sqrt((x2.latitude - x1.latitude).pow(2.0) + (x2.longitude - x1.longitude).pow(2.0))
     }
 
     fun updateMarker(pos: LatLng, title: String): Marker? {
@@ -74,10 +80,16 @@ open class MapController : Fragment(), OnMapReadyCallback {
             if (locationList.isNotEmpty()) {
 
                 val location = locationList.last()
-                Log.i("MapController", "Location: " + location.latitude + " " + location.longitude)
+                currSpeed = if(location.hasSpeed())
+                    Funciones.MpsToKph(location.speed)
+                else
+                    0.00F
+                Log.i("MapController", "Location: $location.latitude $location.longitude Speed: $currSpeed km/h")
                 val currLoc = LatLng(location.latitude, location.longitude)
-                Log.i("MapController","TrackLocation var value " + trackLocation)
+                Log.i("MapController", "TrackLocation var value $trackLocation")
                 if (trackLocation) {
+                    if(::speedTV.isInitialized)
+                        speedTV.text = String.format("%.2f km/h",currSpeed)
                     if(prevLoc == null){
                         prevLoc = currLoc
                     }
@@ -109,8 +121,7 @@ open class MapController : Fragment(), OnMapReadyCallback {
 
                 prevLoc = currLoc
 
-                val startButton : Button = view?.findViewById<Button>(R.id.mapStart_btn)!!
-                if(startButton.visibility == View.INVISIBLE) startButton.visibility = View.VISIBLE
+                if(::startBtn.isInitialized && startBtn.visibility == View.INVISIBLE) startBtn.visibility = View.VISIBLE
             }
         }
     }
@@ -224,5 +235,11 @@ open class MapController : Fragment(), OnMapReadyCallback {
             }
         }// other 'case' lines to check for other
         // permissions this app might request
+    }
+
+    internal fun setViewControls(startButton: Button, speedTextView: TextView, distanceTextView: TextView){
+        startBtn = startButton
+        speedTV = speedTextView
+        distanceTV = distanceTextView
     }
 }

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.lifecycleScope
@@ -22,12 +23,14 @@ import kotlinx.coroutines.launch
 class RecordFragment : MapController() {
     lateinit var cordsDB: CoordenadaDB
     var mapFrag: SupportMapFragment? = null
-    var startBtn: Button? = null;
-    var stopBtn: Button? = null;
-    var resumeBtn: Button? = null;
-    var finishBtn: Button? = null;
-    var recordingLayout: ConstraintLayout? = null;
-    var recordingStopLayout: ConstraintLayout? = null;
+    var startBtn: Button? = null
+    var stopBtn: Button? = null
+    var resumeBtn: Button? = null
+    var finishBtn: Button? = null
+    var progressSpeedTv: TextView? = null
+    var progressDistanceTv: TextView? = null
+    var recordingLayout: ConstraintLayout? = null
+    var recordingStopLayout: ConstraintLayout? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,6 +44,9 @@ class RecordFragment : MapController() {
         stopBtn = view?.findViewById(R.id.routeProgressStop_btn)!!
         resumeBtn = view?.findViewById(R.id.routeProgressResume_btn)!!
         finishBtn = view?.findViewById(R.id.routeProgressFinish_btn)!!
+        progressSpeedTv = view?.findViewById(R.id.routeProgressSpeedKm_tv)
+        progressDistanceTv = view?.findViewById(R.id.routeProgressDistanceKm_tv)
+        setViewControls(startBtn!!, progressSpeedTv!!, progressDistanceTv!!)
 
         startBtn!!.setOnClickListener {
             startRecording(startBtn!!, recordingLayout!!)
@@ -65,6 +71,7 @@ class RecordFragment : MapController() {
 
     private fun startRecording(startBtn : Button, recodingLy: ConstraintLayout){
         trackLocation = true
+        drawMarker = DrawMarker.START
         startBtn.visibility = View.GONE
         recodingLy.visibility = View.VISIBLE
         lifecycleScope.launch {
@@ -89,6 +96,7 @@ class RecordFragment : MapController() {
 
     private fun finishRecording(recodingStopLy: ConstraintLayout, startBtn : Button){
         trackLocation = false
+        drawMarker = DrawMarker.END
         recodingStopLy.visibility = View.GONE
         startBtn.visibility = View.VISIBLE
 

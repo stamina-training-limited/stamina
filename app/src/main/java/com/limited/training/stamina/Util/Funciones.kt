@@ -87,5 +87,11 @@ class Funciones {
         fun usuarioSigueAUsuario (emailSeguido : String, emailSeguidor: String ){
 
         }
+
+        //Convierte metros por segundo a kilómetros por hora
+        fun MpsToKph(mps: Float): Float{
+            val speed = mps * 3.6F
+            return speed
+        }
     }
 }
