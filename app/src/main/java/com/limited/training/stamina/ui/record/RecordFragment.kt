@@ -103,10 +103,21 @@ class RecordFragment : MapController() {
 
     private fun finishRecording(recodingStopLy: ConstraintLayout, startBtn : Button){
         drawMarker = DrawMarker.END
+        val account = Funciones.recuperarDatosCuentaGoogle(requireActivity())
         var publication = Publication()
-        publication.usuario = "josefigueirasm@protonmail.com"
+        if(account != null){
+            publication.usuario = Funciones.remplazarPuntos(account.email!!)
+            publication.nombre = if(account.familyName.isNullOrEmpty())
+                account.displayName!!
+            else
+                account.displayName!! + " " + account.familyName!!
+
+        }
+        else{
+            publication.usuario = "josefigueirasm@protonmail.com"
+            publication.nombre = "José Figueiras"
+        }
         publication.titulo = "Nueva actividad"
-        publication.nombre = "José Figueiras"
         obtainActivityPublicationData(publication)
         resetValues()
         recodingStopLy.visibility = View.GONE
