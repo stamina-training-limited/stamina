@@ -12,13 +12,18 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.lifecycleScope
-import com.google.android.gms.location.*
-import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.limited.training.stamina.R
+import com.limited.training.stamina.Util.Funciones
 import com.limited.training.stamina.Util.MapController
 import com.limited.training.stamina.Util.room.CoordenadaDB
+import com.limited.training.stamina.objects.Publication
 import kotlinx.coroutines.launch
+
 
 class RecordFragment : MapController() {
     lateinit var cordsDB: CoordenadaDB
@@ -98,16 +103,57 @@ class RecordFragment : MapController() {
 
     private fun finishRecording(recodingStopLy: ConstraintLayout, startBtn : Button){
         drawMarker = DrawMarker.END
+        var publication = Publication()
+        publication.usuario = "josefigueirasm@protonmail.com"
+        publication.titulo = "Nueva actividad"
+        publication.nombre = "José Figueiras"
+        obtainActivityPublicationData(publication)
         resetValues()
         recodingStopLy.visibility = View.GONE
         startBtn.visibility = View.VISIBLE
-
+        var i = 1
+        insertPublication(publication, i)
         lifecycleScope.launch {
             Log.i("MapsActivity", cordsDAO.getAll().toString())
             cordsDAO.deleteAll()
         }
+    }
 
-        Toast.makeText(activity, "Se ha finalizado la actividad", Toast.LENGTH_SHORT).show()
+    private fun insertPublication(publication: Publication, i: Int){
+        var key = i.toString()
+        var database = Funciones.recuperarReferenciaBBDD(requireContext())
+        var referenciaPublicacionesBBDD = database.getReference("publicaciones")
+        referenciaPublicacionesBBDD.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.hasChild(key)) {
+                    insertPublication(publication,i+1)
+                }
+                else{
+                    publication.ref = key
+                    publication.titulo += " $key"
+                    referenciaPublicacionesBBDD.child(key).setValue(publication)
+                        .addOnSuccessListener {
+                            Toast.makeText(activity, "Se ha finalizado la actividad", Toast.LENGTH_SHORT).show()
+                        }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+
+//        referenciaPublicacionesBBDD.child(key).get().addOnSuccessListener {
+//            if (!it.exists()) {
+//                // Cuando se encuentre un identificador que no exista se crea en BBDD
+//                referenciaPublicacionesBBDD.child(key).setValue(publication)
+//                    .addOnSuccessListener {
+//                        Toast.makeText(activity, "Se ha finalizado la actividad", Toast.LENGTH_SHORT).show()
+//                    }
+//            }
+//        }.addOnFailureListener {
+//            insertPublication(publication,i + 1)
+//        }
     }
 
     override fun onStart() {

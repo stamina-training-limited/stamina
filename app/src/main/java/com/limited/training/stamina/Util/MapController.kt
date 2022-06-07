@@ -2,6 +2,8 @@ package com.limited.training.stamina.Util
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.location.Address
+import android.location.Geocoder
 import android.location.Location
 import android.os.Build
 import android.os.Looper
@@ -10,6 +12,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -26,19 +29,28 @@ import com.google.android.gms.maps.model.*
 import com.limited.training.stamina.R
 import com.limited.training.stamina.Util.room.CoordenadaDAO
 import com.limited.training.stamina.objects.Coordenada
-import com.limited.training.stamina.ui.record.RecordFragment
+import com.limited.training.stamina.objects.Publication
 import kotlinx.coroutines.launch
+import java.math.RoundingMode
+import java.text.DecimalFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 import kotlin.math.pow
 import kotlin.math.sqrt
+
 
 open class MapController : Fragment(), OnMapReadyCallback {
     enum class DrawMarker{
         NO, START, END
     }
     internal var trackLocation = false
+    internal var currPlace: String? = null
     internal var currSpeed = 0.0F
     internal var currDistance = 0.0F
-    internal var startingTime: Long = 0L
+    private var startingDateAndTime: String? = null
+    internal var startingMillis: Long = 0L
+    internal var currentMillis: Long = 0L
     private lateinit var startBtn: Button
     private lateinit var durationTV: TextView
     private lateinit var distanceTV: TextView
@@ -78,10 +90,16 @@ open class MapController : Fragment(), OnMapReadyCallback {
     }
 
     internal var mLocationCallback: LocationCallback = object : LocationCallback() {
+        @RequiresApi(Build.VERSION_CODES.O)
         override fun onLocationResult(locationResult: LocationResult) {
             val locationList = locationResult.locations
             if (locationList.isNotEmpty()) {
                 val location = locationList.last()
+                if(currPlace == null){
+                    val geocoder = Geocoder(requireContext(), Locale.getDefault())
+                    val addresses: List<Address> = geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                    currPlace = addresses[0].subAdminArea + ", " + addresses[0].adminArea
+                }
                 currSpeed = if(location.hasSpeed())
                     Funciones.mpsToKph(location.speed)
                 else
@@ -90,12 +108,15 @@ open class MapController : Fragment(), OnMapReadyCallback {
                 val currLatLng = LatLng(location.latitude, location.longitude)
                 Log.i("MapController", "TrackLocation var value $trackLocation")
                 if (trackLocation) {
-                    if(startingTime == 0L) { //Primera iteración desde que comenzó el tracking
+                    if(startingDateAndTime == null)
+                        startingDateAndTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm"))
+                    if(startingMillis == 0L) { //Primera iteración desde que comenzó el tracking
                         currDistance = 0.0F
-                        startingTime = location.time
+                        startingMillis = location.time
                     }
+                    currentMillis = location.time
                     if(prevLatLng != currLatLng) {
-                        val distanceResult:FloatArray = FloatArray(2)
+                        val distanceResult = FloatArray(2)
                         Location.distanceBetween(prevLatLng!!.latitude,prevLatLng!!.longitude,currLatLng!!.latitude,currLatLng!!.longitude,distanceResult)
                         currDistance += (distanceResult[0] / 1000)
                     }
@@ -104,7 +125,7 @@ open class MapController : Fragment(), OnMapReadyCallback {
                     if(::distanceTV.isInitialized)
                         distanceTV.text = String.format("%.4f Km", currDistance)
                     if(::durationTV.isInitialized) {
-                        durationTV.text = Funciones.getTimeStringBetweenElapsedMillis(startingTime, location.time)
+                        durationTV.text = Funciones.getTimeStringBetweenElapsedMillis(startingMillis, currentMillis)
                     }
                     if(distance(location, prevLatLng) > 0.5 || true){
                         Log.i("MapController","passing if ")
@@ -256,11 +277,78 @@ open class MapController : Fragment(), OnMapReadyCallback {
         speedTV = speedTextView
     }
 
+    internal fun obtainActivityPublicationData(publication: Publication): Publication{
+//        val bitmap: Boolean = captureMapScreen()
+        publication.hora = startingDateAndTime!!
+        publication.lugar = currPlace!!
+        var df = DecimalFormat("#.##")
+        df.roundingMode = RoundingMode.HALF_UP
+        publication.distancia = df.format(currDistance).toDouble()
+        var timeSpent = currentMillis - startingMillis
+        var timeSpentInMinutes: Double = ((timeSpent.toDouble() / 1000) / 60)
+        df = DecimalFormat("#.#")
+        df.roundingMode = RoundingMode.HALF_UP
+        publication.ritmo = df.format((timeSpentInMinutes / currDistance)).toDouble()
+        publication.tiempo = timeSpent
+
+        return publication
+    }
+
+//    open fun captureMapScreen(): Boolean {
+//        checkWriteFilePermission()
+//        val seePath = Environment.getExternalStorageDirectory().toString()
+//        val callback: SnapshotReadyCallback = object : SnapshotReadyCallback {
+//            var bitmap: Bitmap? = null
+//            override fun onSnapshotReady(snapshot: Bitmap?) {
+//                // TODO Auto-generated method stub
+//                bitmap = snapshot
+//                try {
+//                    val mPath = Environment.getExternalStorageDirectory().toString()
+//                    val nom = System.currentTimeMillis().toString().replace(":", ".") + ".jpeg"
+//                    val out = FileOutputStream("$mPath/ $nom.png")
+//                    bitmap!!.compress(Bitmap.CompressFormat.PNG, 90, out)
+//                    Toast.makeText(activity, "Capture OK", Toast.LENGTH_LONG).show()
+//                } catch (e: Exception) {
+//                    e.printStackTrace()
+//                    Toast.makeText(activity, "Capture NOT OK", Toast.LENGTH_LONG).show()
+//                }
+//            }
+//        }
+//        mGoogleMap.snapshot(callback)
+//        return true
+//    }
+//
+//    open fun checkWriteFilePermission() {
+//// Permision can add more at your convinient
+//        if (ContextCompat.checkSelfPermission(
+//                requireContext(),
+//                Manifest.permission.WRITE_EXTERNAL_STORAGE
+//            ) !=
+//            PackageManager.PERMISSION_GRANTED
+//        ) {
+//            ActivityCompat.requestPermissions(
+//                requireActivity(), arrayOf(
+//                    Manifest.permission.READ_CONTACTS,
+//                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//                    Manifest.permission.ACCESS_COARSE_LOCATION,
+//                    Manifest.permission.ACCESS_FINE_LOCATION,
+//                    Manifest.permission.BLUETOOTH,
+//                    Manifest.permission.CAMERA,
+//                    Manifest.permission.CALL_PHONE
+//                ),
+//                0
+//            )
+//        }
+//    }
+
     internal fun resetValues(){
         trackLocation = false
+        currPlace = null
         currSpeed = 0.0F
         currDistance = 0.0F
-        startingTime = 0L
+        startingDateAndTime = null
+        startingMillis = 0L
+        currentMillis = 0L
         prevLatLng = null
         mCurrentZoom = -1.0F
         drawMarker = DrawMarker.NO

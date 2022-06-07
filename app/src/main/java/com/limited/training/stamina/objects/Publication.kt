@@ -3,17 +3,17 @@ package com.limited.training.stamina.objects
 import com.google.firebase.database.PropertyName
 
 class Publication (
-        @PropertyName("ref") val ref : String,
-        @PropertyName("comentarios") val comentarios : List<Comentario>,
-        @PropertyName("usuario") val usuario: String,
-        @PropertyName("titulo") val titulo : String,
-        @PropertyName("nombre") val nombre : String,
-        @PropertyName("hora") val hora : String,
-        @PropertyName("lugar") val lugar : String,
-        @PropertyName("distancia") val distancia : Double,
-        @PropertyName("ritmo") val ritmo : Double,
-        @PropertyName("tiempo") val tiempo : Long,
-        @PropertyName("megustas") val megustas : List<String>
+        @PropertyName("ref") var ref : String,
+        @PropertyName("comentarios") var comentarios : List<Comentario>,
+        @PropertyName("usuario") var usuario: String,
+        @PropertyName("titulo") var titulo : String,
+        @PropertyName("nombre") var nombre : String,
+        @PropertyName("hora") var hora : String,
+        @PropertyName("lugar") var lugar : String,
+        @PropertyName("distancia") var distancia : Double,
+        @PropertyName("ritmo") var ritmo : Double,
+        @PropertyName("tiempo") var tiempo : Long,
+        @PropertyName("megustas") var megustas : List<String>
 ) {
     constructor() : this("", emptyList(),"","","", "", "", 0.0, 0.0, 0, emptyList())
 }
