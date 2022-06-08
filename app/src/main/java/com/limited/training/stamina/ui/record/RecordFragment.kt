@@ -106,7 +106,7 @@ class RecordFragment : MapController() {
         val account = Funciones.recuperarDatosCuentaGoogle(requireActivity())
         var publication = Publication()
         if(account != null){
-            publication.usuario = Funciones.remplazarPuntos(account.email!!)
+            publication.usuario = account.email!!
             publication.nombre = if(account.familyName.isNullOrEmpty())
                 account.displayName!!
             else
